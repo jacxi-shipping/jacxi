@@ -1,0 +1,749 @@
+'use client';
+
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import ProtectedRoute from '@/components/auth/ProtectedRoute';
+import Section from '@/components/layout/Section';
+import { Button } from '@/components/ui/Button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { ArrowLeft, Image as ImageIcon, Upload, X } from 'lucide-react';
+import { TruckIcon } from '@heroicons/react/24/outline';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+
+type PhotoSection = 'container' | 'arrival';
+
+export default function EditShipmentPage() {
+  const params = useParams();
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  const [loading, setLoading] = useState(false);
+  const [loadingData, setLoadingData] = useState(true);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [uploading, setUploading] = useState<{ section: PhotoSection | null; state: boolean }>({ section: null, state: false });
+  const [containerPhotos, setContainerPhotos] = useState<string[]>([]);
+  const [arrivalPhotos, setArrivalPhotos] = useState<string[]>([]);
+  
+  const [formData, setFormData] = useState({
+    vehicleType: '',
+    vehicleMake: '',
+    vehicleModel: '',
+    vehicleYear: '',
+    vehicleVIN: '',
+    origin: '',
+    destination: '',
+    status: '',
+    currentLocation: '',
+    estimatedDelivery: '',
+    progress: '0',
+    weight: '',
+    dimensions: '',
+    specialInstructions: '',
+    insuranceValue: '',
+    price: '',
+  });
+
+  const isAdmin = useMemo(() => session?.user?.role === 'admin', [session]);
+
+  const fetchShipmentData = useCallback(async () => {
+    try {
+      setLoadingData(true);
+      const response = await fetch(`/api/shipments/${params.id}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        const shipment = data.shipment;
+        setFormData({
+          vehicleType: shipment.vehicleType,
+          vehicleMake: shipment.vehicleMake || '',
+          vehicleModel: shipment.vehicleModel || '',
+          vehicleYear: shipment.vehicleYear?.toString() || '',
+          vehicleVIN: shipment.vehicleVIN || '',
+          origin: shipment.origin,
+          destination: shipment.destination,
+          status: shipment.status,
+          currentLocation: shipment.currentLocation || '',
+          estimatedDelivery: shipment.estimatedDelivery 
+            ? new Date(shipment.estimatedDelivery).toISOString().split('T')[0]
+            : '',
+          progress: shipment.progress?.toString() || '0',
+          weight: shipment.weight?.toString() || '',
+          dimensions: shipment.dimensions || '',
+          specialInstructions: shipment.specialInstructions || '',
+          insuranceValue: shipment.insuranceValue?.toString() || '',
+          price: shipment.price?.toString() || '',
+        });
+        setContainerPhotos(shipment.containerPhotos || []);
+        setArrivalPhotos(shipment.arrivalPhotos || []);
+      } else {
+        setErrors({ submit: data.message || 'Failed to load shipment' });
+      }
+    } catch (error) {
+      console.error('Error fetching shipment:', error);
+      setErrors({ submit: 'An error occurred while loading the shipment' });
+    } finally {
+      setLoadingData(false);
+    }
+  }, [params.id]);
+
+  useEffect(() => {
+    if (!isAdmin || status === 'loading') return;
+    fetchShipmentData();
+  }, [fetchShipmentData, isAdmin, status]);
+
+  useEffect(() => {
+    if (status !== 'loading' && session && !isAdmin) {
+      router.replace(`/dashboard/shipments/${params.id}`);
+    }
+  }, [status, session, isAdmin, params.id, router]);
+
+  if (!isAdmin && status !== 'loading') {
+    return (
+      <ProtectedRoute>
+        <Section className="min-h-screen bg-[#020817] flex items-center justify-center">
+          <div className="max-w-md text-center space-y-4">
+            <h2 className="text-xl font-semibold text-white">Access Restricted</h2>
+            <p className="text-white/70">Only administrators can modify shipment details.</p>
+            <Link href={`/dashboard/shipments/${params.id}`}>
+              <Button className="bg-[#00bfff] text-white hover:bg-[#00a8e6]">Back to Shipment</Button>
+            </Link>
+          </div>
+        </Section>
+      </ProtectedRoute>
+    );
+  }
+
+  if (loadingData) {
+    return (
+      <ProtectedRoute>
+        <div className="min-h-screen bg-[#020817] flex items-center justify-center">
+          <div className="text-center space-y-4 text-white/70">
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-cyan-500/30 border-t-cyan-400" />
+            <p>Loading shipment data...</p>
+          </div>
+        </div>
+      </ProtectedRoute>
+    );
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    // Clear error for this field
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/shipments/${params.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          containerPhotos,
+          arrivalPhotos,
+          replaceArrivalPhotos: true,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Success - redirect to shipment detail page
+        router.push(`/dashboard/shipments/${params.id}`);
+      } else {
+        // Error
+        setErrors({ submit: data.message || 'Failed to update shipment' });
+      }
+    } catch (error) {
+      console.error('Error updating shipment:', error);
+      setErrors({ submit: 'An error occurred while updating the shipment' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePhotoUpload = async (section: PhotoSection, file: File) => {
+    setUploading({ section, state: true });
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Upload failed');
+      }
+
+      const result = await response.json();
+
+      if (section === 'container') {
+        setContainerPhotos((prev) => [...prev, result.url]);
+      } else {
+        setArrivalPhotos((prev) => [...prev, result.url]);
+      }
+    } catch (error) {
+      console.error('Error uploading photo:', error);
+      const message = error instanceof Error ? error.message : 'Failed to upload photo';
+      setErrors((prev) => ({ ...prev, submit: message }));
+    } finally {
+      setUploading({ section: null, state: false });
+    }
+  };
+
+  const handlePhotoSelect = (section: PhotoSection) => async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files?.length) return;
+
+    for (let i = 0; i < files.length; i += 1) {
+      await handlePhotoUpload(section, files[i]);
+    }
+
+    event.target.value = '';
+  };
+
+  const removePhoto = (section: PhotoSection, index: number) => {
+    if (section === 'container') {
+      setContainerPhotos((prev) => {
+        const next = prev.filter((_, idx) => idx !== index);
+        // Persist immediately
+        void fetch(`/api/shipments/${params.id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ containerPhotos: next }),
+        }).catch(() => {
+          // surface a simple message
+          setErrors((e) => ({ ...e, submit: 'Failed to save container photo removal' }));
+        });
+        return next;
+      });
+    } else {
+      setArrivalPhotos((prev) => {
+        const next = prev.filter((_, idx) => idx !== index);
+        // Persist immediately (replace full array)
+        void fetch(`/api/shipments/${params.id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ arrivalPhotos: next, replaceArrivalPhotos: true }),
+        }).catch(() => {
+          setErrors((e) => ({ ...e, submit: 'Failed to save arrival photo removal' }));
+        });
+        return next;
+      });
+    }
+  };
+
+  return (
+    <ProtectedRoute>
+      <div className="min-h-screen bg-[#020817]">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#020817] via-[#0a1628] to-[#020817]" />
+        <div className="absolute inset-0 -z-10 opacity-[0.04]">
+          <svg className="h-full w-full" preserveAspectRatio="none">
+            <pattern id="edit-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+              <path d="M 32 0 L 0 0 0 32" fill="none" stroke="white" strokeWidth="0.5" />
+            </pattern>
+            <rect width="100%" height="100%" fill="url(#edit-grid)" />
+          </svg>
+        </div>
+
+        <Section className="pt-6 pb-10">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-white">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[#020817] border border-cyan-500/40">
+                <TruckIcon className="h-4 w-4 text-cyan-300" />
+              </span>
+              <div>
+                <h1 className="text-2xl font-semibold text-white">Edit Shipment</h1>
+                <p className="text-sm text-white/60">Update shipment information, media, and status.</p>
+              </div>
+            </div>
+            <Link href={`/dashboard/shipments/${params.id}`}>
+              <Button variant="outline" size="sm" className="border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                  Back
+                </Button>
+              </Link>
+          </div>
+        </Section>
+
+        <Section className="pb-16">
+          <form onSubmit={handleSubmit} className="space-y-8">
+            {/* Vehicle Information */}
+            <Card className="border-cyan-500/10 bg-white/[0.03] backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-white text-lg">Vehicle Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <label htmlFor="vehicleType" className="block text-sm font-medium text-white/70 mb-2">
+                    Vehicle Type
+                  </label>
+                  <select
+                    id="vehicleType"
+                    name="vehicleType"
+                    value={formData.vehicleType}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                  >
+                    <option value="sedan">Sedan</option>
+                    <option value="suv">SUV</option>
+                    <option value="truck">Truck</option>
+                    <option value="motorcycle">Motorcycle</option>
+                    <option value="van">Van</option>
+                    <option value="pickup">Pickup Truck</option>
+                    <option value="luxury">Luxury Vehicle</option>
+                    <option value="commercial">Commercial Vehicle</option>
+                  </select>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="vehicleMake" className="block text-sm font-medium text-white/70 mb-2">
+                      Make
+                    </label>
+                    <input
+                      type="text"
+                      id="vehicleMake"
+                      name="vehicleMake"
+                      value={formData.vehicleMake}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="vehicleModel" className="block text-sm font-medium text-white/70 mb-2">
+                      Model
+                    </label>
+                    <input
+                      type="text"
+                      id="vehicleModel"
+                      name="vehicleModel"
+                      value={formData.vehicleModel}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="vehicleYear" className="block text-sm font-medium text-white/70 mb-2">
+                      Year
+                    </label>
+                    <input
+                      type="number"
+                      id="vehicleYear"
+                      name="vehicleYear"
+                      value={formData.vehicleYear}
+                      onChange={handleChange}
+                      min="1900"
+                      max={new Date().getFullYear() + 1}
+                      className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="vehicleVIN" className="block text-sm font-medium text-white/70 mb-2">
+                      VIN Number
+                    </label>
+                    <input
+                      type="text"
+                      id="vehicleVIN"
+                      name="vehicleVIN"
+                      value={formData.vehicleVIN}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Shipping Information */}
+            <Card className="border-cyan-500/10 bg-white/[0.03] backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-white text-lg">Shipping Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <label htmlFor="origin" className="block text-sm font-medium text-white/70 mb-2">
+                    Origin
+                  </label>
+                  <input
+                    type="text"
+                    id="origin"
+                    name="origin"
+                    value={formData.origin}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="destination" className="block text-sm font-medium text-white/70 mb-2">
+                    Destination
+                  </label>
+                  <input
+                    type="text"
+                    id="destination"
+                    name="destination"
+                    value={formData.destination}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="weight" className="block text-sm font-medium text-white/70 mb-2">
+                      Weight (lbs)
+                    </label>
+                    <input
+                      type="number"
+                      id="weight"
+                      name="weight"
+                      value={formData.weight}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="dimensions" className="block text-sm font-medium text-white/70 mb-2">
+                      Dimensions (L x W x H)
+                    </label>
+                    <input
+                      type="text"
+                      id="dimensions"
+                      name="dimensions"
+                      value={formData.dimensions}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="specialInstructions" className="block text-sm font-medium text-white/70 mb-2">
+                    Special Instructions
+                  </label>
+                  <textarea
+                    id="specialInstructions"
+                    name="specialInstructions"
+                    value={formData.specialInstructions}
+                    onChange={handleChange}
+                    rows={4}
+                    className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Status Information */}
+            <Card className="border-cyan-500/10 bg-white/[0.03] backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-white text-lg">Status Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <label htmlFor="status" className="block text-sm font-medium text-white/70 mb-2">
+                    Status
+                  </label>
+                  <select
+                    id="status"
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                  >
+                    <option value="PENDING">Pending</option>
+                    <option value="QUOTE_REQUESTED">Quote Requested</option>
+                    <option value="QUOTE_APPROVED">Quote Approved</option>
+                    <option value="PICKUP_SCHEDULED">Pickup Scheduled</option>
+                    <option value="PICKUP_COMPLETED">Pickup Completed</option>
+                    <option value="IN_TRANSIT">In Transit</option>
+                    <option value="AT_PORT">At Port</option>
+                    <option value="LOADED_ON_VESSEL">Loaded on Vessel</option>
+                    <option value="IN_TRANSIT_OCEAN">In Transit Ocean</option>
+                    <option value="ARRIVED_AT_DESTINATION">Arrived at Destination</option>
+                    <option value="CUSTOMS_CLEARANCE">Customs Clearance</option>
+                    <option value="OUT_FOR_DELIVERY">Out for Delivery</option>
+                    <option value="DELIVERED">Delivered</option>
+                    <option value="CANCELLED">Cancelled</option>
+                    <option value="ON_HOLD">On Hold</option>
+                  </select>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="currentLocation" className="block text-sm font-medium text-white/70 mb-2">
+                      Current Location
+                    </label>
+                    <input
+                      type="text"
+                      id="currentLocation"
+                      name="currentLocation"
+                      value={formData.currentLocation}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="progress" className="block text-sm font-medium text-white/70 mb-2">
+                      Progress (%)
+                    </label>
+                    <input
+                      type="number"
+                      id="progress"
+                      name="progress"
+                      value={formData.progress}
+                      onChange={handleChange}
+                      min="0"
+                      max="100"
+                      className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="estimatedDelivery" className="block text-sm font-medium text-white/70 mb-2">
+                    Estimated Delivery
+                  </label>
+                  <input
+                    type="date"
+                    id="estimatedDelivery"
+                    name="estimatedDelivery"
+                    value={formData.estimatedDelivery}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Container Photos */}
+            <Card className="border-cyan-500/10 bg-white/[0.03] backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-white text-lg">
+                  <ImageIcon className="h-5 w-5 text-cyan-300" />
+                  Container Photos
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <label
+                    htmlFor="container-photo-input"
+                    className="relative flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-blue-300 rounded-lg bg-blue-50 hover:border-blue-400 hover:bg-blue-100 transition-all cursor-pointer group"
+                  >
+                    <input
+                      id="container-photo-input"
+                      type="file"
+                      multiple
+                      accept="image/jpeg,image/jpg,image/png,image/webp"
+                      onChange={handlePhotoSelect('container')}
+                      className="hidden"
+                      disabled={uploading.state}
+                    />
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                      {uploading.state && uploading.section === 'container' ? (
+                        <>
+                          <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-600 border-t-transparent mb-2" />
+                          <p className="text-sm text-gray-600">Uploading...</p>
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="w-8 h-8 text-blue-400 group-hover:text-blue-600 mb-2" />
+                          <p className="mb-1 text-sm text-gray-700">
+                            <span className="font-semibold text-blue-600">Click to upload</span> container photos
+                          </p>
+                          <p className="text-xs text-gray-500">PNG, JPG, JPEG, WEBP (MAX. 5MB per file)</p>
+                        </>
+                      )}
+                    </div>
+                  </label>
+                </div>
+
+                {containerPhotos.length > 0 ? (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {containerPhotos.map((photo, index) => (
+                      <div key={index} className="relative group aspect-square rounded-lg overflow-hidden border border-gray-200">
+                        <Image
+                          src={photo}
+                          alt={`Container photo ${index + 1}`}
+                          fill
+                          className="object-cover"
+                          unoptimized
+                        />
+                        <button
+                          type="button"
+                          onClick={() => removePhoto('container', index)}
+                          className="absolute top-2 right-2 w-7 h-7 rounded-full bg-red-500/80 hover:bg-red-500 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                          aria-label="Remove container photo"
+                        >
+                          <X className="w-4 h-4 text-white" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-gray-500">No container photos uploaded yet.</p>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Arrival Photos */}
+            <Card className="border-cyan-500/10 bg-white/[0.03] backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between text-white text-lg">
+                  <span className="flex items-center gap-2">
+                    <ImageIcon className="h-5 w-5 text-cyan-300" />
+                    Arrival Photos
+                  </span>
+                  <span className="text-xs text-white/40">Visible after delivery milestones</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <label
+                    htmlFor="arrival-photo-input"
+                    className="relative flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-blue-300 rounded-lg bg-blue-50 hover:border-blue-400 hover:bg-blue-100 transition-all cursor-pointer group"
+                  >
+                    <input
+                      id="arrival-photo-input"
+                      type="file"
+                      multiple
+                      accept="image/jpeg,image/jpg,image/png,image/webp"
+                      onChange={handlePhotoSelect('arrival')}
+                      className="hidden"
+                      disabled={uploading.state}
+                    />
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                      {uploading.state && uploading.section === 'arrival' ? (
+                        <>
+                          <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-600 border-t-transparent mb-2" />
+                          <p className="text-sm text-gray-600">Uploading...</p>
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="w-8 h-8 text-blue-400 group-hover:text-blue-600 mb-2" />
+                          <p className="mb-1 text-sm text-gray-700">
+                            <span className="font-semibold text-blue-600">Click to upload</span> arrival photos
+                          </p>
+                          <p className="text-xs text-gray-500">PNG, JPG, JPEG, WEBP (MAX. 5MB per file)</p>
+                        </>
+                      )}
+                    </div>
+                  </label>
+                </div>
+
+                {arrivalPhotos.length > 0 ? (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {arrivalPhotos.map((photo, index) => (
+                      <div key={index} className="relative group aspect-square rounded-lg overflow-hidden border border-gray-200">
+                        <Image
+                          src={photo}
+                          alt={`Arrival photo ${index + 1}`}
+                          fill
+                          className="object-cover"
+                          unoptimized
+                        />
+                        <button
+                          type="button"
+                          onClick={() => removePhoto('arrival', index)}
+                          className="absolute top-2 right-2 w-7 h-7 rounded-full bg-red-500/80 hover:bg-red-500 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                          aria-label="Remove arrival photo"
+                        >
+                          <X className="w-4 h-4 text-white" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-gray-500">No arrival photos uploaded yet.</p>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Financial Information */}
+            <Card className="border-cyan-500/10 bg-white/[0.03] backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-white text-lg">Financial Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="price" className="block text-sm font-medium text-white/70 mb-2">
+                      Price (USD)
+                    </label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      id="price"
+                      name="price"
+                      value={formData.price}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="insuranceValue" className="block text-sm font-medium text-white/70 mb-2">
+                      Insurance Value (USD)
+                    </label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      id="insuranceValue"
+                      name="insuranceValue"
+                      value={formData.insuranceValue}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Error Message */}
+            {errors.submit && (
+              <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                {errors.submit}
+              </div>
+            )}
+
+            {/* Submit Buttons */}
+            <div className="flex justify-end gap-3">
+              <Link href={`/dashboard/shipments/${params.id}`}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={loading}
+                  className="border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10"
+                >
+                  Cancel
+                </Button>
+              </Link>
+              <Button
+                type="submit"
+                disabled={loading}
+                className="bg-[#00bfff] text-white hover:bg-[#00a8e6] shadow-cyan-500/30"
+              >
+                {loading ? 'Updating...' : 'Update Shipment'}
+              </Button>
+            </div>
+          </form>
+        </Section>
+      </div>
+    </ProtectedRoute>
+  );
+}
+
