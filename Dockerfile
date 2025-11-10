@@ -1,13 +1,19 @@
 FROM node:20-alpine AS base
 WORKDIR /app
 
-# Install dependencies
+ARG DATABASE_URL="postgresql://postgres:postgres@localhost:5432/postgres?schema=public"
+ENV DATABASE_URL=${DATABASE_URL}
+
+# Install dependencies with Prisma schema available
 COPY package*.json ./
+COPY prisma ./prisma
 RUN npm ci
 
 # Build the application
 COPY . .
+RUN npx prisma generate
 RUN npm run build
+RUN npm prune --omit=dev
 
 
 FROM node:20-alpine AS runner
@@ -16,11 +22,8 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Install production dependencies based on lockfile
 COPY package*.json ./
-RUN npm ci --omit=dev
-
-# Copy build output and required assets from the build stage
+COPY --from=base /app/node_modules ./node_modules
 COPY --from=base /app/.next ./.next
 COPY --from=base /app/public ./public
 COPY --from=base /app/next.config.* ./
