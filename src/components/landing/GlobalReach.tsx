@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Section from '@/components/layout/Section';
+import { defaultViewport, makeSmooth } from '@/lib/motion';
 
 export default function GlobalReach() {
 	return (
@@ -11,11 +12,11 @@ export default function GlobalReach() {
 				{/* World Map Overlay - Left 2/3 */}
 				<div className="absolute inset-0 lg:inset-y-0 lg:left-0 lg:w-2/3 pointer-events-none">
 					<motion.div
-						initial={{ opacity: 0, scale: 0.95 }}
+						initial={{ opacity: 0, scale: 0.94 }}
 						whileInView={{ opacity: 1, scale: 1 }}
-						viewport={{ once: true }}
-						transition={{ duration: 1, delay: 0.2 }}
-						className="relative w-full h-full"
+						viewport={defaultViewport}
+						transition={makeSmooth({ duration: 1, delay: 0.2 })}
+						className="relative w-full h-full will-change-transform"
 					>
 						<Image
 							src="/globe.svg"
@@ -32,20 +33,20 @@ export default function GlobalReach() {
 
 				{/* Text Content - Right Side */}
 				<motion.div
-					initial={{ opacity: 0, x: 40 }}
+					initial={{ opacity: 0, x: 32 }}
 					whileInView={{ opacity: 1, x: 0 }}
-					viewport={{ once: true }}
-					transition={{ duration: 0.8, delay: 0.3 }}
-					className="relative z-10 lg:col-span-2 lg:col-start-2 space-y-4 sm:space-y-6"
+					viewport={defaultViewport}
+					transition={makeSmooth({ delay: 0.3, duration: 0.85 })}
+					className="relative z-10 lg:col-span-2 lg:col-start-2 space-y-4 sm:space-y-6 will-change-transform"
 				>
 					{/* Main Heading */}
 					<div className="space-y-2">
 						<motion.h2
-							initial={{ opacity: 0, y: 20 }}
+							initial={{ opacity: 0, y: 18 }}
 							whileInView={{ opacity: 1, y: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.6, delay: 0.4 }}
-							className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight"
+							viewport={defaultViewport}
+							transition={makeSmooth({ delay: 0.4 })}
+							className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight will-change-transform"
 						>
 							<span className="block">Global Network</span>
 							<span className="block">& Reach</span>
@@ -54,11 +55,11 @@ export default function GlobalReach() {
 
 					{/* Sub-text */}
 					<motion.p
-						initial={{ opacity: 0, y: 20 }}
+						initial={{ opacity: 0, y: 18 }}
 						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.6, delay: 0.6 }}
-						className="text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed max-w-xl"
+						viewport={defaultViewport}
+						transition={makeSmooth({ delay: 0.55 })}
+						className="text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed max-w-xl will-change-transform"
 					>
 						Fully compliant with US and GCC regulations
 					</motion.p>

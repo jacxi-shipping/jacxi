@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { ShieldCheck, Ship, Globe2 } from 'lucide-react';
+import { floatSpring, hoverSpring, makeSmooth } from '@/lib/motion';
 
 export default function Hero() {
 	return (
@@ -31,10 +32,10 @@ export default function Hero() {
 					
 					{/* Holographic wireframe world map */}
 					<motion.div
-						initial={{ opacity: 0, scale: 0.95 }}
+						initial={{ opacity: 0, scale: 0.96 }}
 						animate={{ opacity: 1, scale: 1 }}
-						transition={{ duration: 1.2, delay: 0.3 }}
-						className="absolute inset-0 z-[1]"
+						transition={makeSmooth({ duration: 1.2, delay: 0.3 })}
+						className="absolute inset-0 z-[1] will-change-transform"
 					>
 						<Image
 							src="/globe.svg"
@@ -48,10 +49,10 @@ export default function Hero() {
 
 					{/* Luxury car image */}
 					<motion.div
-						initial={{ opacity: 0, y: 30 }}
+						initial={{ opacity: 0, y: 24 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 1, delay: 0.5 }}
-						className="absolute inset-0 z-[2]"
+						transition={makeSmooth({ duration: 1, delay: 0.5 })}
+						className="absolute inset-0 z-[2] will-change-transform"
 					>
 						<Image
 							src="/hero-bentley.png"
@@ -74,43 +75,43 @@ export default function Hero() {
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[70vh] lg:min-h-[80vh]">
 					{/* Left side - Text content */}
 					<motion.div
-						initial={{ opacity: 0, x: -40 }}
+						initial={{ opacity: 0, x: -32 }}
 						animate={{ opacity: 1, x: 0 }}
-						transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-						className="space-y-6 sm:space-y-8 max-w-2xl"
+						transition={makeSmooth({ duration: 0.9 })}
+						className="space-y-6 sm:space-y-8 max-w-2xl will-change-transform"
 					>
 						{/* Headline */}
 						<motion.h1
-							initial={{ opacity: 0, y: 20 }}
+							initial={{ opacity: 0, y: 18 }}
 							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.8, delay: 0.2 }}
-							className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] text-white"
+							transition={makeSmooth({ delay: 0.2 })}
+							className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] text-white will-change-transform"
 						>
 							Government-Certified Vehicle Shipping from the USA to the Middle East
 						</motion.h1>
 
 						{/* Sub-headline */}
 						<motion.p
-							initial={{ opacity: 0, y: 20 }}
+							initial={{ opacity: 0, y: 18 }}
 							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.8, delay: 0.4 }}
-							className="text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed max-w-xl"
+							transition={makeSmooth({ delay: 0.4 })}
+							className="text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed max-w-xl will-change-transform"
 						>
 							Safe, Insured, and VIP-grade handling for your high-value vehicles
 						</motion.p>
 
 						{/* CTA Button */}
 						<motion.div
-							initial={{ opacity: 0, y: 20 }}
+							initial={{ opacity: 0, y: 18 }}
 							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.8, delay: 0.6 }}
-							className="pt-4"
+							transition={makeSmooth({ delay: 0.6 })}
+							className="pt-4 will-change-transform"
 						>
 							<motion.div
-								whileHover={{ scale: 1.05, y: -2 }}
+								whileHover={{ scale: 1.05, y: -3 }}
 								whileTap={{ scale: 0.98 }}
-								transition={{ type: "spring", stiffness: 400, damping: 17 }}
-								className="relative inline-block"
+								transition={hoverSpring}
+								className="relative inline-block will-change-transform"
 							>
 								<Button
 									size="lg"
@@ -123,7 +124,8 @@ export default function Hero() {
 										Request a Quote
 										<motion.span
 											animate={{ x: [0, 4, 0] }}
-											transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+											transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+											className="will-change-transform"
 										>
 											→
 										</motion.span>
@@ -146,17 +148,17 @@ export default function Hero() {
 			<div className="hidden lg:block">
 				{/* US & GCC Compliance Card */}
 				<motion.div
-					initial={{ opacity: 0, y: 20, scale: 0.95 }}
+					initial={{ opacity: 0, y: 16, scale: 0.96 }}
 					animate={{ opacity: 1, y: 0, scale: 1 }}
-					transition={{ duration: 0.6, delay: 0.8 }}
+					transition={makeSmooth({ duration: 0.7, delay: 0.8 })}
 					whileHover={{ 
 						scale: 1.05, 
 						y: -5,
 						rotateX: 5,
 						rotateY: -5,
-						transition: { duration: 0.3 }
+						transition: floatSpring
 					}}
-					className="group absolute right-12 top-32 glass-dark border border-cyan-500/30 rounded-xl p-4 backdrop-blur-md shadow-lg shadow-cyan-500/20 cursor-pointer"
+					className="group absolute right-12 top-32 glass-dark border border-cyan-500/30 rounded-xl p-4 backdrop-blur-md shadow-lg shadow-cyan-500/20 cursor-pointer will-change-transform"
 					style={{
 						transformStyle: 'preserve-3d',
 						perspective: '1000px',
@@ -174,8 +176,8 @@ export default function Hero() {
 						<div className="flex items-center gap-3">
 							<motion.div
 								whileHover={{ rotate: 360, scale: 1.2 }}
-								transition={{ duration: 0.6, ease: "easeInOut" }}
-								className="relative"
+								transition={makeSmooth({ duration: 0.7 })}
+								className="relative will-change-transform"
 							>
 								<Globe2 
 									className="w-5 h-5 text-cyan-400 transition-all duration-300 group-hover:text-cyan-300" 
@@ -196,17 +198,17 @@ export default function Hero() {
 
 				{/* Insured & Tracked Card */}
 				<motion.div
-					initial={{ opacity: 0, y: 20, scale: 0.95 }}
+					initial={{ opacity: 0, y: 16, scale: 0.96 }}
 					animate={{ opacity: 1, y: 0, scale: 1 }}
-					transition={{ duration: 0.6, delay: 1 }}
+					transition={makeSmooth({ duration: 0.7, delay: 1 })}
 					whileHover={{ 
 						scale: 1.05, 
 						y: -5,
 						rotateX: 5,
 						rotateY: 5,
-						transition: { duration: 0.3 }
+						transition: floatSpring
 					}}
-					className="group absolute right-40 top-72 glass-dark border border-cyan-500/30 rounded-xl p-4 backdrop-blur-md shadow-lg shadow-cyan-500/20 cursor-pointer"
+					className="group absolute right-40 top-72 glass-dark border border-cyan-500/30 rounded-xl p-4 backdrop-blur-md shadow-lg shadow-cyan-500/20 cursor-pointer will-change-transform"
 					style={{
 						transformStyle: 'preserve-3d',
 						perspective: '1000px',
@@ -224,8 +226,8 @@ export default function Hero() {
 						<div className="flex items-center gap-3">
 							<motion.div
 								whileHover={{ scale: 1.3, rotate: [0, -10, 10, -10, 0] }}
-								transition={{ duration: 0.5, ease: "easeInOut" }}
-								className="relative"
+								transition={makeSmooth({ duration: 0.6 })}
+								className="relative will-change-transform"
 							>
 								<ShieldCheck 
 									className="w-5 h-5 text-cyan-400 transition-all duration-300 group-hover:text-cyan-300" 
@@ -245,17 +247,17 @@ export default function Hero() {
 
 				{/* Sea / Air Freight Card */}
 				<motion.div
-					initial={{ opacity: 0, y: 20, scale: 0.95 }}
+					initial={{ opacity: 0, y: 16, scale: 0.96 }}
 					animate={{ opacity: 1, y: 0, scale: 1 }}
-					transition={{ duration: 0.6, delay: 1.2 }}
+					transition={makeSmooth({ duration: 0.7, delay: 1.2 })}
 					whileHover={{ 
 						scale: 1.05, 
 						y: -5,
 						rotateX: -5,
 						rotateY: 5,
-						transition: { duration: 0.3 }
+						transition: floatSpring
 					}}
-					className="group absolute right-20 bottom-32 glass-dark border border-cyan-500/30 rounded-xl p-4 backdrop-blur-md shadow-lg shadow-cyan-500/20 cursor-pointer"
+					className="group absolute right-20 bottom-32 glass-dark border border-cyan-500/30 rounded-xl p-4 backdrop-blur-md shadow-lg shadow-cyan-500/20 cursor-pointer will-change-transform"
 					style={{
 						transformStyle: 'preserve-3d',
 						perspective: '1000px',
@@ -273,8 +275,8 @@ export default function Hero() {
 						<div className="flex items-center gap-3">
 							<motion.div
 								whileHover={{ rotate: [0, 15, -15, 15, 0], scale: 1.2 }}
-								transition={{ duration: 0.6, ease: "easeInOut" }}
-								className="relative"
+								transition={makeSmooth({ duration: 0.6 })}
+								className="relative will-change-transform"
 							>
 								<Ship 
 									className="w-5 h-5 text-cyan-400 transition-all duration-300 group-hover:text-cyan-300" 

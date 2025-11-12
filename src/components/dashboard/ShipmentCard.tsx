@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Eye, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
+import { Progress } from '@/components/ui/Progress';
 import { cn } from '@/lib/utils';
 
 type ShipmentCardProps = {
@@ -17,14 +19,22 @@ type ShipmentCardProps = {
 	delay?: number;
 };
 
-const statusColors: Record<string, { bg: string; text: string; border: string }> = {
-	'IN_TRANSIT': { bg: 'bg-cyan-500/10', text: 'text-cyan-400', border: 'border-cyan-500/30' },
-	'IN_TRANSIT_OCEAN': { bg: 'bg-cyan-500/10', text: 'text-cyan-400', border: 'border-cyan-500/30' },
-	'AT_PORT': { bg: 'bg-yellow-500/10', text: 'text-yellow-400', border: 'border-yellow-500/30' },
-	'DELIVERED': { bg: 'bg-green-500/10', text: 'text-green-400', border: 'border-green-500/30' },
-	'PICKUP_SCHEDULED': { bg: 'bg-purple-500/10', text: 'text-purple-400', border: 'border-purple-500/30' },
-	'PICKUP_COMPLETED': { bg: 'bg-purple-500/10', text: 'text-purple-400', border: 'border-purple-500/30' },
-	'PENDING': { bg: 'bg-gray-500/10', text: 'text-gray-400', border: 'border-gray-500/30' },
+const statusBadgeVariants: Record<string, string> = {
+	'IN_TRANSIT': 'status-in-transit',
+	'IN_TRANSIT_OCEAN': 'status-in-transit',
+	'AT_PORT': 'status-at-port',
+	'DELIVERED': 'status-delivered',
+	'PICKUP_SCHEDULED': 'status-pickup-scheduled',
+	'PICKUP_COMPLETED': 'status-pickup-scheduled',
+	'PENDING': 'status-pickup-scheduled',
+	'QUOTE_REQUESTED': 'status-pickup-scheduled',
+	'QUOTE_APPROVED': 'status-pickup-scheduled',
+	'LOADED_ON_VESSEL': 'status-in-transit',
+	'ARRIVED_AT_DESTINATION': 'status-at-port',
+	'CUSTOMS_CLEARANCE': 'status-at-port',
+	'OUT_FOR_DELIVERY': 'status-out-for-delivery',
+	'DELAYED': 'status-delayed',
+	'CANCELLED': 'status-delayed',
 };
 
 export default function ShipmentCard({
@@ -37,7 +47,7 @@ export default function ShipmentCard({
 	estimatedDelivery,
 	delay = 0,
 }: ShipmentCardProps) {
-	const statusConfig = statusColors[status] || statusColors['PENDING'];
+	const badgeVariant = statusBadgeVariants[status] || 'status-pickup-scheduled';
 
 	return (
 		<motion.div
@@ -66,33 +76,20 @@ export default function ShipmentCard({
 							{origin} → {destination}
 						</p>
 					</div>
-					<span className={cn(
-						'px-3 py-1 text-xs font-medium rounded-full border',
-						statusConfig.bg,
-						statusConfig.text,
-						statusConfig.border
-					)}>
+					<Badge variant={badgeVariant as keyof typeof badgeVariants} size="sm">
 						{status.replace(/_/g, ' ')}
-					</span>
+					</Badge>
 				</div>
 
 				{/* Progress */}
-				<div className="space-y-2">
-					<div className="flex items-center justify-between text-sm">
-						<span className="text-white/80">Progress</span>
-						<span className="text-cyan-400 font-semibold">{progress}%</span>
-					</div>
-					<div className="relative w-full h-2 bg-[#020817] rounded-full overflow-hidden">
-						<motion.div
-							initial={{ width: 0 }}
-							whileInView={{ width: `${progress}%` }}
-							viewport={{ once: true }}
-							transition={{ duration: 1, delay: delay + 0.2 }}
-							className="absolute left-0 top-0 h-full bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-full"
-						/>
-						{/* Glow effect */}
-						<div className="absolute left-0 top-0 h-full w-full bg-cyan-500/20 blur-sm" />
-					</div>
+				<div className="space-y-3">
+					<Progress
+						value={progress}
+						max={100}
+						showValue={true}
+						variant="brand"
+						size="sm"
+					/>
 				</div>
 
 				{/* Footer */}

@@ -28,6 +28,11 @@ export interface InvoicePdfItem {
 	otherCost: number;
 	subtotalUSD: number;
 	subtotalAED: number;
+	vehicleMake?: string;
+	vehicleModel?: string;
+	vehicleYear?: string | number;
+	vehicleType?: string;
+	bodyClass?: string;
 }
 
 export interface InvoicePdfDetails {
@@ -387,10 +392,21 @@ export function InvoicePdfTemplate({ company, invoice, socialLinks = [] }: Invoi
 									<View>
 										<Text style={styles.itemTitle}>{item.vin}</Text>
 										<Text style={styles.itemSubtitle}>Lot #{item.lotNumber}</Text>
+										{(item.vehicleMake || item.vehicleModel || item.vehicleYear) && (
+											<Text style={styles.itemSubtitle}>
+												{[item.vehicleYear, item.vehicleMake, item.vehicleModel].filter(Boolean).join(' ')}
+											</Text>
+										)}
 									</View>
 									<View>
 										<Text style={styles.itemTag}>Auction</Text>
 										<Text style={[styles.itemSubtitle, { marginTop: 4 }]}>{item.auctionCity}</Text>
+										{item.vehicleType ? (
+											<Text style={[styles.itemSubtitle, { marginTop: 2 }]}>{item.vehicleType}</Text>
+										) : null}
+										{item.bodyClass ? (
+											<Text style={[styles.itemSubtitle, { marginTop: 2 }]}>{item.bodyClass}</Text>
+										) : null}
 									</View>
 								</View>
 

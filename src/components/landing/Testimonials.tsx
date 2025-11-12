@@ -5,17 +5,18 @@ import { Quote } from 'lucide-react';
 import Section from '@/components/layout/Section';
 import { TESTIMONIALS } from './content';
 import { cn } from '@/lib/utils';
+import { defaultViewport, fadeInUp, hoverSpring, makeSmooth, stagger } from '@/lib/motion';
 
 export default function Testimonials() {
 	return (
 		<Section className="bg-[#020817] py-16 sm:py-20 lg:py-24">
 			{/* Section Title */}
 			<motion.div
-				initial={{ opacity: 0, y: 20 }}
+				initial={{ opacity: 0, y: 18 }}
 				whileInView={{ opacity: 1, y: 0 }}
-				viewport={{ once: true }}
-				transition={{ duration: 0.6 }}
-				className="text-center mb-12 sm:mb-16"
+				viewport={defaultViewport}
+				transition={makeSmooth({ duration: 0.7 })}
+				className="text-center mb-12 sm:mb-16 will-change-transform"
 			>
 				<h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
 					What Clients Say
@@ -26,19 +27,22 @@ export default function Testimonials() {
 			</motion.div>
 
 			{/* Testimonials Grid */}
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+			<motion.div
+				className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8"
+				variants={stagger({ staggerChildren: 0.18, delayChildren: 0.1 })}
+				initial="hidden"
+				whileInView="show"
+				viewport={defaultViewport}
+			>
 				{TESTIMONIALS.map((testimonial, index) => (
 					<motion.div
 						key={testimonial.name}
-						initial={{ opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true, margin: "-50px" }}
-						transition={{ duration: 0.6, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-						className="group"
+						variants={fadeInUp({ distance: 24, delay: index * 0.02 })}
+						className="group will-change-transform"
 					>
 						<motion.div
 							whileHover={{ y: -4 }}
-							transition={{ duration: 0.3 }}
+							transition={hoverSpring}
 							className={cn(
 								'relative h-full rounded-xl bg-[#0a1628]/50 backdrop-blur-sm border border-cyan-500/30 p-6 sm:p-8',
 								'hover:border-cyan-500/60 hover:shadow-lg hover:shadow-cyan-500/20',
@@ -70,7 +74,7 @@ export default function Testimonials() {
 						</motion.div>
 					</motion.div>
 				))}
-			</div>
+			</motion.div>
 		</Section>
 	);
 }

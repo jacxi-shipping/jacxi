@@ -5,8 +5,10 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, AlertTriangle, Mail, Lock, ArrowRight } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Alert } from '@/components/ui/Alert';
 import { cn } from '@/lib/utils';
 
 export default function SignInPage() {
@@ -91,18 +93,9 @@ export default function SignInPage() {
 
 						{/* Error Message */}
 						{error && (
-							<motion.div
-								initial={{ opacity: 0, y: -10 }}
-								animate={{ opacity: 1, y: 0 }}
-								className={cn(
-									'rounded-lg p-4 flex items-center gap-3',
-									'bg-red-500/10 border border-red-500/30',
-									'text-red-400'
-								)}
-							>
-								<AlertTriangle className="w-5 h-5 flex-shrink-0" />
-								<span className="text-sm">{error}</span>
-							</motion.div>
+							<Alert variant="destructive">
+								{error}
+							</Alert>
 						)}
 
 						{/* Form */}
@@ -112,24 +105,16 @@ export default function SignInPage() {
 								<label htmlFor="email" className="block text-sm font-medium text-white/90 mb-2">
 									{t('auth.email')}
 								</label>
-								<div className="relative">
-									<Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-400/50" />
-									<input
-										id="email"
-										type="email"
-										value={email}
-										onChange={(e) => setEmail(e.target.value)}
-										required
-										className={cn(
-											'w-full h-12 pl-10 pr-4 rounded-lg',
-											'bg-[#020817]/50 border border-cyan-500/30',
-											'text-white placeholder:text-white/50',
-											'focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50',
-											'transition-all duration-300'
-										)}
-										placeholder="Enter your email"
-									/>
-								</div>
+								<Input
+									id="email"
+									type="email"
+									variant="glass-dark"
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+									required
+									leftIcon={<Mail className="w-5 h-5" />}
+									placeholder="Enter your email"
+								/>
 							</div>
 
 							{/* Password Field */}
@@ -137,52 +122,38 @@ export default function SignInPage() {
 								<label htmlFor="password" className="block text-sm font-medium text-white/90 mb-2">
 									{t('auth.password')}
 								</label>
-								<div className="relative">
-									<Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-400/50" />
-									<input
-										id="password"
-										type={showPassword ? 'text' : 'password'}
-										value={password}
-										onChange={(e) => setPassword(e.target.value)}
-										required
-										className={cn(
-											'w-full h-12 pl-10 pr-12 rounded-lg',
-											'bg-[#020817]/50 border border-cyan-500/30',
-											'text-white placeholder:text-white/50',
-											'focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50',
-											'transition-all duration-300'
-										)}
-										placeholder="Enter your password"
-									/>
-									<button
-										type="button"
-										onClick={() => setShowPassword(!showPassword)}
-										className="absolute inset-y-0 right-0 pr-3 flex items-center text-cyan-400/70 hover:text-cyan-400 transition-colors"
-									>
-										{showPassword ? (
-											<EyeOff className="h-5 w-5" />
-										) : (
-											<Eye className="h-5 w-5" />
-										)}
-									</button>
-								</div>
+								<Input
+									id="password"
+									type={showPassword ? 'text' : 'password'}
+									variant="glass-dark"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+									required
+									leftIcon={<Lock className="w-5 h-5" />}
+									rightIcon={
+										<button
+											type="button"
+											onClick={() => setShowPassword(!showPassword)}
+											className="text-cyan-400/70 hover:text-cyan-400 transition-colors"
+										>
+											{showPassword ? (
+												<EyeOff className="h-5 w-5" />
+											) : (
+												<Eye className="h-5 w-5" />
+											)}
+										</button>
+									}
+									placeholder="Enter your password"
+								/>
 							</div>
 
 							{/* Submit Button */}
-							<Button
-								type="submit"
-								disabled={isLoading}
-								size="lg"
-								className={cn(
-									'w-full group relative overflow-hidden',
-									'bg-[#00bfff] text-white hover:bg-[#00a8e6]',
-									'shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50',
-									'px-8 py-6 text-base font-semibold',
-									'transition-all duration-300',
-									'flex items-center justify-center gap-2',
-									'disabled:opacity-50 disabled:cursor-not-allowed'
-								)}
-							>
+								<Button
+									type="submit"
+									disabled={isLoading}
+									size="lg"
+									className="w-full flex items-center justify-center gap-2 bg-brand-cyan text-white hover:bg-brand-cyan-dark"
+								>
 								{isLoading ? (
 									<>
 										<div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>

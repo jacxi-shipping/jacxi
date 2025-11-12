@@ -16,6 +16,82 @@ import {
 	InvoicePdfSocialLink,
 } from '@/components/pdf/InvoicePdfTemplate';
 
+interface VinDecodeApiResult {
+	Value?: string | null;
+	Variable?: string | null;
+}
+
+interface VinDecodedSummary {
+	make?: string;
+	model?: string;
+	year?: string;
+	vehicleType?: string;
+	bodyClass?: string;
+}
+
+const vinDetailsCache = new Map<string, VinDecodedSummary | null>();
+
+const cleanDecodedValue = (value?: string | null) => {
+	if (!value) return '';
+	const trimmed = value.trim();
+	if (!trimmed || trimmed.toLowerCase() === 'not applicable' || trimmed.toLowerCase() === 'null' || trimmed === '0') {
+		return '';
+	}
+	return trimmed;
+};
+
+const decodeVinDetails = async (vin: string): Promise<VinDecodedSummary | null> => {
+	const normalized = (vin || '').trim().toUpperCase();
+	if (!normalized || normalized.length !== 17) {
+		return null;
+	}
+
+	if (vinDetailsCache.has(normalized)) {
+		return vinDetailsCache.get(normalized) ?? null;
+	}
+
+	try {
+		const response = await fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVin/${normalized}?format=json`);
+		if (!response.ok) {
+			throw new Error(`VIN decode request failed with status ${response.status}`);
+		}
+
+		const data = await response.json();
+		const results: VinDecodeApiResult[] = Array.isArray(data?.Results) ? data.Results : [];
+
+		if (!results.length) {
+			vinDetailsCache.set(normalized, null);
+			return null;
+		}
+
+		const getValue = (variable: string) => {
+			const entry = results.find((item) => item?.Variable === variable);
+			return cleanDecodedValue(entry?.Value);
+		};
+
+		const errorCode = getValue('Error Code');
+		if (errorCode && errorCode !== '0') {
+			vinDetailsCache.set(normalized, null);
+			return null;
+		}
+
+		const summary: VinDecodedSummary = {
+			make: getValue('Make') || undefined,
+			model: getValue('Model') || undefined,
+			year: getValue('Model Year') || undefined,
+			vehicleType: getValue('Vehicle Type') || undefined,
+			bodyClass: getValue('Body Class') || undefined,
+		};
+
+		vinDetailsCache.set(normalized, summary);
+		return summary;
+	} catch (error) {
+		console.error('Error decoding VIN for invoice PDF:', error);
+		vinDetailsCache.set(normalized, null);
+		return null;
+	}
+};
+
 interface InvoiceItem {
 	id: string;
 	vin: string;
@@ -29,6 +105,11 @@ interface InvoiceItem {
 	otherCost: number;
 	subtotalUSD: number;
 	subtotalAED: number;
+	vehicleMake?: string | null;
+	vehicleModel?: string | null;
+	vehicleYear?: string | number | null;
+	vehicleType?: string | null;
+	bodyClass?: string | null;
 }
 
 interface Invoice {
@@ -145,6 +226,19 @@ export default function InvoiceDetailPage() {
 
 		try {
 			setIsExporting(true);
+			const itemsWithVehicleInfo = await Promise.all(
+				invoice.items.map(async (item) => {
+					const decoded = await decodeVinDetails(item.vin);
+					return {
+						...item,
+						vehicleMake: decoded?.make ?? item.vehicleMake ?? null,
+						vehicleModel: decoded?.model ?? item.vehicleModel ?? null,
+						vehicleYear: decoded?.year ?? item.vehicleYear ?? null,
+						vehicleType: decoded?.vehicleType ?? item.vehicleType ?? null,
+						bodyClass: decoded?.bodyClass ?? item.bodyClass ?? null,
+					};
+				}),
+			);
 
 			const companyInfo: InvoicePdfCompanyInfo = {
 				name: 'Jacxi Logistics',
@@ -178,7 +272,7 @@ export default function InvoiceDetailPage() {
 				paymentStatusLabel: invoice.status,
 				paymentNotes: invoice.overdue ? 'Status: Past Due' : 'Payment due upon receipt.',
 				wireTransferDetails: invoice.wireTransferDetails,
-				items: invoice.items,
+				items: itemsWithVehicleInfo,
 				notes: invoice.overdue
 					? 'This invoice is currently overdue. Please remit payment immediately to avoid service interruptions.'
 					: undefined,
