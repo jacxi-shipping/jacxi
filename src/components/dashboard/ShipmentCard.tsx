@@ -19,7 +19,18 @@ type ShipmentCardProps = {
 	delay?: number;
 };
 
-const statusBadgeVariants: Record<string, string> = {
+type BadgeVariant =
+	| 'status-pickup-scheduled'
+	| 'status-picked-up'
+	| 'status-in-transit'
+	| 'status-at-port'
+	| 'status-customs-clearance'
+	| 'status-out-for-delivery'
+	| 'status-delivered'
+	| 'status-delayed'
+	| 'status-cancelled';
+
+const statusBadgeVariants: Record<string, BadgeVariant> = {
 	'IN_TRANSIT': 'status-in-transit',
 	'IN_TRANSIT_OCEAN': 'status-in-transit',
 	'AT_PORT': 'status-at-port',
@@ -76,7 +87,7 @@ export default function ShipmentCard({
 							{origin} → {destination}
 						</p>
 					</div>
-					<Badge variant={badgeVariant as keyof typeof badgeVariants} size="sm">
+					<Badge variant={badgeVariant} size="sm">
 						{status.replace(/_/g, ' ')}
 					</Badge>
 				</div>

@@ -23,6 +23,7 @@ const alertVariants = cva(
 );
 
 const alertIcons = {
+  default: Info,
   destructive: XCircle,
   success: CheckCircle,
   warning: AlertTriangle,

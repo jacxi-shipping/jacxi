@@ -106,16 +106,16 @@ export default function JACXIDesignShowcase() {
               <code className="text-ui-xs text-neutral-600 block text-center">default</code>
             </div>
             <div className="space-y-2">
-              <Button variant="primary">Primary</Button>
-              <code className="text-ui-xs text-neutral-600 block text-center">primary</code>
+              <Button variant="default">Default</Button>
+              <code className="text-ui-xs text-neutral-600 block text-center">default</code>
             </div>
             <div className="space-y-2">
-              <Button variant="glass">Glass</Button>
-              <code className="text-ui-xs text-neutral-600 block text-center">glass</code>
+              <Button variant="secondary">Secondary</Button>
+              <code className="text-ui-xs text-neutral-600 block text-center">secondary</code>
             </div>
             <div className="space-y-2">
-              <Button variant="success">Success</Button>
-              <code className="text-ui-xs text-neutral-600 block text-center">success</code>
+              <Button variant="destructive">Destructive</Button>
+              <code className="text-ui-xs text-neutral-600 block text-center">destructive</code>
             </div>
             <div className="space-y-2">
               <Button variant="outline">Outline</Button>
@@ -128,7 +128,7 @@ export default function JACXIDesignShowcase() {
         <div className="space-y-4">
           <h3 className="text-heading-lg font-medium text-brand-navy">Cards</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card variant="default">
+            <Card>
               <CardHeader>
                 <CardTitle>Default Card</CardTitle>
                 <CardDescription>Standard card styling</CardDescription>
@@ -138,7 +138,7 @@ export default function JACXIDesignShowcase() {
               </CardContent>
             </Card>
 
-            <Card variant="glass-dark">
+            <Card className="glass-dark">
               <CardHeader>
                 <CardTitle>Glass Card</CardTitle>
                 <CardDescription>Modern glass morphism</CardDescription>
@@ -148,7 +148,7 @@ export default function JACXIDesignShowcase() {
               </CardContent>
             </Card>
 
-            <Card variant="brand" className="text-brand-white">
+            <Card className="bg-brand-gradient text-brand-white">
               <CardHeader>
                 <CardTitle>Brand Card</CardTitle>
                 <CardDescription>Luxury gradient</CardDescription>
@@ -158,7 +158,7 @@ export default function JACXIDesignShowcase() {
               </CardContent>
             </Card>
 
-            <Card variant="elevated">
+            <Card className="shadow-brand-navy">
               <CardHeader>
                 <CardTitle>Elevated Card</CardTitle>
                 <CardDescription>Enhanced shadow</CardDescription>
@@ -250,7 +250,7 @@ export default function JACXIDesignShowcase() {
             <Alert variant="warning">
               <strong>Customs Clearance Required</strong> Please ensure all documentation is complete.
             </Alert>
-            <Alert variant="error">
+            <Alert variant="destructive">
               <strong>Shipping Delay</strong> There may be a delay due to weather conditions.
             </Alert>
             <Alert variant="info">
@@ -332,7 +332,7 @@ export default function JACXIDesignShowcase() {
       >
         <h2 className="text-heading-xl font-semibold text-brand-navy">Implementation Guide</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card variant="elevated">
+          <Card className="shadow-lg">
             <CardHeader>
               <CardTitle>🚀 Quick Start</CardTitle>
             </CardHeader>
@@ -349,7 +349,7 @@ export default function JACXIDesignShowcase() {
             </CardContent>
           </Card>
 
-          <Card variant="elevated">
+          <Card className="shadow-lg">
             <CardHeader>
               <CardTitle>🎨 Design Principles</CardTitle>
             </CardHeader>

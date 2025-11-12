@@ -231,11 +231,11 @@ export default function InvoiceDetailPage() {
 					const decoded = await decodeVinDetails(item.vin);
 					return {
 						...item,
-						vehicleMake: decoded?.make ?? item.vehicleMake ?? null,
-						vehicleModel: decoded?.model ?? item.vehicleModel ?? null,
-						vehicleYear: decoded?.year ?? item.vehicleYear ?? null,
-						vehicleType: decoded?.vehicleType ?? item.vehicleType ?? null,
-						bodyClass: decoded?.bodyClass ?? item.bodyClass ?? null,
+						vehicleMake: decoded?.make ?? item.vehicleMake ?? undefined,
+						vehicleModel: decoded?.model ?? item.vehicleModel ?? undefined,
+						vehicleYear: decoded?.year ?? item.vehicleYear ?? undefined,
+						vehicleType: decoded?.vehicleType ?? item.vehicleType ?? undefined,
+						bodyClass: decoded?.bodyClass ?? item.bodyClass ?? undefined,
 					};
 				}),
 			);
