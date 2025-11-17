@@ -273,6 +273,43 @@ export async function PATCH(
       updateData.titleStatus = titleStatus ? titleStatus as TitleStatus : null;
     }
 
+    // Validate shipping details when changing status to IN_TRANSIT or DELIVERED
+    if (status && (status === 'IN_TRANSIT' || status === 'DELIVERED')) {
+      // Get the current shipment data to check existing values
+      const currentShipment = await prisma.shipment.findUnique({
+        where: { id },
+        select: {
+          origin: true,
+          destination: true,
+          currentLocation: true,
+        },
+      });
+
+      // Use updated value if provided, otherwise fall back to existing value
+      const finalOrigin = origin !== undefined ? origin : currentShipment?.origin;
+      const finalDestination = destination !== undefined ? destination : currentShipment?.destination;
+      const finalCurrentLocation = currentLocation !== undefined ? currentLocation : currentShipment?.currentLocation;
+
+      if (!finalOrigin || finalOrigin.trim().length < 2) {
+        return NextResponse.json(
+          { message: 'Origin is required when status is In Transit or Delivered' },
+          { status: 400 }
+        );
+      }
+      if (!finalDestination || finalDestination.trim().length < 2) {
+        return NextResponse.json(
+          { message: 'Destination is required when status is In Transit or Delivered' },
+          { status: 400 }
+        );
+      }
+      if (!finalCurrentLocation || finalCurrentLocation.trim().length < 2) {
+        return NextResponse.json(
+          { message: 'Current Location is required when status is In Transit or Delivered' },
+          { status: 400 }
+        );
+      }
+    }
+
     const shipment = await prisma.shipment.update({
       where: { id },
       data: updateData,

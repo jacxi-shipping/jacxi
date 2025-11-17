@@ -275,6 +275,28 @@ export async function POST(request: NextRequest) {
     // Validate titleStatus - only allowed if hasTitle is true
     const finalTitleStatus = (hasTitle === true && titleStatus) ? titleStatus as TitleStatus : null;
     
+    // Validate shipping details when status is IN_TRANSIT or DELIVERED
+    if (normalizedStatus === ShipmentStatus.IN_TRANSIT || normalizedStatus === ShipmentStatus.DELIVERED) {
+      if (!origin || origin.trim().length < 2) {
+        return NextResponse.json(
+          { message: 'Origin is required when status is In Transit or Delivered' },
+          { status: 400 }
+        );
+      }
+      if (!destination || destination.trim().length < 2) {
+        return NextResponse.json(
+          { message: 'Destination is required when status is In Transit or Delivered' },
+          { status: 400 }
+        );
+      }
+      if (!currentLocation || currentLocation.trim().length < 2) {
+        return NextResponse.json(
+          { message: 'Current Location is required when status is In Transit or Delivered' },
+          { status: 400 }
+        );
+      }
+    }
+    
     const shipment = await prisma.$transaction(async (tx) => {
       const createdShipment = await tx.shipment.create({
         data: {
