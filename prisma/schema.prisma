@@ -76,7 +76,7 @@ model Shipment {
   vehicleMake      String?
   vehicleModel     String?
   vehicleYear      Int?
-  vehicleVIN       String?
+  vehicleVIN       String?       @unique
   origin           String
   destination      String
   status           ShipmentStatus @default(PENDING)

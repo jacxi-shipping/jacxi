@@ -205,6 +205,34 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check for duplicate VIN if provided
+    if (vehicleVIN && vehicleVIN.trim()) {
+      const existingShipment = await prisma.shipment.findFirst({
+        where: { 
+          vehicleVIN: vehicleVIN.trim(),
+        },
+        select: {
+          id: true,
+          trackingNumber: true,
+          user: {
+            select: {
+              name: true,
+              email: true,
+            },
+          },
+        },
+      });
+
+      if (existingShipment) {
+        return NextResponse.json(
+          { 
+            message: `This VIN is already assigned to another shipment (Tracking: ${existingShipment.trackingNumber}, User: ${existingShipment.user.name || existingShipment.user.email})`,
+          },
+          { status: 400 }
+        );
+      }
+    }
+
     // Generate tracking number (allow override when provided)
     const trackingNumber = (providedTrackingNumber || '').trim()
       ? (providedTrackingNumber || '').trim()

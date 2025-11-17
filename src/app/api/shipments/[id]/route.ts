@@ -143,8 +143,43 @@ export async function PATCH(
     // Get existing shipment to merge arrival photos
     const existingShipment = await prisma.shipment.findUnique({
       where: { id },
-      select: { arrivalPhotos: true },
+      select: { 
+        arrivalPhotos: true,
+        vehicleVIN: true,
+      },
     });
+
+    // Check for duplicate VIN if VIN is being changed
+    if (vehicleVIN !== undefined && vehicleVIN && vehicleVIN.trim()) {
+      // Only check if VIN is different from current VIN
+      if (vehicleVIN.trim() !== existingShipment?.vehicleVIN) {
+        const duplicateShipment = await prisma.shipment.findFirst({
+          where: { 
+            vehicleVIN: vehicleVIN.trim(),
+            id: { not: id }, // Exclude current shipment
+          },
+          select: {
+            id: true,
+            trackingNumber: true,
+            user: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+          },
+        });
+
+        if (duplicateShipment) {
+          return NextResponse.json(
+            { 
+              message: `This VIN is already assigned to another shipment (Tracking: ${duplicateShipment.trackingNumber}, User: ${duplicateShipment.user.name || duplicateShipment.user.email})`,
+            },
+            { status: 400 }
+          );
+        }
+      }
+    }
 
     const sanitizedContainerPhotos = Array.isArray(containerPhotos)
       ? containerPhotos.filter((photo): photo is string => typeof photo === 'string')
