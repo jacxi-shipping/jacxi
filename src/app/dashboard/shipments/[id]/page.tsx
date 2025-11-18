@@ -462,37 +462,37 @@ export default function ShipmentDetailPage() {
         </div>
 
         <div className="relative">
-          <Section className="pb-4 pt-6">
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div className="flex items-center gap-3">
+          <Section className="pb-4 pt-4 sm:pt-6">
+            <div className="flex flex-col gap-4 sm:gap-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                <div className="flex items-start gap-2 sm:gap-3 min-w-0 flex-1">
                   <Link href="/dashboard/shipments">
-                    <Button variant="outline" size="sm" className="border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10">
-                      <ArrowLeft className="w-4 h-4 mr-2" />
+                    <Button variant="outline" size="sm" className="border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10 flex-shrink-0 text-xs sm:text-sm">
+                      <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                       Back
                     </Button>
                   </Link>
-                  <div>
-                    <h1 className="text-2xl sm:text-3xl font-semibold text-white">Shipment {shipment.trackingNumber}</h1>
-                    <p className="text-white/60 text-sm">
+                  <div className="min-w-0 flex-1">
+                    <h1 className="text-lg sm:text-2xl md:text-3xl font-semibold text-white truncate">Shipment {shipment.trackingNumber}</h1>
+                    <p className="text-white/60 text-xs sm:text-sm line-clamp-1">
                       Detailed view of the shipment lifecycle, financials, and media.
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2 sm:gap-3 w-full sm:w-auto">
                   {isAdmin && (
                     <>
                       <Button
                         variant="outline"
                         onClick={handleDelete}
-                        className="border-red-500/40 text-red-300 hover:bg-red-500/10"
+                        className="border-red-500/40 text-red-300 hover:bg-red-500/10 flex-1 sm:flex-initial text-xs sm:text-sm"
                       >
-                        <Trash2 className="w-4 h-4 mr-2" />
+                        <Trash2 className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                         Delete
                       </Button>
-                      <Link href={`/dashboard/shipments/${shipment.id}/edit`}>
-                        <Button className="bg-[#00bfff] text-white hover:bg-[#00a8e6]">
-                          <PenLine className="w-4 h-4 mr-2" />
+                      <Link href={`/dashboard/shipments/${shipment.id}/edit`} className="flex-1 sm:flex-initial">
+                        <Button className="bg-[#00bfff] text-white hover:bg-[#00a8e6] w-full text-xs sm:text-sm">
+                          <PenLine className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                           Edit Shipment
                         </Button>
                       </Link>
@@ -501,19 +501,19 @@ export default function ShipmentDetailPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="lg:col-span-2 space-y-6"
+                  className="lg:col-span-2 space-y-4 sm:space-y-6"
                 >
                   <Card className="relative border-cyan-500/10 bg-white/[0.03] backdrop-blur-sm">
-                    <CardHeader className="space-y-3">
-                      <div className="flex flex-wrap items-center gap-3">
+                    <CardHeader className="space-y-2 sm:space-y-3 p-4 sm:p-6">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                         <span
                           className={cn(
-                            'inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ring-1',
+                            'inline-flex items-center rounded-full px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-wide ring-1 flex-shrink-0',
                             statusStyle.text,
                             statusStyle.bg,
                             statusStyle.ring,
@@ -522,37 +522,37 @@ export default function ShipmentDetailPage() {
                           {formatStatus(shipment.status)}
                         </span>
                         {shipment.progress > 0 && (
-                          <span className="text-sm font-medium text-white/70">
+                          <span className="text-xs sm:text-sm font-medium text-white/70">
                             Progress <span className="text-white font-semibold">{shipment.progress}%</span>
                           </span>
                         )}
                       </div>
-                      <CardTitle className="text-white text-xl">Current Status</CardTitle>
-                      <p className="text-sm text-white/60">
+                      <CardTitle className="text-white text-base sm:text-lg md:text-xl">Current Status</CardTitle>
+                      <p className="text-xs sm:text-sm text-white/60 line-clamp-2">
                         Monitor the latest milestone and location updates for this shipment.
                       </p>
                     </CardHeader>
-                    <CardContent className="space-y-5">
-                      <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
+                    <CardContent className="space-y-3 sm:space-y-5 p-4 sm:p-6">
+                      <div className="h-1.5 sm:h-2 w-full overflow-hidden rounded-full bg-white/10">
                         <div
                           className="h-full bg-gradient-to-r from-cyan-500 to-[#00bfff] transition-all duration-500"
                           style={{ width: `${Math.max(Math.min(shipment.progress || 0, 100), 0)}%` }}
                         />
                       </div>
                       {shipment.currentLocation && (
-                        <div className="flex items-center gap-2 text-sm text-white/70">
-                          <MapPin className="w-4 h-4 text-cyan-300" />
-                          <span>Currently located at <span className="text-white">{shipment.currentLocation}</span></span>
+                        <div className="flex items-center gap-2 text-xs sm:text-sm text-white/70">
+                          <MapPin className="w-3 h-3 sm:w-4 sm:h-4 text-cyan-300 flex-shrink-0" />
+                          <span className="min-w-0">Currently located at <span className="text-white truncate inline-block max-w-[150px] sm:max-w-none align-bottom">{shipment.currentLocation}</span></span>
                         </div>
                       )}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-white/70">
-                        <div>
-                          <p className="uppercase text-xs tracking-wide text-white/40">Origin</p>
-                          <p className="text-white">{shipment.origin}</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-white/70">
+                        <div className="min-w-0">
+                          <p className="uppercase text-[10px] sm:text-xs tracking-wide text-white/40">Origin</p>
+                          <p className="text-white truncate">{shipment.origin}</p>
                         </div>
-                        <div>
-                          <p className="uppercase text-xs tracking-wide text-white/40">Destination</p>
-                          <p className="text-white">{shipment.destination}</p>
+                        <div className="min-w-0">
+                          <p className="uppercase text-[10px] sm:text-xs tracking-wide text-white/40">Destination</p>
+                          <p className="text-white truncate">{shipment.destination}</p>
                         </div>
                       </div>
                     </CardContent>
@@ -560,37 +560,37 @@ export default function ShipmentDetailPage() {
 
                   {/* Vehicle Details */}
                   <Card className="border-white/10 bg-white/[0.03] backdrop-blur-sm">
-                    <CardHeader>
-                      <CardTitle className="text-white text-lg">Vehicle Details</CardTitle>
+                    <CardHeader className="p-4 sm:p-6">
+                      <CardTitle className="text-white text-base sm:text-lg">Vehicle Details</CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <dt className="text-xs uppercase tracking-wide text-white/50">Vehicle Type</dt>
-                          <dd className="mt-1 text-sm text-white capitalize">{shipment.vehicleType}</dd>
+                    <CardContent className="p-4 sm:p-6">
+                      <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                        <div className="min-w-0">
+                          <dt className="text-[10px] sm:text-xs uppercase tracking-wide text-white/50">Vehicle Type</dt>
+                          <dd className="mt-1 text-xs sm:text-sm text-white capitalize truncate">{shipment.vehicleType}</dd>
                         </div>
                         {shipment.vehicleMake && (
-                          <div>
-                            <dt className="text-xs uppercase tracking-wide text-white/50">Make</dt>
-                            <dd className="mt-1 text-sm text-white">{shipment.vehicleMake}</dd>
+                          <div className="min-w-0">
+                            <dt className="text-[10px] sm:text-xs uppercase tracking-wide text-white/50">Make</dt>
+                            <dd className="mt-1 text-xs sm:text-sm text-white truncate">{shipment.vehicleMake}</dd>
                           </div>
                         )}
                         {shipment.vehicleModel && (
-                          <div>
-                            <dt className="text-xs uppercase tracking-wide text-white/50">Model</dt>
-                            <dd className="mt-1 text-sm text-white">{shipment.vehicleModel}</dd>
+                          <div className="min-w-0">
+                            <dt className="text-[10px] sm:text-xs uppercase tracking-wide text-white/50">Model</dt>
+                            <dd className="mt-1 text-xs sm:text-sm text-white truncate">{shipment.vehicleModel}</dd>
                           </div>
                         )}
                         {shipment.vehicleYear && (
-                          <div>
-                            <dt className="text-xs uppercase tracking-wide text-white/50">Year</dt>
-                            <dd className="mt-1 text-sm text-white">{shipment.vehicleYear}</dd>
+                          <div className="min-w-0">
+                            <dt className="text-[10px] sm:text-xs uppercase tracking-wide text-white/50">Year</dt>
+                            <dd className="mt-1 text-xs sm:text-sm text-white">{shipment.vehicleYear}</dd>
                           </div>
                         )}
                         {shipment.vehicleVIN && (
-                          <div className="sm:col-span-2">
-                            <dt className="text-xs uppercase tracking-wide text-white/50">VIN Number</dt>
-                            <dd className="mt-1 text-sm text-white/80 font-mono">{shipment.vehicleVIN}</dd>
+                          <div className="sm:col-span-2 min-w-0">
+                            <dt className="text-[10px] sm:text-xs uppercase tracking-wide text-white/50">VIN Number</dt>
+                            <dd className="mt-1 text-xs sm:text-sm text-white/80 font-mono break-all">{shipment.vehicleVIN}</dd>
                           </div>
                         )}
                       </dl>
@@ -599,13 +599,13 @@ export default function ShipmentDetailPage() {
 
                   {/* Vehicle Details */}
                   <Card className="border-white/10 bg-white/[0.03] backdrop-blur-sm">
-                    <CardHeader>
-                      <CardTitle className="text-white text-lg">Vehicle Details</CardTitle>
+                    <CardHeader className="p-4 sm:p-6">
+                      <CardTitle className="text-white text-base sm:text-lg">Vehicle Details</CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-white/70">
-                        <div>
-                          <dt className="text-xs uppercase tracking-wide text-white/50">Has Key</dt>
+                    <CardContent className="p-4 sm:p-6">
+                      <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm text-white/70">
+                        <div className="min-w-0">
+                          <dt className="text-[10px] sm:text-xs uppercase tracking-wide text-white/50">Has Key</dt>
                           <dd className="mt-1 text-white">
                             {shipment.hasKey === true ? (
                               <span className="inline-flex items-center gap-1 text-green-400">
