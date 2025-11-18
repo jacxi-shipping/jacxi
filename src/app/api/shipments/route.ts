@@ -105,6 +105,9 @@ type CreateShipmentPayload = {
   vehicleModel?: string | null;
   vehicleYear?: number | string | null;
   vehicleVIN?: string | null;
+  vehicleColor?: string | null;
+  lotNumber?: string | null;
+  auctionName?: string | null;
   origin: string;
   destination: string;
   weight?: number | string | null;
@@ -155,6 +158,9 @@ export async function POST(request: NextRequest) {
       vehicleModel, 
       vehicleYear,
       vehicleVIN,
+      vehicleColor,
+      lotNumber,
+      auctionName,
       origin, 
       destination, 
       weight,
@@ -307,6 +313,9 @@ export async function POST(request: NextRequest) {
           vehicleModel,
           vehicleYear: parsedVehicleYear,
           vehicleVIN,
+          vehicleColor,
+          lotNumber,
+          auctionName,
           origin: origin || 'TBD', // Default to 'TBD' for on-hand shipments
           destination: destination || 'TBD', // Default to 'TBD' for on-hand shipments
           status: normalizedStatus,

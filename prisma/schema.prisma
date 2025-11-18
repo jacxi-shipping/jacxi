@@ -73,6 +73,9 @@ model Shipment {
   vehicleModel        String?
   vehicleYear         Int?
   vehicleVIN          String?             @unique
+  vehicleColor        String?
+  lotNumber           String?
+  auctionName         String?
   origin              String
   destination         String
   status              ShipmentStatus      @default(PENDING)

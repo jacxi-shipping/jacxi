@@ -11,6 +11,9 @@ type UpdateShipmentPayload = {
   vehicleModel?: string | null;
   vehicleYear?: number | string | null;
   vehicleVIN?: string | null;
+  vehicleColor?: string | null;
+  lotNumber?: string | null;
+  auctionName?: string | null;
   origin?: string;
   destination?: string;
   status?: ShipmentStatus;
@@ -120,6 +123,9 @@ export async function PATCH(
       vehicleModel,
       vehicleYear,
       vehicleVIN,
+      vehicleColor,
+      lotNumber,
+      auctionName,
       origin,
       destination,
       status,
@@ -198,6 +204,9 @@ export async function PATCH(
     if (vehicleMake !== undefined) updateData.vehicleMake = vehicleMake;
     if (vehicleModel !== undefined) updateData.vehicleModel = vehicleModel;
     if (vehicleVIN !== undefined) updateData.vehicleVIN = vehicleVIN;
+    if (vehicleColor !== undefined) updateData.vehicleColor = vehicleColor;
+    if (lotNumber !== undefined) updateData.lotNumber = lotNumber;
+    if (auctionName !== undefined) updateData.auctionName = auctionName;
     
     if (vehicleYear !== undefined) {
       const parsedYear = typeof vehicleYear === 'string' ? parseInt(vehicleYear, 10) : vehicleYear;

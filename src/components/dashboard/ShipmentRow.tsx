@@ -85,21 +85,21 @@ export default function ShipmentRow({
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.5, delay }}
 			whileHover={{ y: -2 }}
-			className="group relative rounded-xl bg-[#0a1628]/50 backdrop-blur-sm border border-cyan-500/30 p-6 sm:p-8 hover:border-cyan-500/60 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
+			className="group relative rounded-lg sm:rounded-xl bg-[#0a1628]/50 backdrop-blur-sm border border-cyan-500/30 p-4 sm:p-6 md:p-8 hover:border-cyan-500/60 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
 		>
 			{/* Glowing border effect on hover */}
-			<div className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-500/0 via-cyan-500/10 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+			<div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-cyan-500/0 via-cyan-500/10 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-			<div className="relative z-10 space-y-4">
+			<div className="relative z-10 space-y-3 sm:space-y-4">
 				{/* Header Row */}
-				<div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-					<div className="flex-1">
-						<div className="flex items-center gap-3 mb-2 flex-wrap">
-							<h3 className="text-lg sm:text-xl font-bold text-white">
+				<div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
+					<div className="flex-1 min-w-0">
+						<div className="flex items-center gap-2 mb-2 flex-wrap">
+							<h3 className="text-base sm:text-lg md:text-xl font-bold text-white truncate max-w-[200px] sm:max-w-none">
 								{trackingNumber}
 							</h3>
 							<span className={cn(
-								'px-3 py-1 text-xs font-medium rounded-full border',
+								'px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium rounded-full border flex-shrink-0',
 								statusConfig.bg,
 								statusConfig.text,
 								statusConfig.border
@@ -108,7 +108,7 @@ export default function ShipmentRow({
 							</span>
 							{paymentStatus && paymentConfig && (
 								<span className={cn(
-									'px-3 py-1 text-xs font-medium rounded-full border flex items-center gap-1',
+									'px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-medium rounded-full border flex items-center gap-1 flex-shrink-0',
 									paymentConfig.bg,
 									paymentConfig.text,
 									paymentConfig.border
@@ -118,30 +118,30 @@ export default function ShipmentRow({
 								</span>
 							)}
 						</div>
-						<p className="text-sm text-white/60">
+						<p className="text-xs sm:text-sm text-white/60">
 							Created: {new Date(createdAt).toLocaleDateString()}
 						</p>
 					</div>
 
 					{/* Actions */}
-					<div className="flex items-center gap-2">
-						<Link href={`/dashboard/shipments/${id}`}>
+					<div className="flex items-center gap-2 w-full sm:w-auto">
+						<Link href={`/dashboard/shipments/${id}`} className="flex-1 sm:flex-initial">
 							<Button
 								variant="outline"
 								size="sm"
-								className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/50"
+								className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/50 w-full sm:w-auto text-xs sm:text-sm"
 							>
-								<Eye className="w-4 h-4 mr-2" />
+								<Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
 								View
 							</Button>
 						</Link>
-						<Link href={`/dashboard/shipments/${id}/edit`}>
+						<Link href={`/dashboard/shipments/${id}/edit`} className="flex-1 sm:flex-initial">
 							<Button
 								variant="outline"
 								size="sm"
-								className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/50"
+								className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/50 w-full sm:w-auto text-xs sm:text-sm"
 							>
-								<Edit className="w-4 h-4 mr-2" />
+								<Edit className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
 								Edit
 							</Button>
 						</Link>
@@ -150,29 +150,29 @@ export default function ShipmentRow({
 				</div>
 
 				{/* Vehicle Info */}
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-					<div>
-						<p className="text-xs text-white/60 mb-1">Vehicle Type</p>
-						<p className="text-sm font-medium text-white">{vehicleType}</p>
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+					<div className="min-w-0">
+						<p className="text-[10px] sm:text-xs text-white/60 mb-1">Vehicle Type</p>
+						<p className="text-xs sm:text-sm font-medium text-white truncate">{vehicleType}</p>
 						{vehicleMake && vehicleModel && (
-							<p className="text-sm text-white/70">
+							<p className="text-xs sm:text-sm text-white/70 truncate">
 								{vehicleMake} {vehicleModel}
 							</p>
 						)}
 					</div>
 
-					<div>
-						<p className="text-xs text-white/60 mb-1">Route</p>
-						<div className="flex items-center gap-2 text-sm text-white">
-							<span className="font-medium">{origin}</span>
-							<ArrowRight className="w-4 h-4 text-cyan-400" />
-							<span className="font-medium">{destination}</span>
+					<div className="min-w-0">
+						<p className="text-[10px] sm:text-xs text-white/60 mb-1">Route</p>
+						<div className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-white min-w-0">
+							<span className="font-medium truncate">{origin}</span>
+							<ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-cyan-400 flex-shrink-0" />
+							<span className="font-medium truncate">{destination}</span>
 						</div>
 					</div>
 
-					<div>
-						<p className="text-xs text-white/60 mb-1">Estimated Delivery</p>
-						<p className="text-sm font-medium text-white">
+					<div className="min-w-0">
+						<p className="text-[10px] sm:text-xs text-white/60 mb-1">Estimated Delivery</p>
+						<p className="text-xs sm:text-sm font-medium text-white truncate">
 							{estimatedDelivery
 								? new Date(estimatedDelivery).toLocaleDateString()
 								: 'TBD'}
@@ -182,20 +182,20 @@ export default function ShipmentRow({
 
 				{/* Customer Info (if admin) */}
 				{showCustomer && user && (
-					<div className="pt-4 border-t border-white/10">
-						<p className="text-xs text-white/60 mb-1">Customer</p>
-						<p className="text-sm font-medium text-white">{user.name || 'N/A'}</p>
-						<p className="text-sm text-white/70">{user.email}</p>
+					<div className="pt-3 sm:pt-4 border-t border-white/10">
+						<p className="text-[10px] sm:text-xs text-white/60 mb-1">Customer</p>
+						<p className="text-xs sm:text-sm font-medium text-white truncate">{user.name || 'N/A'}</p>
+						<p className="text-xs sm:text-sm text-white/70 truncate">{user.email}</p>
 					</div>
 				)}
 
 				{/* Progress Bar */}
-				<div className="space-y-2 pt-2">
-					<div className="flex items-center justify-between text-sm">
+				<div className="space-y-1.5 sm:space-y-2 pt-2">
+					<div className="flex items-center justify-between text-xs sm:text-sm">
 						<span className="text-white/80">Progress</span>
 						<span className="text-cyan-400 font-semibold">{progress}%</span>
 					</div>
-					<div className="relative w-full h-2 bg-[#020817] rounded-full overflow-hidden">
+					<div className="relative w-full h-1.5 sm:h-2 bg-[#020817] rounded-full overflow-hidden">
 						<motion.div
 							initial={{ width: 0 }}
 							animate={{ width: `${progress}%` }}

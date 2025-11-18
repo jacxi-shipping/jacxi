@@ -211,6 +211,7 @@ export default function NewShipmentPage() {
 			const overallLength = getValue('Overall Length');
 			const overallWidth = getValue('Overall Width');
 			const overallHeight = getValue('Overall Height');
+			const color = getValue('Color');
 
 			if (make) {
 				setValue('vehicleMake', make, { shouldDirty: true, shouldValidate: true });
@@ -223,6 +224,9 @@ export default function NewShipmentPage() {
 				if (!Number.isNaN(yearNum)) {
 					setValue('vehicleYear', yearNum.toString(), { shouldDirty: true, shouldValidate: true });
 				}
+			}
+			if (color) {
+				setValue('vehicleColor', color, { shouldDirty: true, shouldValidate: true });
 			}
 
 			const mappedType = mapVehicleType(vehicleType, bodyClass || '');
@@ -725,6 +729,61 @@ export default function NewShipmentPage() {
 										)}
 										{vinDecodeError && (
 											<p className="mt-2 text-sm text-red-400">{vinDecodeError}</p>
+										)}
+									</div>
+								</div>
+
+								{/* Color, Lot Number, Auction Name */}
+								<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+									<div>
+										<label htmlFor="vehicleColor" className="block text-sm font-medium text-white/90 mb-2">
+											Color
+										</label>
+										<input
+											type="text"
+											id="vehicleColor"
+											{...register('vehicleColor')}
+											placeholder="e.g., Blue, Red"
+											className={`w-full px-4 py-3 bg-[#020817] border rounded-lg text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 ${
+												errors.vehicleColor ? 'border-red-500/50' : 'border-cyan-500/30'
+											}`}
+										/>
+										{errors.vehicleColor && (
+											<p className="mt-2 text-sm text-red-400">{errors.vehicleColor.message}</p>
+										)}
+									</div>
+									<div>
+										<label htmlFor="lotNumber" className="block text-sm font-medium text-white/90 mb-2">
+											Lot Number
+										</label>
+										<input
+											type="text"
+											id="lotNumber"
+											{...register('lotNumber')}
+											placeholder="e.g., LOT12345"
+											className={`w-full px-4 py-3 bg-[#020817] border rounded-lg text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 ${
+												errors.lotNumber ? 'border-red-500/50' : 'border-cyan-500/30'
+											}`}
+										/>
+										{errors.lotNumber && (
+											<p className="mt-2 text-sm text-red-400">{errors.lotNumber.message}</p>
+										)}
+									</div>
+									<div>
+										<label htmlFor="auctionName" className="block text-sm font-medium text-white/90 mb-2">
+											Auction
+										</label>
+										<input
+											type="text"
+											id="auctionName"
+											{...register('auctionName')}
+											placeholder="e.g., Copart, IAA"
+											className={`w-full px-4 py-3 bg-[#020817] border rounded-lg text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 ${
+												errors.auctionName ? 'border-red-500/50' : 'border-cyan-500/30'
+											}`}
+										/>
+										{errors.auctionName && (
+											<p className="mt-2 text-sm text-red-400">{errors.auctionName.message}</p>
 										)}
 									</div>
 								</div>

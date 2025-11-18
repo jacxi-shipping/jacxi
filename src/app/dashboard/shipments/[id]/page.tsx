@@ -16,6 +16,7 @@ import {
   CalendarCheck,
   ChevronLeft,
   ChevronRight,
+  Download,
   Image as ImageIcon,
   MapPin,
   PackageCheck,
@@ -24,6 +25,8 @@ import {
   Upload,
   Wallet,
   X,
+  ZoomIn,
+  ZoomOut,
 } from 'lucide-react';
 
 interface ShipmentEvent {
@@ -101,6 +104,8 @@ export default function ShipmentDetailPage() {
   const [uploading, setUploading] = useState(false);
   const [showArrivalUpload, setShowArrivalUpload] = useState(false);
   const [lightbox, setLightbox] = useState<{ images: string[]; index: number; title: string } | null>(null);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [downloading, setDownloading] = useState(false);
 
   const fetchShipment = useCallback(async () => {
     try {
@@ -164,12 +169,68 @@ export default function ShipmentDetailPage() {
   const openLightbox = (images: string[], index: number, title: string) => {
     if (!images.length) return;
     setLightbox({ images, index, title });
+    setZoomLevel(1); // Reset zoom when opening
+  };
+
+  const downloadPhoto = async (url: string, filename: string) => {
+    try {
+      setDownloading(true);
+      const response = await fetch(`/api/photos/download?url=${encodeURIComponent(url)}`);
+      if (!response.ok) throw new Error('Download failed');
+      
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      console.error('Error downloading photo:', error);
+      alert('Failed to download photo');
+    } finally {
+      setDownloading(false);
+    }
+  };
+
+  const downloadAllPhotos = async (images: string[], title: string) => {
+    try {
+      setDownloading(true);
+      const response = await fetch('/api/photos/download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          photos: images,
+          filename: `${title.replace(/\s+/g, '-')}-${shipment?.trackingNumber || 'photos'}`
+        }),
+      });
+      
+      if (!response.ok) throw new Error('Download failed');
+      
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `${title.replace(/\s+/g, '-')}-${shipment?.trackingNumber || 'photos'}.zip`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      console.error('Error downloading photos:', error);
+      alert('Failed to download photos');
+    } finally {
+      setDownloading(false);
+    }
   };
 
   const goPrevious = () => {
     setLightbox((prev) => {
       if (!prev || prev.images.length <= 1) return prev;
       const nextIndex = (prev.index - 1 + prev.images.length) % prev.images.length;
+      setZoomLevel(1); // Reset zoom on navigation
       return { ...prev, index: nextIndex };
     });
   };
@@ -178,9 +239,40 @@ export default function ShipmentDetailPage() {
     setLightbox((prev) => {
       if (!prev || prev.images.length <= 1) return prev;
       const nextIndex = (prev.index + 1) % prev.images.length;
+      setZoomLevel(1); // Reset zoom on navigation
       return { ...prev, index: nextIndex };
     });
   };
+
+  const zoomIn = () => setZoomLevel((prev) => Math.min(prev + 0.25, 3));
+  const zoomOut = () => setZoomLevel((prev) => Math.max(prev - 0.25, 0.5));
+
+  // Keyboard navigation for photo viewer
+  useEffect(() => {
+    if (!lightbox) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goPrevious();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goNext();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        setLightbox(null);
+      } else if (e.key === '+' || e.key === '=') {
+        e.preventDefault();
+        zoomIn();
+      } else if (e.key === '-' || e.key === '_') {
+        e.preventDefault();
+        zoomOut();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightbox]);
 
   const handleDelete = async () => {
     if (!confirm('Are you sure you want to delete this shipment?')) {
@@ -880,62 +972,176 @@ export default function ShipmentDetailPage() {
       </div>
 
         {lightbox && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4"
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl"
             onClick={(event) => {
               if (event.currentTarget === event.target) {
                 setLightbox(null);
               }
             }}
           >
-            <button
-              type="button"
-              onClick={() => setLightbox(null)}
-              className="absolute top-4 right-4 rounded-full bg-white/20 hover:bg-white/30 text-white p-2"
-              aria-label="Close gallery"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {lightbox.images.length > 1 && (
-              <>
+            {/* Header Bar */}
+            <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-b from-black/80 to-transparent">
+              <div className="flex items-center justify-between p-4 sm:p-6">
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-white/70 uppercase tracking-wider">{lightbox.title}</p>
+                  <p className="text-lg font-bold text-white mt-1">
+                    Photo {lightbox.index + 1} <span className="text-white/50">of {lightbox.images.length}</span>
+                  </p>
+                </div>
                 <button
                   type="button"
-                  onClick={goPrevious}
-                  className="absolute left-4 sm:left-10 rounded-full bg-white/20 hover:bg-white/30 text-white p-3"
-                  aria-label="Previous photo"
+                  onClick={() => setLightbox(null)}
+                  className="rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-2.5 transition-all duration-200 hover:scale-110"
+                  aria-label="Close gallery"
                 >
-                  <ChevronLeft className="w-6 h-6" />
+                  <X className="w-6 h-6" />
                 </button>
-                <button
-                  type="button"
-                  onClick={goNext}
-                  className="absolute right-4 sm:right-10 rounded-full bg-white/20 hover:bg-white/30 text-white p-3"
-                  aria-label="Next photo"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-              </>
-            )}
-
-            <div className="w-full max-w-4xl">
-              <div className="mb-4 text-center text-white">
-                <p className="text-sm uppercase tracking-wide text-white/70">{lightbox.title}</p>
-                <p className="text-lg font-semibold">
-                  Photo {lightbox.index + 1} of {lightbox.images.length}
-                </p>
-              </div>
-              <div className="relative w-full pb-[66%] rounded-xl overflow-hidden border border-white/10 bg-black">
-                <Image
-                  src={lightbox.images[lightbox.index]}
-                  alt={`${lightbox.title} ${lightbox.index + 1}`}
-                  fill
-                  className="object-contain"
-                  unoptimized
-                />
               </div>
             </div>
-          </div>
+
+            {/* Bottom Control Bar */}
+            <div className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/80 to-transparent">
+              <div className="flex items-center justify-between gap-4 p-4 sm:p-6">
+                {/* Zoom Controls */}
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={zoomOut}
+                    disabled={zoomLevel <= 0.5}
+                    className="rounded-lg bg-white/10 hover:bg-white/20 disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm text-white p-2 transition-all duration-200"
+                    aria-label="Zoom out"
+                  >
+                    <ZoomOut className="w-5 h-5" />
+                  </button>
+                  <span className="text-sm font-medium text-white min-w-[60px] text-center">
+                    {Math.round(zoomLevel * 100)}%
+                  </span>
+                  <button
+                    type="button"
+                    onClick={zoomIn}
+                    disabled={zoomLevel >= 3}
+                    className="rounded-lg bg-white/10 hover:bg-white/20 disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm text-white p-2 transition-all duration-200"
+                    aria-label="Zoom in"
+                  >
+                    <ZoomIn className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Download Buttons */}
+                <div className="flex items-center gap-2">
+                  {lightbox.images.length > 1 && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => downloadAllPhotos(lightbox.images, lightbox.title)}
+                      disabled={downloading}
+                      className="border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10 backdrop-blur-sm"
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      {downloading ? 'Downloading...' : `All (${lightbox.images.length})`}
+                    </Button>
+                  )}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => downloadPhoto(
+                      lightbox.images[lightbox.index],
+                      `${lightbox.title.replace(/\s+/g, '-')}-${lightbox.index + 1}.jpg`
+                    )}
+                    disabled={downloading}
+                    className="border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10 backdrop-blur-sm"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    {downloading ? 'Downloading...' : 'Current'}
+                  </Button>
+                </div>
+              </div>
+
+              {/* Thumbnail Strip */}
+              {lightbox.images.length > 1 && (
+                <div className="px-4 sm:px-6 pb-4">
+                  <div className="flex gap-2 overflow-x-auto py-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                    {lightbox.images.map((img, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          setLightbox({ ...lightbox, index: idx });
+                          setZoomLevel(1);
+                        }}
+                        className={cn(
+                          'relative flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-200',
+                          idx === lightbox.index
+                            ? 'border-cyan-500 ring-2 ring-cyan-500/50 scale-110'
+                            : 'border-white/20 hover:border-white/40 opacity-60 hover:opacity-100'
+                        )}
+                      >
+                        <Image
+                          src={img}
+                          alt={`Thumbnail ${idx + 1}`}
+                          fill
+                          className="object-cover"
+                          unoptimized
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Main Image Container */}
+            <div className="absolute inset-0 flex items-center justify-center px-4 py-24 sm:px-20">
+              <div className="relative w-full h-full max-w-7xl flex items-center justify-center group">
+                {/* Navigation Arrows - Positioned at photo edges */}
+                {lightbox.images.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={goPrevious}
+                      className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-6 z-20 rounded-full bg-black/70 hover:bg-black/90 backdrop-blur-md border-2 border-white/30 hover:border-cyan-400/70 text-white p-2.5 sm:p-4 transition-all duration-300 hover:scale-110 shadow-2xl sm:opacity-0 sm:group-hover:opacity-100"
+                      aria-label="Previous photo"
+                    >
+                      <ChevronLeft className="w-5 h-5 sm:w-8 sm:h-8" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={goNext}
+                      className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-6 z-20 rounded-full bg-black/70 hover:bg-black/90 backdrop-blur-md border-2 border-white/30 hover:border-cyan-400/70 text-white p-2.5 sm:p-4 transition-all duration-300 hover:scale-110 shadow-2xl sm:opacity-0 sm:group-hover:opacity-100"
+                      aria-label="Next photo"
+                    >
+                      <ChevronRight className="w-5 h-5 sm:w-8 sm:h-8" />
+                    </button>
+                  </>
+                )}
+
+                {/* Image with proper aspect ratio */}
+                <motion.div
+                  animate={{ scale: zoomLevel }}
+                  transition={{ duration: 0.2 }}
+                  className="relative w-full h-full flex items-center justify-center"
+                  style={{ 
+                    cursor: zoomLevel > 1 ? 'grab' : 'default'
+                  }}
+                >
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={lightbox.images[lightbox.index]}
+                      alt={`${lightbox.title} ${lightbox.index + 1}`}
+                      fill
+                      className="object-contain"
+                      unoptimized
+                      priority
+                    />
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
         )}
       </ProtectedRoute>
     );

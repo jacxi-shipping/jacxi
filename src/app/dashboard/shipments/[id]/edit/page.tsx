@@ -36,6 +36,9 @@ export default function EditShipmentPage() {
     vehicleModel: '',
     vehicleYear: '',
     vehicleVIN: '',
+    vehicleColor: '',
+    lotNumber: '',
+    auctionName: '',
     origin: '',
     destination: '',
     status: '',
@@ -83,6 +86,9 @@ export default function EditShipmentPage() {
           vehicleModel: shipment.vehicleModel || '',
           vehicleYear: shipment.vehicleYear?.toString() || '',
           vehicleVIN: shipment.vehicleVIN || '',
+          vehicleColor: shipment.vehicleColor || '',
+          lotNumber: shipment.lotNumber || '',
+          auctionName: shipment.auctionName || '',
           origin: shipment.origin,
           destination: shipment.destination,
           status: shipment.status,
@@ -475,6 +481,52 @@ export default function EditShipmentPage() {
                       value={formData.vehicleVIN}
                       onChange={handleChange}
                       className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                {/* Color, Lot Number, Auction Name */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label htmlFor="vehicleColor" className="block text-sm font-medium text-white/70 mb-2">
+                      Color
+                    </label>
+                    <input
+                      type="text"
+                      id="vehicleColor"
+                      name="vehicleColor"
+                      value={formData.vehicleColor}
+                      onChange={handleChange}
+                      placeholder="e.g., Blue, Red"
+                      className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white placeholder-white/40 focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="lotNumber" className="block text-sm font-medium text-white/70 mb-2">
+                      Lot Number
+                    </label>
+                    <input
+                      type="text"
+                      id="lotNumber"
+                      name="lotNumber"
+                      value={formData.lotNumber}
+                      onChange={handleChange}
+                      placeholder="e.g., LOT12345"
+                      className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white placeholder-white/40 focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="auctionName" className="block text-sm font-medium text-white/70 mb-2">
+                      Auction
+                    </label>
+                    <input
+                      type="text"
+                      id="auctionName"
+                      name="auctionName"
+                      value={formData.auctionName}
+                      onChange={handleChange}
+                      placeholder="e.g., Copart, IAA"
+                      className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white placeholder-white/40 focus:ring-2 focus:ring-cyan-500/40 focus:border-transparent"
                     />
                   </div>
                 </div>

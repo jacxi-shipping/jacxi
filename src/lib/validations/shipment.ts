@@ -14,6 +14,9 @@ export const shipmentSchema = z.object({
     (val) => !val || val.length >= 17,
     { message: 'VIN must be at least 17 characters' }
   ),
+  vehicleColor: z.string().optional(),
+  lotNumber: z.string().optional(),
+  auctionName: z.string().optional(),
   origin: z.string().optional(), // Made optional - will be validated conditionally
   destination: z.string().optional(), // Made optional - will be validated conditionally
   weight: z.string().optional().refine(
@@ -56,6 +59,9 @@ export const shipmentUpdateSchema = z.object({
     (val) => !val || val.length >= 17,
     { message: 'VIN must be at least 17 characters' }
   ),
+  vehicleColor: z.string().optional(),
+  lotNumber: z.string().optional(),
+  auctionName: z.string().optional(),
   origin: z.string().min(3, 'Origin must be at least 3 characters').optional(),
   destination: z.string().min(3, 'Destination must be at least 3 characters').optional(),
   status: z.string().min(1, 'Status is required').optional(),

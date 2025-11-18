@@ -101,7 +101,7 @@ export default function DashboardPage() {
 	return (
 		<>
 			{/* Hero Header */}
-			<Section className="relative bg-[#020817] py-8 sm:py-12 lg:py-16 overflow-hidden">
+			<Section className="relative bg-[#020817] py-6 sm:py-12 lg:py-16 overflow-hidden">
 					{/* Background gradient */}
 					<div className="absolute inset-0 bg-gradient-to-br from-[#020817] via-[#0a1628] to-[#020817]" />
 
@@ -123,18 +123,18 @@ export default function DashboardPage() {
 					</div>
 
 					<div className="relative z-10">
-						<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+						<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6">
 							<motion.div
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ duration: 0.6 }}
-								className="space-y-2"
+								className="space-y-1 sm:space-y-2 max-w-full"
 							>
-								<h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
-									Welcome back, {session?.user?.name || 'User'}!
+								<h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white leading-tight break-words">
+									Welcome back{session?.user?.name && `, ${session.user.name}`}!
 								</h1>
-								<p className="text-lg sm:text-xl text-white/70">
-									Here&apos;s an overview of your shipments and activity.
+								<p className="text-sm sm:text-lg md:text-xl text-white/70">
+									Here&apos;s your shipment overview
 								</p>
 							</motion.div>
 						{session?.user?.role === 'admin' && (
@@ -142,13 +142,14 @@ export default function DashboardPage() {
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ duration: 0.6, delay: 0.2 }}
+								className="w-full sm:w-auto"
 							>
-								<Link href="/dashboard/shipments/new">
+								<Link href="/dashboard/shipments/new" className="block">
 									<Button
 										size="lg"
-										className="group relative overflow-hidden bg-[#00bfff] text-white hover:bg-[#00a8e6] shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-all duration-300 px-6 py-3 text-base sm:text-lg font-semibold"
+										className="group relative overflow-hidden bg-[#00bfff] text-white hover:bg-[#00a8e6] shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-all duration-300 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base md:text-lg font-semibold w-full sm:w-auto"
 									>
-										<Plus className="w-5 h-5 mr-2" />
+										<Plus className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
 										New Shipment
 									</Button>
 								</Link>
@@ -159,9 +160,9 @@ export default function DashboardPage() {
 				</Section>
 
 				{/* Main Content */}
-				<Section className="bg-[#020817] py-8 sm:py-12 lg:py-16">
+				<Section className="bg-[#020817] py-6 sm:py-12 lg:py-16">
 					{/* Stats Grid */}
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16">
+					<div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8 mb-8 sm:mb-12 md:mb-16">
 						<StatsCard
 							icon={Truck}
 							title="Active Shipments"
@@ -193,30 +194,30 @@ export default function DashboardPage() {
 					</div>
 
 					{/* Content Grid */}
-					<div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-12">
+					<div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
 						{/* Recent Shipments - Takes 2 columns */}
 						<motion.div
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true }}
 							transition={{ duration: 0.6, delay: 0.4 }}
-							className="lg:col-span-2 space-y-6"
+							className="lg:col-span-2 space-y-4 sm:space-y-6"
 						>
-							<div className="flex items-center justify-between mb-6">
-								<div>
-									<h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+							<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+								<div className="flex-1 min-w-0">
+									<h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2 truncate">
 										Recent Shipments
 									</h2>
-									<p className="text-sm sm:text-base text-white/70">
-										Your latest shipping activity
+									<p className="text-xs sm:text-sm md:text-base text-white/70">
+										Your latest activity
 									</p>
 								</div>
 								{shipments.length > 0 && (
-									<Link href="/dashboard/shipments">
+									<Link href="/dashboard/shipments" className="w-full sm:w-auto">
 										<Button
 											variant="outline"
 											size="sm"
-											className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10"
+											className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 w-full sm:w-auto text-xs sm:text-sm"
 										>
 											View All
 										</Button>
