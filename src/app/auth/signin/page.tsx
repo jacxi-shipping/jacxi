@@ -190,30 +190,38 @@ export default function SignInPage() {
 									onChange={(e) => setEmail(e.target.value)}
 									required
 									placeholder="Enter your email"
+									autoComplete="email"
 									InputProps={{
 										startAdornment: (
 											<InputAdornment position="start">
 												<Email sx={{ fontSize: 20, color: 'rgba(255, 255, 255, 0.5)' }} />
 											</InputAdornment>
 										),
-										sx: {
+									}}
+									sx={{
+										'& .MuiOutlinedInput-root': {
 											bgcolor: 'rgba(255, 255, 255, 0.05)',
 											borderRadius: 2,
-											'& .MuiOutlinedInput-notchedOutline': {
-												borderColor: 'rgba(255, 255, 255, 0.1)',
-											},
-											'&:hover .MuiOutlinedInput-notchedOutline': {
+											color: 'white',
+											'& fieldset': {
 												borderColor: 'rgba(255, 255, 255, 0.2)',
 											},
-											'&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-												borderColor: 'rgba(6, 182, 212, 0.5)',
+											'&:hover fieldset': {
+												borderColor: 'rgba(255, 255, 255, 0.3)',
+											},
+											'&.Mui-focused fieldset': {
+												borderColor: 'rgb(34, 211, 238)',
 												borderWidth: 2,
 											},
 											'& input': {
 												color: 'white',
 												'&::placeholder': {
-													color: 'rgba(255, 255, 255, 0.4)',
+													color: 'rgba(255, 255, 255, 0.5)',
 													opacity: 1,
+												},
+												'&:-webkit-autofill': {
+													WebkitBoxShadow: '0 0 0 100px rgba(10, 22, 40, 0.8) inset',
+													WebkitTextFillColor: 'white',
 												},
 											},
 										},
@@ -244,6 +252,7 @@ export default function SignInPage() {
 									onChange={(e) => setPassword(e.target.value)}
 									required
 									placeholder="Enter your password"
+									autoComplete="current-password"
 									InputProps={{
 										startAdornment: (
 											<InputAdornment position="start">
@@ -270,24 +279,31 @@ export default function SignInPage() {
 												</IconButton>
 											</InputAdornment>
 										),
-										sx: {
+									}}
+									sx={{
+										'& .MuiOutlinedInput-root': {
 											bgcolor: 'rgba(255, 255, 255, 0.05)',
 											borderRadius: 2,
-											'& .MuiOutlinedInput-notchedOutline': {
-												borderColor: 'rgba(255, 255, 255, 0.1)',
-											},
-											'&:hover .MuiOutlinedInput-notchedOutline': {
+											color: 'white',
+											'& fieldset': {
 												borderColor: 'rgba(255, 255, 255, 0.2)',
 											},
-											'&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-												borderColor: 'rgba(6, 182, 212, 0.5)',
+											'&:hover fieldset': {
+												borderColor: 'rgba(255, 255, 255, 0.3)',
+											},
+											'&.Mui-focused fieldset': {
+												borderColor: 'rgb(34, 211, 238)',
 												borderWidth: 2,
 											},
 											'& input': {
 												color: 'white',
 												'&::placeholder': {
-													color: 'rgba(255, 255, 255, 0.4)',
+													color: 'rgba(255, 255, 255, 0.5)',
 													opacity: 1,
+												},
+												'&:-webkit-autofill': {
+													WebkitBoxShadow: '0 0 0 100px rgba(10, 22, 40, 0.8) inset',
+													WebkitTextFillColor: 'white',
 												},
 											},
 										},
@@ -358,3 +374,5 @@ export default function SignInPage() {
 		</Box>
 	);
 }
+
+

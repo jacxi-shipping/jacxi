@@ -2,6 +2,7 @@
 
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import Sidebar from '@/components/dashboard/Sidebar';
+import { Box } from '@mui/material';
 
 export default function DashboardLayout({
 	children,
@@ -10,15 +11,28 @@ export default function DashboardLayout({
 }) {
 	return (
 		<ProtectedRoute>
-			<div className="min-h-screen bg-background flex">
+			<Box
+				sx={{
+					minHeight: '100vh',
+					bgcolor: '#020817',
+					display: 'flex',
+				}}
+			>
 				{/* Sidebar */}
 				<Sidebar />
 
 				{/* Main Content */}
-				<div className="flex-1 lg:pl-72">
+				<Box
+					component="main"
+					sx={{
+						flexGrow: 1,
+						width: { xs: '100%', lg: 'calc(100% - 288px)' },
+						ml: { xs: 0, lg: '288px' },
+					}}
+				>
 					{children}
-				</div>
-			</div>
+				</Box>
+			</Box>
 		</ProtectedRoute>
 	);
 }
