@@ -4,8 +4,8 @@ import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Plus, Package, TrendingUp, Truck, MapPin } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import { Add, Inventory2, TrendingUp, LocalShipping, LocationOn } from '@mui/icons-material';
+import { Button, Box, CircularProgress, Typography } from '@mui/material';
 import StatsCard from '@/components/dashboard/StatsCard';
 import ShipmentCard from '@/components/dashboard/ShipmentCard';
 import QuickActions from '@/components/dashboard/QuickActions';
@@ -144,12 +144,27 @@ export default function DashboardPage() {
 								transition={{ duration: 0.6, delay: 0.2 }}
 								className="w-full sm:w-auto"
 							>
-								<Link href="/dashboard/shipments/new" className="block">
+								<Link href="/dashboard/shipments/new" style={{ textDecoration: 'none' }}>
 									<Button
-										size="lg"
-										className="group relative overflow-hidden bg-[#00bfff] text-white hover:bg-[#00a8e6] shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-all duration-300 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base md:text-lg font-semibold w-full sm:w-auto"
+										variant="contained"
+										size="large"
+										startIcon={<Add />}
+										sx={{
+											bgcolor: '#00bfff',
+											color: 'white',
+											fontWeight: 600,
+											fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
+											px: { xs: 2, sm: 3 },
+											py: { xs: 1.25, sm: 1.5 },
+											width: { xs: '100%', sm: 'auto' },
+											boxShadow: '0 8px 16px rgba(0, 191, 255, 0.3)',
+											'&:hover': {
+												bgcolor: '#00a8e6',
+												boxShadow: '0 12px 24px rgba(0, 191, 255, 0.5)',
+											},
+											transition: 'all 0.3s ease',
+										}}
 									>
-										<Plus className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
 										New Shipment
 									</Button>
 								</Link>
@@ -164,21 +179,21 @@ export default function DashboardPage() {
 					{/* Stats Grid */}
 					<div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8 mb-8 sm:mb-12 md:mb-16">
 						<StatsCard
-							icon={Truck}
+							icon={LocalShipping}
 							title="Active Shipments"
 							value={stats.active}
 							subtitle="Currently in progress"
 							delay={0}
 						/>
 						<StatsCard
-							icon={Package}
+							icon={Inventory2}
 							title="In Transit"
 							value={stats.inTransit}
 							subtitle="On the way"
 							delay={0.1}
 						/>
 						<StatsCard
-							icon={MapPin}
+							icon={LocationOn}
 							title="Total Shipments"
 							value={stats.total}
 							subtitle="All time"
@@ -213,34 +228,99 @@ export default function DashboardPage() {
 									</p>
 								</div>
 								{shipments.length > 0 && (
-									<Link href="/dashboard/shipments" className="w-full sm:w-auto">
-										<Button
-											variant="outline"
-											size="sm"
-											className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 w-full sm:w-auto text-xs sm:text-sm"
-										>
-											View All
-										</Button>
-									</Link>
+									<Box sx={{ width: { xs: '100%', sm: 'auto' } }}>
+										<Link href="/dashboard/shipments" style={{ textDecoration: 'none' }}>
+											<Button
+												variant="outlined"
+												size="small"
+												sx={{
+													fontSize: { xs: '0.75rem', sm: '0.875rem' },
+													borderColor: 'rgba(6, 182, 212, 0.3)',
+													color: 'rgb(34, 211, 238)',
+													width: { xs: '100%', sm: 'auto' },
+													'&:hover': {
+														bgcolor: 'rgba(6, 182, 212, 0.1)',
+														borderColor: 'rgba(6, 182, 212, 0.5)',
+													},
+												}}
+											>
+												View All
+											</Button>
+										</Link>
+									</Box>
 								)}
 							</div>
 
 							{loading ? (
-								<div className="relative rounded-xl bg-[#0a1628]/50 backdrop-blur-sm border border-cyan-500/30 p-12 text-center">
-									<div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-cyan-500/30 border-t-cyan-400"></div>
-									<p className="mt-4 text-white/70">Loading shipments...</p>
-								</div>
+								<Box
+									sx={{
+										position: 'relative',
+										borderRadius: 3,
+										background: 'rgba(10, 22, 40, 0.5)',
+										backdropFilter: 'blur(8px)',
+										border: '1px solid rgba(6, 182, 212, 0.3)',
+										p: 6,
+										textAlign: 'center',
+									}}
+								>
+									<CircularProgress
+										size={48}
+										sx={{
+											color: 'rgb(34, 211, 238)',
+										}}
+									/>
+									<Typography
+										sx={{
+											mt: 2,
+											color: 'rgba(255, 255, 255, 0.7)',
+										}}
+									>
+										Loading shipments...
+									</Typography>
+								</Box>
 							) : recentShipments.length === 0 ? (
-								<div className="relative rounded-xl bg-[#0a1628]/50 backdrop-blur-sm border border-cyan-500/30 p-12 text-center">
-									<Package className="w-16 h-16 text-white/30 mx-auto mb-4" />
-									<p className="text-white/70 mb-6">No shipments yet</p>
-									<Link href="/dashboard/shipments/new">
-										<Button className="bg-[#00bfff] text-white hover:bg-[#00a8e6]">
-											<Plus className="w-5 h-5 mr-2" />
+								<Box
+									sx={{
+										position: 'relative',
+										borderRadius: 3,
+										background: 'rgba(10, 22, 40, 0.5)',
+										backdropFilter: 'blur(8px)',
+										border: '1px solid rgba(6, 182, 212, 0.3)',
+										p: 6,
+										textAlign: 'center',
+									}}
+								>
+									<Inventory2
+										sx={{
+											fontSize: 64,
+											color: 'rgba(255, 255, 255, 0.3)',
+											mb: 2,
+										}}
+									/>
+									<Typography
+										sx={{
+											color: 'rgba(255, 255, 255, 0.7)',
+											mb: 3,
+										}}
+									>
+										No shipments yet
+									</Typography>
+									<Link href="/dashboard/shipments/new" style={{ textDecoration: 'none' }}>
+										<Button
+											variant="contained"
+											startIcon={<Add />}
+											sx={{
+												bgcolor: '#00bfff',
+												color: 'white',
+												'&:hover': {
+													bgcolor: '#00a8e6',
+												},
+											}}
+										>
 											Create Your First Shipment
 										</Button>
 									</Link>
-								</div>
+								</Box>
 							) : (
 								<div className="space-y-4 sm:space-y-6">
 									{recentShipments.map((shipment, index) => (
