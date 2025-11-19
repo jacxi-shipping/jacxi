@@ -26,8 +26,8 @@ export default function DashboardLayout({
 					component="main"
 					sx={{
 						flexGrow: 1,
-						width: { xs: '100%', lg: 'calc(100% - 288px)' },
-						ml: { xs: 0, lg: '288px' },
+						minWidth: 0,
+						overflow: 'auto',
 					}}
 				>
 					{children}
