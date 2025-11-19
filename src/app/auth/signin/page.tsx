@@ -5,11 +5,18 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Mail, Lock, ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Alert } from '@/components/ui/Alert';
-import { cn } from '@/lib/utils';
+import { Visibility, VisibilityOff, Email, Lock, ArrowForward } from '@mui/icons-material';
+import { 
+	Button, 
+	TextField, 
+	InputAdornment, 
+	IconButton, 
+	Alert, 
+	CircularProgress, 
+	Box, 
+	Typography,
+	Paper
+} from '@mui/material';
 
 export default function SignInPage() {
 	const { t } = useTranslation();
@@ -46,143 +53,308 @@ export default function SignInPage() {
 
 
 	return (
-		<div className="min-h-screen bg-[#020817] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+		<Box
+			sx={{
+				minHeight: '100vh',
+				bgcolor: '#020817',
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+				py: { xs: 6, sm: 12 },
+				px: { xs: 2, sm: 3, lg: 4 },
+				position: 'relative',
+				overflow: 'hidden',
+			}}
+		>
 			{/* Background Effects */}
 			{/* Subtle geometric grid pattern background */}
-			<div className="absolute inset-0 opacity-[0.03]">
-				<svg className="w-full h-full" preserveAspectRatio="none">
+			<Box
+				sx={{
+					position: 'absolute',
+					inset: 0,
+					opacity: 0.03,
+				}}
+			>
+				<svg style={{ width: '100%', height: '100%' }} preserveAspectRatio="none">
 					<defs>
 						<pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
 							<path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" />
 						</pattern>
 					</defs>
-					<rect width="100%" height="100%" fill="url(#grid)" className="text-cyan-400" />
+					<rect width="100%" height="100%" fill="url(#grid)" style={{ color: 'rgb(34, 211, 238)' }} />
 				</svg>
-			</div>
+			</Box>
 
 			{/* Subtle blue gradient overlay */}
-			<div className="absolute inset-0 bg-gradient-to-br from-[#020817] via-[#0a1628] to-[#020817]" />
+			<Box
+				sx={{
+					position: 'absolute',
+					inset: 0,
+					background: 'linear-gradient(135deg, #020817 0%, #0a1628 50%, #020817 100%)',
+				}}
+			/>
 
 			{/* Main Content */}
 			<motion.div
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.6 }}
-				className="max-w-md w-full space-y-8 relative z-10"
+				style={{ maxWidth: 448, width: '100%', position: 'relative', zIndex: 10 }}
 			>
 				{/* Glass Card */}
-				<div className={cn(
-					'relative rounded-2xl bg-[#0a1628]/50 backdrop-blur-sm',
-					'border border-cyan-500/30',
-					'shadow-lg shadow-cyan-500/10',
-					'p-8 sm:p-10'
-				)}>
-					{/* Glowing border effect */}
-					<div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/0 via-cyan-500/10 to-cyan-500/0 opacity-50" />
-
-					<div className="relative z-10 space-y-6">
+				<Paper
+					elevation={0}
+					sx={{
+						position: 'relative',
+						borderRadius: 4,
+						background: 'rgba(10, 22, 40, 0.5)',
+						backdropFilter: 'blur(8px)',
+						border: '1px solid rgba(6, 182, 212, 0.3)',
+						boxShadow: '0 8px 32px rgba(6, 182, 212, 0.1)',
+						p: { xs: 4, sm: 5 },
+						overflow: 'hidden',
+						'&::before': {
+							content: '""',
+							position: 'absolute',
+							inset: 0,
+							borderRadius: 4,
+							background: 'linear-gradient(90deg, rgba(6, 182, 212, 0) 0%, rgba(6, 182, 212, 0.1) 50%, rgba(6, 182, 212, 0) 100%)',
+							opacity: 0.5,
+						},
+					}}
+				>
+					<Box sx={{ position: 'relative', zIndex: 1 }}>
 						{/* Header */}
-						<div className="text-center">
-							<h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+						<Box sx={{ textAlign: 'center', mb: 3 }}>
+							<Typography
+								variant="h3"
+								sx={{
+									fontSize: { xs: '1.875rem', sm: '2.25rem' },
+									fontWeight: 700,
+									color: 'white',
+									mb: 1,
+								}}
+							>
 								{t('auth.signIn')}
-							</h1>
-							<p className="text-white/70">
+							</Typography>
+							<Typography
+								variant="body1"
+								sx={{
+									color: 'rgba(255, 255, 255, 0.7)',
+								}}
+							>
 								{t('auth.signInSubtitle')}
-							</p>
-						</div>
+							</Typography>
+						</Box>
 
 						{/* Error Message */}
 						{error && (
-							<Alert variant="destructive">
+							<Alert 
+								severity="error"
+								sx={{
+									mb: 2,
+									bgcolor: 'rgba(239, 68, 68, 0.1)',
+									border: '1px solid rgba(239, 68, 68, 0.3)',
+									color: 'rgb(248, 113, 113)',
+									'& .MuiAlert-icon': {
+										color: 'rgb(248, 113, 113)',
+									},
+								}}
+							>
 								{error}
 							</Alert>
 						)}
 
 						{/* Form */}
-						<form onSubmit={handleSubmit} className="space-y-5">
+						<Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
 							{/* Email Field */}
-							<div>
-								<label htmlFor="email" className="block text-sm font-medium text-white/90 mb-2">
+							<Box>
+								<Typography
+									component="label"
+									htmlFor="email"
+									sx={{
+										display: 'block',
+										fontSize: '0.875rem',
+										fontWeight: 500,
+										color: 'rgba(255, 255, 255, 0.9)',
+										mb: 1,
+									}}
+								>
 									{t('auth.email')}
-								</label>
-								<Input
+								</Typography>
+								<TextField
 									id="email"
 									type="email"
-									variant="glass-dark"
+									fullWidth
 									value={email}
 									onChange={(e) => setEmail(e.target.value)}
 									required
-									leftIcon={<Mail className="w-5 h-5" />}
 									placeholder="Enter your email"
+									InputProps={{
+										startAdornment: (
+											<InputAdornment position="start">
+												<Email sx={{ fontSize: 20, color: 'rgba(255, 255, 255, 0.5)' }} />
+											</InputAdornment>
+										),
+										sx: {
+											bgcolor: 'rgba(255, 255, 255, 0.05)',
+											borderRadius: 2,
+											'& .MuiOutlinedInput-notchedOutline': {
+												borderColor: 'rgba(255, 255, 255, 0.1)',
+											},
+											'&:hover .MuiOutlinedInput-notchedOutline': {
+												borderColor: 'rgba(255, 255, 255, 0.2)',
+											},
+											'&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+												borderColor: 'rgba(6, 182, 212, 0.5)',
+												borderWidth: 2,
+											},
+											'& input': {
+												color: 'white',
+												'&::placeholder': {
+													color: 'rgba(255, 255, 255, 0.4)',
+													opacity: 1,
+												},
+											},
+										},
+									}}
 								/>
-							</div>
+							</Box>
 
 							{/* Password Field */}
-							<div>
-								<label htmlFor="password" className="block text-sm font-medium text-white/90 mb-2">
+							<Box>
+								<Typography
+									component="label"
+									htmlFor="password"
+									sx={{
+										display: 'block',
+										fontSize: '0.875rem',
+										fontWeight: 500,
+										color: 'rgba(255, 255, 255, 0.9)',
+										mb: 1,
+									}}
+								>
 									{t('auth.password')}
-								</label>
-								<Input
+								</Typography>
+								<TextField
 									id="password"
 									type={showPassword ? 'text' : 'password'}
-									variant="glass-dark"
+									fullWidth
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
 									required
-									leftIcon={<Lock className="w-5 h-5" />}
-									rightIcon={
-										<button
-											type="button"
-											onClick={() => setShowPassword(!showPassword)}
-											className="text-cyan-400/70 hover:text-cyan-400 transition-colors"
-										>
-											{showPassword ? (
-												<EyeOff className="h-5 w-5" />
-											) : (
-												<Eye className="h-5 w-5" />
-											)}
-										</button>
-									}
 									placeholder="Enter your password"
+									InputProps={{
+										startAdornment: (
+											<InputAdornment position="start">
+												<Lock sx={{ fontSize: 20, color: 'rgba(255, 255, 255, 0.5)' }} />
+											</InputAdornment>
+										),
+										endAdornment: (
+											<InputAdornment position="end">
+												<IconButton
+													onClick={() => setShowPassword(!showPassword)}
+													edge="end"
+													sx={{
+														color: 'rgba(34, 211, 238, 0.7)',
+														'&:hover': {
+															color: 'rgb(34, 211, 238)',
+														},
+													}}
+												>
+													{showPassword ? (
+														<VisibilityOff sx={{ fontSize: 20 }} />
+													) : (
+														<Visibility sx={{ fontSize: 20 }} />
+													)}
+												</IconButton>
+											</InputAdornment>
+										),
+										sx: {
+											bgcolor: 'rgba(255, 255, 255, 0.05)',
+											borderRadius: 2,
+											'& .MuiOutlinedInput-notchedOutline': {
+												borderColor: 'rgba(255, 255, 255, 0.1)',
+											},
+											'&:hover .MuiOutlinedInput-notchedOutline': {
+												borderColor: 'rgba(255, 255, 255, 0.2)',
+											},
+											'&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+												borderColor: 'rgba(6, 182, 212, 0.5)',
+												borderWidth: 2,
+											},
+											'& input': {
+												color: 'white',
+												'&::placeholder': {
+													color: 'rgba(255, 255, 255, 0.4)',
+													opacity: 1,
+												},
+											},
+										},
+									}}
 								/>
-							</div>
+							</Box>
 
 							{/* Submit Button */}
-								<Button
-									type="submit"
-									disabled={isLoading}
-									size="lg"
-									className="w-full flex items-center justify-center gap-2 bg-brand-cyan text-white hover:bg-brand-cyan-dark"
-								>
+							<Button
+								type="submit"
+								disabled={isLoading}
+								variant="contained"
+								size="large"
+								endIcon={!isLoading && <ArrowForward />}
+								sx={{
+									width: '100%',
+									bgcolor: '#00bfff',
+									color: 'white',
+									fontWeight: 600,
+									py: 1.5,
+									fontSize: '1rem',
+									'&:hover': {
+										bgcolor: '#00a8e6',
+									},
+									'&:disabled': {
+										bgcolor: 'rgba(0, 191, 255, 0.5)',
+										color: 'rgba(255, 255, 255, 0.7)',
+									},
+								}}
+							>
 								{isLoading ? (
-									<>
-										<div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-										<span>{t('auth.signingIn')}</span>
-									</>
+									<Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+										<CircularProgress size={20} sx={{ color: 'white' }} />
+										<Typography component="span">{t('auth.signingIn')}</Typography>
+									</Box>
 								) : (
-									<>
-										<span>{t('auth.signIn')}</span>
-										<ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-									</>
+									<Typography component="span">{t('auth.signIn')}</Typography>
 								)}
 							</Button>
-						</form>
+						</Box>
 
 						{/* Sign Up Link */}
-						<div className="text-center pt-4">
-							<p className="text-sm text-white/70">
+						<Box sx={{ textAlign: 'center', pt: 2 }}>
+							<Typography variant="body2" sx={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)' }}>
 								{t('auth.dontHaveAccount')}{' '}
-								<button
+								<Typography
+									component="button"
 									onClick={() => router.push('/auth/signup')}
-									className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
+									sx={{
+										background: 'none',
+										border: 'none',
+										color: 'rgb(34, 211, 238)',
+										fontWeight: 500,
+										cursor: 'pointer',
+										transition: 'color 0.2s ease',
+										'&:hover': {
+											color: 'rgb(6, 182, 212)',
+										},
+									}}
 								>
 									{t('auth.signUp')}
-								</button>
-							</p>
-						</div>
-					</div>
-				</div>
+								</Typography>
+							</Typography>
+						</Box>
+					</Box>
+				</Paper>
 			</motion.div>
-		</div>
+		</Box>
 	);
 }
