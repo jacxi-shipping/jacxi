@@ -177,7 +177,14 @@ export default function DashboardPage() {
 				{/* Main Content */}
 				<Section className="bg-[#020817] py-6 sm:py-12 lg:py-16">
 					{/* Stats Grid */}
-					<div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8 mb-8 sm:mb-12 md:mb-16">
+					<Box
+						sx={{
+							display: 'grid',
+							gridTemplateColumns: { xs: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' },
+							gap: { xs: 1.5, sm: 3, md: 4 },
+							mb: { xs: 4, sm: 6, md: 8 },
+						}}
+					>
 						<StatsCard
 							icon={LocalShipping}
 							title="Active Shipments"
@@ -206,27 +213,64 @@ export default function DashboardPage() {
 							subtitle="Successfully completed"
 							delay={0.3}
 						/>
-					</div>
+					</Box>
 
 					{/* Content Grid */}
-					<div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
+					<Box
+						sx={{
+							display: 'grid',
+							gridTemplateColumns: { xs: '1fr', lg: 'repeat(3, 1fr)' },
+							gap: { xs: 3, sm: 4, md: 6 },
+						}}
+					>
 						{/* Recent Shipments - Takes 2 columns */}
-						<motion.div
+						<Box
+							component={motion.div}
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true }}
 							transition={{ duration: 0.6, delay: 0.4 }}
-							className="lg:col-span-2 space-y-4 sm:space-y-6"
+							sx={{
+								gridColumn: { xs: '1', lg: 'span 2' },
+								display: 'flex',
+								flexDirection: 'column',
+								gap: { xs: 2, sm: 3 },
+							}}
 						>
-							<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
-								<div className="flex-1 min-w-0">
-									<h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2 truncate">
+							<Box
+								sx={{
+									display: 'flex',
+									flexDirection: { xs: 'column', sm: 'row' },
+									alignItems: { xs: 'flex-start', sm: 'center' },
+									justifyContent: 'space-between',
+									gap: { xs: 1.5, sm: 2 },
+								}}
+							>
+								<Box sx={{ flex: 1, minWidth: 0 }}>
+									<Typography
+										variant="h5"
+										sx={{
+											fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.875rem' },
+											fontWeight: 700,
+											color: 'white',
+											mb: { xs: 0.5, sm: 1 },
+											overflow: 'hidden',
+											textOverflow: 'ellipsis',
+											whiteSpace: 'nowrap',
+										}}
+									>
 										Recent Shipments
-									</h2>
-									<p className="text-xs sm:text-sm md:text-base text-white/70">
+									</Typography>
+									<Typography
+										variant="body2"
+										sx={{
+											fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' },
+											color: 'rgba(255, 255, 255, 0.7)',
+										}}
+									>
 										Your latest activity
-									</p>
-								</div>
+									</Typography>
+								</Box>
 								{shipments.length > 0 && (
 									<Box sx={{ width: { xs: '100%', sm: 'auto' } }}>
 										<Link href="/dashboard/shipments" style={{ textDecoration: 'none' }}>
@@ -249,7 +293,7 @@ export default function DashboardPage() {
 										</Link>
 									</Box>
 								)}
-							</div>
+							</Box>
 
 							{loading ? (
 								<Box
@@ -322,7 +366,7 @@ export default function DashboardPage() {
 									</Link>
 								</Box>
 							) : (
-								<div className="space-y-4 sm:space-y-6">
+								<Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 2, sm: 3 } }}>
 									{recentShipments.map((shipment, index) => (
 										<ShipmentCard
 											key={shipment.id}
@@ -330,15 +374,19 @@ export default function DashboardPage() {
 											delay={0.5 + index * 0.1}
 										/>
 									))}
-								</div>
+								</Box>
 							)}
-						</motion.div>
+						</Box>
 
 						{/* Quick Actions - Takes 1 column */}
-						<div className="lg:col-span-1">
+						<Box
+							sx={{
+								gridColumn: { xs: '1', lg: 'span 1' },
+							}}
+						>
 							<QuickActions />
-						</div>
-					</div>
+						</Box>
+					</Box>
 				</Section>
 		</>
 	);
