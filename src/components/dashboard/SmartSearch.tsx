@@ -129,10 +129,10 @@ export default function SmartSearch({
     handleSearch(clearedFilters);
   };
 
-  const hasActiveFilters = Boolean(query) || activeFiltersCount > 0;
+	const hasActiveFilters = Boolean(query) || activeFiltersCount > 0;
 
-  return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+	return (
+		<Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.25 }}>
       {/* Search Bar */}
       <Box sx={{ position: 'relative' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
@@ -141,38 +141,38 @@ export default function SmartSearch({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={placeholder}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  {isSearching ? (
-                    <CircularProgress size={20} sx={{ color: 'rgb(34, 211, 238)' }} />
-                  ) : (
-                    <Search sx={{ fontSize: 20, color: 'rgba(255, 255, 255, 0.4)' }} />
-                  )}
-                </InputAdornment>
-              ),
-              sx: {
-                bgcolor: 'rgba(255, 255, 255, 0.05)',
-                borderRadius: 3,
-                '& .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'rgba(255, 255, 255, 0.1)',
-                },
-                '&:hover .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'rgba(255, 255, 255, 0.2)',
-                },
-                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'rgba(6, 182, 212, 0.5)',
-                  borderWidth: 2,
-                },
-                '& input': {
-                  color: 'white',
-                  '&::placeholder': {
-                    color: 'rgba(255, 255, 255, 0.4)',
-                    opacity: 1,
-                  },
-                },
-              },
-            }}
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position="start">
+										{isSearching ? (
+											<CircularProgress size={20} sx={{ color: 'rgb(34, 211, 238)' }} />
+										) : (
+											<Search sx={{ fontSize: 20, color: 'rgba(255, 255, 255, 0.4)' }} />
+										)}
+									</InputAdornment>
+								),
+								sx: {
+									bgcolor: 'rgba(255, 255, 255, 0.07)',
+									borderRadius: 999,
+									'& .MuiOutlinedInput-notchedOutline': {
+										borderColor: 'rgba(255, 255, 255, 0.12)',
+									},
+									'&:hover .MuiOutlinedInput-notchedOutline': {
+										borderColor: 'rgba(255, 255, 255, 0.2)',
+									},
+									'&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+										borderColor: 'rgba(6, 182, 212, 0.5)',
+										borderWidth: 2,
+									},
+									'& input': {
+										color: 'white',
+										'&::placeholder': {
+											color: 'rgba(255, 255, 255, 0.45)',
+											opacity: 1,
+										},
+									},
+								},
+							}}
           />
           <Box sx={{ position: 'absolute', right: 8, display: 'flex', alignItems: 'center', gap: 1 }}>
             {hasActiveFilters && (
@@ -262,16 +262,16 @@ export default function SmartSearch({
         )}
       </Box>
 
-      {/* Advanced Filters */}
-      <Collapse in={showFilters}>
-        <Box
-          sx={{
-            p: { xs: 2, sm: 3 },
-            bgcolor: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            borderRadius: 3,
-          }}
-        >
+        {/* Advanced Filters */}
+        <Collapse in={showFilters}>
+          <Box
+            sx={{
+              p: { xs: 1.5, sm: 2 },
+              bgcolor: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              borderRadius: 3,
+            }}
+          >
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
             <Typography
               variant="h6"

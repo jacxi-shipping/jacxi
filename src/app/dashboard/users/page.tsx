@@ -138,59 +138,32 @@ export default function UsersPage() {
 	}
 
 	return (
-		<>
-			{/* Header */}
-			<Section className="relative bg-[#020817] py-6 sm:py-12 lg:py-16 overflow-hidden">
-				{/* Background gradient */}
-				<div className="absolute inset-0 bg-gradient-to-br from-[#020817] via-[#0a1628] to-[#020817]" />
+		<Section>
+			<div className="flex min-h-0 flex-col gap-4">
+				<PageHeader
+					title="Users"
+					description="Manage all platform users"
+					actions={
+						<Link href="/dashboard/users/new" className="block">
+							<Button
+								size="lg"
+								className="group relative overflow-hidden bg-[#00bfff] text-white hover:bg-[#00a8e6] shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-all duration-300 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base md:text-lg font-semibold w-full sm:w-auto"
+							>
+								<UserPlus className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+								Create User
+							</Button>
+						</Link>
+					}
+					meta={[
+						{ label: 'Total', value: stats.total, hint: 'All accounts', tone: 'cyan' },
+						{ label: 'Admins', value: stats.admins, hint: 'Full access', tone: 'violet' },
+						{ label: 'Customers', value: stats.regularUsers, hint: 'User role', tone: 'emerald' },
+						{ label: 'Filtered', value: filteredUsers.length, hint: 'Current results', tone: 'neutral' },
+					]}
+				/>
 
-				{/* Subtle geometric grid pattern */}
-				<div className="absolute inset-0 opacity-[0.03]">
-					<svg className="w-full h-full" preserveAspectRatio="none">
-						<defs>
-							<pattern id="grid-users" width="40" height="40" patternUnits="userSpaceOnUse">
-								<path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" />
-							</pattern>
-						</defs>
-						<rect width="100%" height="100%" fill="url(#grid-users)" className="text-cyan-400" />
-					</svg>
-				</div>
-
-				<div className="relative z-10">
-					<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6">
-						<motion.div
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.6 }}
-							className="space-y-1 sm:space-y-2 max-w-full"
-						>
-							<h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white leading-tight break-words">Users</h1>
-							<p className="text-sm sm:text-lg md:text-xl text-white/70">Manage all platform users</p>
-						</motion.div>
-						<motion.div
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.6, delay: 0.2 }}
-							className="w-full sm:w-auto"
-						>
-							<Link href="/dashboard/users/new" className="block">
-								<Button
-									size="lg"
-									className="group relative overflow-hidden bg-[#00bfff] text-white hover:bg-[#00a8e6] shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-all duration-300 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base md:text-lg font-semibold w-full sm:w-auto"
-								>
-									<UserPlus className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-									Create User
-								</Button>
-							</Link>
-						</motion.div>
-					</div>
-				</div>
-			</Section>
-
-			{/* Main Content */}
-			<Section className="bg-[#020817] py-6 sm:py-12 lg:py-16">
-				{/* Stats Cards */}
-				<div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8 mb-6 sm:mb-8 md:mb-12">
+				<div className="dashboard-panel space-y-6">
+					<div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -424,8 +397,8 @@ export default function UsersPage() {
 						</div>
 					)}
 				</motion.div>
-			</Section>
-		</>
+			</div>
+		</Section>
 	);
 }
 

@@ -69,15 +69,14 @@ export default function QuickActions() {
 
 	return (
 		<Fade in={show} timeout={600}>
-			<Box>
-				<Box sx={{ mb: 1.5 }}>
+			<Box className="dashboard-panel dashboard-panel--tight">
+				<Box sx={{ mb: 1 }}>
 					<Typography
 						variant="h6"
 						sx={{
-							fontSize: '1rem',
-							fontWeight: 700,
+							fontSize: '0.95rem',
+							fontWeight: 600,
 							color: 'white',
-							mb: 0.25,
 						}}
 					>
 						Quick Actions
@@ -96,12 +95,8 @@ export default function QuickActions() {
 				<Box
 					sx={{
 						display: 'grid',
-						gridTemplateColumns: {
-							xs: '1fr',
-							sm: 'repeat(2, 1fr)',
-							lg: 'repeat(4, 1fr)',
-						},
-						gap: 1.5,
+						gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+						gap: 1,
 					}}
 				>
 					{actions.map((action, index) => (
@@ -136,17 +131,17 @@ function ActionCard({ icon: Icon, title, description, href, colorValues, delay }
 				<Card
 					sx={{
 						height: '100%',
-						background: 'linear-gradient(135deg, rgba(10, 22, 40, 0.8) 0%, rgba(10, 22, 40, 0.4) 100%)',
-						backdropFilter: 'blur(20px)',
+						background: 'rgba(3, 7, 18, 0.9)',
+						backdropFilter: 'blur(16px)',
 						border: `1px solid ${colorValues.border}`,
-						borderRadius: 2,
-						p: 1.5,
+						borderRadius: 2.5,
+						p: 1.25,
 						cursor: 'pointer',
 						transition: 'all 0.3s ease',
 						'&:hover': {
 							borderColor: colorValues.borderHover,
-							boxShadow: `0 8px 20px ${colorValues.glow}`,
-							transform: 'translateY(-2px)',
+							boxShadow: `0 12px 28px ${colorValues.glow}`,
+							transform: 'translateY(-3px)',
 							'& .icon-box': {
 								transform: 'scale(1.05)',
 							},
@@ -178,10 +173,10 @@ function ActionCard({ icon: Icon, title, description, href, colorValues, delay }
 							<Typography
 								variant="subtitle1"
 								sx={{
-									fontSize: '0.875rem',
+									fontSize: '0.82rem',
 									fontWeight: 600,
 									color: 'white',
-									mb: 0.25,
+									mb: 0.2,
 								}}
 							>
 								{title}
@@ -192,9 +187,9 @@ function ActionCard({ icon: Icon, title, description, href, colorValues, delay }
 							<Typography
 								variant="body2"
 								sx={{
-									fontSize: '0.6875rem',
-									color: 'rgba(255, 255, 255, 0.5)',
-									lineHeight: 1.4,
+									fontSize: '0.7rem',
+									color: 'rgba(255, 255, 255, 0.6)',
+									lineHeight: 1.3,
 								}}
 							>
 								{description}

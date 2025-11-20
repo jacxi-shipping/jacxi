@@ -10,6 +10,7 @@ import { Box, Typography, Button as MuiButton } from '@mui/material';
 
 import Section from '@/components/layout/Section';
 import { Button } from '@/components/ui/Button';
+import PageHeader from '@/components/dashboard/PageHeader';
 
 type DocumentCategory = {
 	id: string;
@@ -176,42 +177,37 @@ export default function DocumentsPage() {
 	}
 
 	return (
-		<>
-			<Section className="bg-[#020817] py-2 sm:py-3">
-				<Box sx={{ px: { xs: 2, sm: 3 } }}>
+		<Section>
+			<div className="flex min-h-0 flex-col gap-4">
+				<PageHeader
+					title="Documents"
+					description="Central library for templates, uploads, and compliance paperwork."
+					actions={
+						<div className="flex flex-wrap gap-2">
+							<Button className="bg-[#00bfff] hover:bg-[#00a8e6] text-white">
+								<Download className="w-4 h-4 mr-2" />
+								Download templates
+							</Button>
+							<Button variant="outline" className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10">
+								<Upload className="w-4 h-4 mr-2" />
+								Upload document
+							</Button>
+						</div>
+					}
+					meta={[
+						{ label: 'Categories', value: categories.length, hint: 'Library sections', tone: 'cyan' },
+						{ label: 'Required', value: pendingDocumentsCount, hint: 'Needs attention', tone: 'amber' },
+						{ label: 'Storage', value: '3.1 GB', hint: 'Used space', tone: 'violet' },
+						{ label: 'Templates', value: categories[0]?.documents.length ?? 0, hint: 'Company docs', tone: 'neutral' },
+					]}
+				/>
 
-					<motion.div
-						initial={{ opacity: 0, y: 16 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.5, delay: 0.15 }}
-						className="grid grid-cols-1 md:grid-cols-3 gap-4"
-					>
-						<div className="rounded-xl border border-cyan-500/30 bg-[#0a1628]/70 backdrop-blur-md p-5 shadow-lg shadow-cyan-500/10">
-							<p className="text-sm text-white/60">Active Categories</p>
-							<p className="text-3xl font-semibold text-white mt-1">{categories.length}</p>
-							<p className="text-xs text-white/40 mt-2">Templates, uploads, compliance.</p>
-						</div>
-						<div className="rounded-xl border border-blue-500/30 bg-[#0a1628]/70 backdrop-blur-md p-5 shadow-lg shadow-blue-500/10">
-							<p className="text-sm text-white/60">Required Documents</p>
-							<p className="text-3xl font-semibold text-white mt-1">{pendingDocumentsCount}</p>
-							<p className="text-xs text-white/40 mt-2">Ensure these remain up to date.</p>
-						</div>
-						<div className="rounded-xl border border-purple-500/30 bg-[#0a1628]/70 backdrop-blur-md p-5 shadow-lg shadow-purple-500/10">
-							<p className="text-sm text-white/60">Storage Usage</p>
-							<p className="text-3xl font-semibold text-white mt-1">3.1 GB</p>
-							<p className="text-xs text-white/40 mt-2">Includes uploaded manifests and certificates.</p>
-						</div>
-					</motion.div>
-				</Box>
-			</Section>
-
-			<Section className="bg-[#020817] py-4 sm:py-6">
-				<div className="max-w-6xl mx-auto space-y-10">
+				<div className="space-y-10">
 					<motion.div
 						initial={{ opacity: 0, y: 16 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.2 }}
-						className="relative rounded-xl border border-cyan-500/30 bg-[#0a1628]/70 backdrop-blur-md p-6 shadow-lg shadow-cyan-500/10"
+						className="dashboard-panel space-y-4"
 					>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 							<div className="relative">
@@ -328,8 +324,8 @@ export default function DocumentsPage() {
 						})
 					)}
 				</div>
-			</Section>
-		</>
+			</div>
+		</Section>
 	);
 }
 

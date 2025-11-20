@@ -1021,3 +1021,43 @@ html {
 .text-pretty {
   text-wrap: pretty;
 }
+
+/* Dashboard Utilities */
+.dashboard-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.4) transparent;
+}
+
+.dashboard-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dashboard-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dashboard-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.5), rgba(147, 197, 253, 0.45));
+  border-radius: 999px;
+}
+
+.dashboard-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.9), rgba(59, 130, 246, 0.8));
+}
+
+.dashboard-panel {
+  border-radius: 28px;
+  background: rgba(6, 12, 24, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  padding: clamp(1rem, 2vw, 1.75rem);
+  box-shadow:
+    0 25px 80px rgba(2, 6, 23, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.dashboard-panel--tight {
+  padding: clamp(0.75rem, 1.5vw, 1.25rem);
+}

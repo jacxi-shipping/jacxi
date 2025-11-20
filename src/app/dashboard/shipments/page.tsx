@@ -1,13 +1,14 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { Add, ChevronLeft, ChevronRight, Inventory2 } from '@mui/icons-material';
 import { Button, Box, CircularProgress, Typography } from '@mui/material';
 import ShipmentRow from '@/components/dashboard/ShipmentRow';
 import Section from '@/components/layout/Section';
 import SmartSearch, { SearchFilters } from '@/components/dashboard/SmartSearch';
+import PageHeader from '@/components/dashboard/PageHeader';
 
 interface Shipment {
 	id: string;
@@ -79,197 +80,117 @@ export default function ShipmentsListPage() {
 
 	const isAdmin = session?.user?.role === 'admin';
 
+	const summarized = useMemo(() => {
+		const active = shipments.filter((shipment) => shipment.status !== 'DELIVERED').length;
+		const delivered = shipments.filter((shipment) => shipment.status === 'DELIVERED').length;
+		return { active, delivered, total: shipments.length };
+	}, [shipments]);
+
 	return (
-		<>
-			{/* Main Content */}
-			<Section className="bg-[#020817] py-2 sm:py-3">
-				{/* Smart Search & Filters */}
-				<div className="mb-3 sm:mb-4">
+		<Section>
+			<div className="flex min-h-0 flex-col gap-4">
+				<PageHeader
+					title="Shipments"
+					description="Search, filter, and action every container and vehicle movement without leaving this screen."
+					actions={
+						<Link href="/dashboard/shipments/new" style={{ textDecoration: 'none' }}>
+							<Button variant="contained" startIcon={<Add />} sx={{ borderRadius: 999 }}>
+								New shipment
+							</Button>
+						</Link>
+					}
+					meta={[
+						{ label: 'Visible', value: summarized.total, hint: 'Current page', tone: 'neutral' },
+						{ label: 'Active', value: summarized.active, hint: 'Not delivered', tone: 'cyan' },
+						{ label: 'Delivered', value: summarized.delivered, hint: 'Closed jobs', tone: 'emerald' },
+						{ label: 'Page', value: `${currentPage}/${totalPages}`, hint: 'Pagination', tone: 'amber' },
+					]}
+				/>
+
+				<Box className="dashboard-panel flex min-h-0 flex-col gap-3">
 					<SmartSearch
 						onSearch={handleSearch}
 						placeholder="Search shipments by tracking number, VIN, origin, destination..."
 						showTypeFilter={false}
-						showStatusFilter={true}
-						showDateFilter={true}
-						showPriceFilter={true}
+						showStatusFilter
+						showDateFilter
+						showPriceFilter
 						showUserFilter={isAdmin}
 						defaultType="shipments"
 					/>
-				</div>
 
-				{/* Shipments List */}
-				{loading ? (
-					<Box
-						sx={{
-							position: 'relative',
-							borderRadius: { xs: 2, sm: 3 },
-							background: 'rgba(10, 22, 40, 0.5)',
-							backdropFilter: 'blur(8px)',
-							border: '1px solid rgba(6, 182, 212, 0.3)',
-							p: { xs: 4, sm: 6 },
-							textAlign: 'center',
-						}}
-					>
-						<CircularProgress
-							size={48}
-							sx={{
-								color: 'rgb(34, 211, 238)',
-							}}
-						/>
-						<Typography
-							sx={{
-								mt: 2,
-								fontSize: { xs: '0.875rem', sm: '1rem' },
-								color: 'rgba(255, 255, 255, 0.7)',
-							}}
-						>
-							Loading shipments...
-						</Typography>
-					</Box>
-				) : shipments.length === 0 ? (
-					<Box
-						sx={{
-							position: 'relative',
-							borderRadius: { xs: 2, sm: 3 },
-							background: 'rgba(10, 22, 40, 0.5)',
-							backdropFilter: 'blur(8px)',
-							border: '1px solid rgba(6, 182, 212, 0.3)',
-							p: { xs: 4, sm: 6 },
-							textAlign: 'center',
-						}}
-					>
-						<Inventory2
-							sx={{
-								fontSize: { xs: 48, sm: 64 },
-								color: 'rgba(255, 255, 255, 0.3)',
-								mb: 2,
-							}}
-						/>
-						<Typography
-							sx={{
-								fontSize: { xs: '0.875rem', sm: '1rem' },
-								color: 'rgba(255, 255, 255, 0.7)',
-								mb: { xs: 2, sm: 3 },
-							}}
-						>
-							No shipments found
-						</Typography>
-						<Link href="/dashboard/shipments/new" style={{ textDecoration: 'none' }}>
-							<Button
-								variant="contained"
-								startIcon={<Add />}
-								sx={{
-									fontSize: { xs: '0.875rem', sm: '1rem' },
-									bgcolor: '#00bfff',
-									color: 'white',
-									'&:hover': {
-										bgcolor: '#00a8e6',
-									},
-								}}
-							>
-								Create Your First Shipment
-							</Button>
-						</Link>
-					</Box>
-				) : (
-					<>
-						{/* Results Count */}
-						<div className="mb-4 sm:mb-6">
-							<p className="text-xs sm:text-sm md:text-base text-white/70">
-								Showing <span className="text-cyan-400 font-semibold">{shipments.length}</span> shipment{shipments.length !== 1 ? 's' : ''}
-							</p>
-						</div>
+					{loading ? (
+						<Box sx={{ minHeight: 280, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+							<CircularProgress size={48} sx={{ color: 'rgb(34,211,238)' }} />
+						</Box>
+					) : shipments.length === 0 ? (
+						<Box sx={{ textAlign: 'center', py: 6 }}>
+							<Inventory2 sx={{ fontSize: 56, color: 'rgba(255,255,255,0.25)', mb: 1.5 }} />
+							<Typography sx={{ color: 'rgba(255,255,255,0.7)', mb: 2 }}>No shipments found</Typography>
+							<Link href="/dashboard/shipments/new" style={{ textDecoration: 'none' }}>
+								<Button variant="contained" startIcon={<Add />}>
+									Create shipment
+								</Button>
+							</Link>
+						</Box>
+					) : (
+						<>
+							<Typography sx={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)' }}>
+								Showing {shipments.length} shipment{shipments.length === 1 ? '' : 's'}
+							</Typography>
+							<Box className="dashboard-scroll flex-1 min-h-0 space-y-2" sx={{ maxHeight: 'calc(100vh - 420px)' }}>
+								{shipments.map((shipment, index) => (
+									<ShipmentRow
+										key={shipment.id}
+										{...shipment}
+										showCustomer={isAdmin}
+										isAdmin={isAdmin}
+										onStatusUpdated={fetchShipments}
+										delay={index * 0.05}
+									/>
+								))}
+							</Box>
 
-						{/* Shipments Grid */}
-						<div className="space-y-3 sm:space-y-4 md:space-y-6">
-							{shipments.map((shipment, index) => (
-								<ShipmentRow
-									key={shipment.id}
-									{...shipment}
-									showCustomer={isAdmin}
-									isAdmin={isAdmin}
-									onStatusUpdated={fetchShipments}
-									delay={index * 0.1}
-								/>
-							))}
-						</div>
-
-					{/* Pagination */}
-					{totalPages > 1 && (
-						<Box
+							{totalPages > 1 && (
+								<Box
 									sx={{
-										mt: { xs: 3, sm: 4 },
+										pt: 2,
 										display: 'flex',
 										flexDirection: { xs: 'column', sm: 'row' },
 										justifyContent: 'center',
 										alignItems: 'center',
-										gap: { xs: 1.5, sm: 2 },
+										gap: 1,
 									}}
 								>
 									<Button
 										variant="outlined"
 										size="small"
-										startIcon={<ChevronLeft sx={{ fontSize: { xs: 12, sm: 16 } }} />}
+										startIcon={<ChevronLeft sx={{ fontSize: 16 }} />}
 										onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
 										disabled={currentPage === 1}
-										sx={{
-											fontSize: { xs: '0.75rem', sm: '0.875rem' },
-											borderColor: 'rgba(6, 182, 212, 0.3)',
-											color: 'rgb(34, 211, 238)',
-											width: { xs: '100%', sm: 'auto' },
-											'&:hover': {
-												bgcolor: 'rgba(6, 182, 212, 0.1)',
-												borderColor: 'rgba(6, 182, 212, 0.5)',
-											},
-											'&:disabled': {
-												opacity: 0.5,
-												cursor: 'not-allowed',
-												borderColor: 'rgba(6, 182, 212, 0.2)',
-												color: 'rgba(34, 211, 238, 0.5)',
-											},
-										}}
+										sx={{ borderRadius: 999 }}
 									>
 										Previous
 									</Button>
-									<Typography
-										sx={{
-											fontSize: { xs: '0.75rem', sm: '0.875rem' },
-											color: 'rgba(255, 255, 255, 0.7)',
-											px: 2,
-										}}
-									>
+									<Typography sx={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)' }}>
 										Page {currentPage} of {totalPages}
 									</Typography>
 									<Button
 										variant="outlined"
 										size="small"
-										endIcon={<ChevronRight sx={{ fontSize: { xs: 12, sm: 16 } }} />}
+										endIcon={<ChevronRight sx={{ fontSize: 16 }} />}
 										onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
 										disabled={currentPage === totalPages}
-										sx={{
-											fontSize: { xs: '0.75rem', sm: '0.875rem' },
-											borderColor: 'rgba(6, 182, 212, 0.3)',
-											color: 'rgb(34, 211, 238)',
-											width: { xs: '100%', sm: 'auto' },
-											'&:hover': {
-												bgcolor: 'rgba(6, 182, 212, 0.1)',
-												borderColor: 'rgba(6, 182, 212, 0.5)',
-											},
-											'&:disabled': {
-												opacity: 0.5,
-												cursor: 'not-allowed',
-												borderColor: 'rgba(6, 182, 212, 0.2)',
-												color: 'rgba(34, 211, 238, 0.5)',
-											},
-										}}
+										sx={{ borderRadius: 999 }}
 									>
 										Next
 									</Button>
 								</Box>
-						)}
-					</>
-				)}
-			</Section>
-		</>
+							)}
+						</>
+					)}
+				</Box>
+			</div>
+		</Section>
 	);
 }
