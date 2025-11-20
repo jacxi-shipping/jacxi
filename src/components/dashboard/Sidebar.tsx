@@ -202,12 +202,11 @@ export default function Sidebar() {
 
 type NavItemProps = {
 	item: NavigationItem;
-	index: number;
 	isActive: (href: string) => boolean;
 	onNavClick?: () => void;
 };
 
-function NavItem({ item, index, isActive, onNavClick }: NavItemProps) {
+function NavItem({ item, isActive, onNavClick }: NavItemProps) {
 	const Icon = item.icon;
 	const active = isActive(item.href);
 
@@ -266,13 +265,12 @@ function NavItem({ item, index, isActive, onNavClick }: NavItemProps) {
 type NavSectionProps = {
 	title?: string;
 	items: NavigationItem[];
-	baseIndex?: number;
 	isAdmin: boolean;
 	isActive: (href: string) => boolean;
 	onNavClick?: () => void;
 };
 
-function NavSection({ title, items, baseIndex = 0, isAdmin, isActive, onNavClick }: NavSectionProps) {
+function NavSection({ title, items, isAdmin, isActive, onNavClick }: NavSectionProps) {
 	return (
 		<Box sx={{ mb: 2 }}>
 			{title && (
@@ -294,9 +292,9 @@ function NavSection({ title, items, baseIndex = 0, isAdmin, isActive, onNavClick
 			<List sx={{ py: 0.5 }}>
 				{items
 					.filter((item) => !item.adminOnly || isAdmin)
-					.map((item, index) => (
-						<NavItem key={item.name} item={item} index={baseIndex + index} isActive={isActive} onNavClick={onNavClick} />
-					))}
+				.map((item) => (
+					<NavItem key={item.name} item={item} isActive={isActive} onNavClick={onNavClick} />
+				))}
 			</List>
 		</Box>
 	);
@@ -417,18 +415,18 @@ function SidebarContent({
 				}}
 			>
 				{/* Main */}
-				<NavSection items={mainNavigation} baseIndex={0} isAdmin={isAdmin} isActive={isActive} onNavClick={onNavClick} />
+				<NavSection items={mainNavigation} isAdmin={isAdmin} isActive={isActive} onNavClick={onNavClick} />
 
 				{/* Shipments */}
-				<NavSection title="Shipments" items={shipmentNavigation} baseIndex={1} isAdmin={isAdmin} isActive={isActive} onNavClick={onNavClick} />
+				<NavSection title="Shipments" items={shipmentNavigation} isAdmin={isAdmin} isActive={isActive} onNavClick={onNavClick} />
 
 				{/* Admin Section */}
 				{isAdmin && (
-					<NavSection title="Administration" items={adminNavigation} baseIndex={3} isAdmin={isAdmin} isActive={isActive} onNavClick={onNavClick} />
+					<NavSection title="Administration" items={adminNavigation} isAdmin={isAdmin} isActive={isActive} onNavClick={onNavClick} />
 				)}
 
 				{/* Other */}
-				<NavSection items={otherNavigation} baseIndex={isAdmin ? 6 : 3} isAdmin={isAdmin} isActive={isActive} onNavClick={onNavClick} />
+				<NavSection items={otherNavigation} isAdmin={isAdmin} isActive={isActive} onNavClick={onNavClick} />
 
 				{/* Settings */}
 				<Box sx={{ pt: 2 }}>
@@ -440,7 +438,7 @@ function SidebarContent({
 							height: 1,
 						}}
 					/>
-					<NavSection items={settingsNavigation} baseIndex={isAdmin ? 9 : 6} isAdmin={isAdmin} isActive={isActive} onNavClick={onNavClick} />
+					<NavSection items={settingsNavigation} isAdmin={isAdmin} isActive={isActive} onNavClick={onNavClick} />
 				</Box>
 			</Box>
 

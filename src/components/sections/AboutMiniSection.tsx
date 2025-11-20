@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Building2 } from 'lucide-react';
 
@@ -15,12 +16,14 @@ export default function AboutMiniSection() {
 						viewport={{ once: true }}
 						className="relative"
 					>
-						<div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
+						<div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative">
 							{/* Car Shipping Photo */}
-							<img
+							<Image
 								src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop"
 								alt="JACXI Vehicle Shipping Services"
-								className="w-full h-full object-cover"
+								fill
+								className="object-cover"
+								priority
 							/>
 							{/* Overlay Badge */}
 							<div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
