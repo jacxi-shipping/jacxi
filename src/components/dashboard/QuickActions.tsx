@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Add, Search, Inventory2, Description } from '@mui/icons-material';
 import { Box, Card, CardContent, Typography, SvgIcon, Fade } from '@mui/material';
 import { useState, useEffect } from 'react';
+import type { SvgIconComponent } from '@mui/icons-material';
 
 const actions = [
 	{
@@ -61,11 +62,7 @@ const actions = [
 ];
 
 export default function QuickActions() {
-	const [isVisible, setIsVisible] = useState(false);
-
-	useEffect(() => {
-		setIsVisible(true);
-	}, []);
+	const [isVisible] = useState(true);
 
 	return (
 		<Fade in={isVisible} timeout={600}>
@@ -123,7 +120,17 @@ export default function QuickActions() {
 	);
 }
 
-function ActionCard({ action, index, Icon, border, borderHover, text, bgHover }: any) {
+interface ActionCardProps {
+	action: typeof actions[number];
+	index: number;
+	Icon: SvgIconComponent;
+	border: string;
+	borderHover: string;
+	text: string;
+	bgHover: string;
+}
+
+function ActionCard({ action, index, Icon, border, borderHover, text, bgHover }: ActionCardProps) {
 	const [isVisible, setIsVisible] = useState(false);
 
 	useEffect(() => {
