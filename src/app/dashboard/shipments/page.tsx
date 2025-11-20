@@ -46,7 +46,7 @@ export default function ShipmentsListPage() {
 			// Build query params from search filters
 			const params = new URLSearchParams();
 			params.append('page', currentPage.toString());
-			params.append('limit', '10');
+			params.append('limit', '6');
 			
 			if (searchFilters.query) params.append('query', searchFilters.query);
 			if (searchFilters.status) params.append('status', searchFilters.status);
@@ -82,9 +82,9 @@ export default function ShipmentsListPage() {
 	return (
 		<>
 			{/* Main Content */}
-			<Section className="bg-[#020817] py-2 sm:py-3">
+			<Section className="bg-[#020817]">
 				{/* Smart Search & Filters */}
-				<div className="mb-3 sm:mb-4">
+				<div className="mb-2 sm:mb-3">
 					<SmartSearch
 						onSearch={handleSearch}
 						placeholder="Search shipments by tracking number, VIN, origin, destination..."
@@ -106,7 +106,7 @@ export default function ShipmentsListPage() {
 							background: 'rgba(10, 22, 40, 0.5)',
 							backdropFilter: 'blur(8px)',
 							border: '1px solid rgba(6, 182, 212, 0.3)',
-							p: { xs: 4, sm: 6 },
+							p: { xs: 3, sm: 4 },
 							textAlign: 'center',
 						}}
 					>
@@ -134,7 +134,7 @@ export default function ShipmentsListPage() {
 							background: 'rgba(10, 22, 40, 0.5)',
 							backdropFilter: 'blur(8px)',
 							border: '1px solid rgba(6, 182, 212, 0.3)',
-							p: { xs: 4, sm: 6 },
+							p: { xs: 3, sm: 4 },
 							textAlign: 'center',
 						}}
 					>
@@ -174,14 +174,14 @@ export default function ShipmentsListPage() {
 				) : (
 					<>
 						{/* Results Count */}
-						<div className="mb-4 sm:mb-6">
+						<div className="mb-2.5 sm:mb-4">
 							<p className="text-xs sm:text-sm md:text-base text-white/70">
 								Showing <span className="text-cyan-400 font-semibold">{shipments.length}</span> shipment{shipments.length !== 1 ? 's' : ''}
 							</p>
 						</div>
 
 						{/* Shipments Grid */}
-						<div className="space-y-3 sm:space-y-4 md:space-y-6">
+						<div className="space-y-2 sm:space-y-2.5 md:space-y-3">
 							{shipments.map((shipment, index) => (
 								<ShipmentRow
 									key={shipment.id}
@@ -198,7 +198,7 @@ export default function ShipmentsListPage() {
 					{totalPages > 1 && (
 						<Box
 									sx={{
-										mt: { xs: 3, sm: 4 },
+										mt: { xs: 2.5, sm: 3 },
 										display: 'flex',
 										flexDirection: { xs: 'column', sm: 'row' },
 										justifyContent: 'center',

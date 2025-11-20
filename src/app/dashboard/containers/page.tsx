@@ -112,10 +112,10 @@ export default function ContainersPage() {
 	return (
 		<>
 			{/* Main Content */}
-			<Section className="bg-[#020817] py-2 sm:py-3">
+			<Section className="bg-[#020817]">
 				{/* Smart Search */}
 				<Slide in={show} direction="up" timeout={800} style={{ transitionDelay: '300ms' }}>
-					<Box sx={{ mb: { xs: 4, sm: 6 } }}>
+					<Box sx={{ mb: { xs: 2.5, sm: 3.5 } }}>
 						<SmartSearch
 							onSearch={handleSearch}
 							placeholder="Search containers by number or tracking number..."
@@ -132,11 +132,11 @@ export default function ContainersPage() {
 				{/* Containers List */}
 				<Fade in={show} timeout={1000} style={{ transitionDelay: '400ms' }}>
 					<Box>
-						<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: { xs: 3, sm: 4 } }}>
+					<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: { xs: 2, sm: 3 } }}>
 							<Typography
 								variant="h2"
 								sx={{
-									fontSize: { xs: '1.25rem', sm: '1.75rem', md: '2rem' },
+								fontSize: { xs: '1.05rem', sm: '1.35rem', md: '1.5rem' },
 									fontWeight: 700,
 									color: 'white',
 								}}
@@ -149,11 +149,11 @@ export default function ContainersPage() {
 							<Zoom in timeout={800}>
 								<Box
 									sx={{
-										borderRadius: { xs: 3, sm: 4 },
+										borderRadius: { xs: 2, sm: 3 },
 										background: 'linear-gradient(135deg, rgba(10, 22, 40, 0.8) 0%, rgba(10, 22, 40, 0.4) 100%)',
 										backdropFilter: 'blur(20px)',
 										border: '1px solid rgba(6, 182, 212, 0.2)',
-										p: { xs: 6, sm: 10 },
+										p: { xs: 3, sm: 5 },
 										textAlign: 'center',
 									}}
 								>
@@ -201,7 +201,7 @@ export default function ContainersPage() {
 								sx={{
 									display: 'grid',
 									gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' },
-									gap: { xs: 3, sm: 4, md: 5 },
+									gap: { xs: 1.5, sm: 2, md: 2.5 },
 								}}
 							>
 								{filteredContainers.map((container, index) => (
@@ -209,11 +209,11 @@ export default function ContainersPage() {
 										<Box
 											sx={{
 												position: 'relative',
-												borderRadius: { xs: 3, sm: 4 },
+												borderRadius: 2,
 												background: 'linear-gradient(135deg, rgba(10, 22, 40, 0.9) 0%, rgba(10, 22, 40, 0.6) 100%)',
 												backdropFilter: 'blur(20px)',
 												border: '1px solid rgba(6, 182, 212, 0.2)',
-												p: { xs: 3, sm: 4 },
+												p: 1.75,
 												transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
 												'&:hover': {
 													borderColor: 'rgba(6, 182, 212, 0.5)',
@@ -222,12 +222,12 @@ export default function ContainersPage() {
 												},
 											}}
 										>
-											<Box sx={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between', mb: 3, gap: 2 }}>
+											<Box sx={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between', mb: 1.5, gap: 1.5 }}>
 												<Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1, minWidth: 0 }}>
 													<Box
 														sx={{
-															width: 48,
-															height: 48,
+															width: 40,
+															height: 40,
 															borderRadius: 3,
 															background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(6, 182, 212, 0.1) 100%)',
 															border: '1px solid rgba(6, 182, 212, 0.3)',
@@ -242,7 +242,7 @@ export default function ContainersPage() {
 													<Box sx={{ flex: 1, minWidth: 0 }}>
 														<Typography
 															sx={{
-																fontSize: { xs: '1rem', sm: '1.125rem' },
+																fontSize: '0.9rem',
 																fontWeight: 700,
 																color: 'white',
 																overflow: 'hidden',
@@ -254,7 +254,7 @@ export default function ContainersPage() {
 														</Typography>
 														<Typography
 															sx={{
-																fontSize: { xs: '0.75rem', sm: '0.8125rem' },
+																fontSize: '0.72rem',
 																color: 'rgba(255, 255, 255, 0.6)',
 															}}
 														>
@@ -266,11 +266,11 @@ export default function ContainersPage() {
 													label={container.status}
 													size="small"
 													sx={{
-														fontSize: '0.6875rem',
+														fontSize: '0.65rem',
 														fontWeight: 600,
 														height: 'auto',
-														py: 0.75,
-														px: 1.5,
+														py: 0.4,
+														px: 1.25,
 														bgcolor: container.status === 'ACTIVE' ? 'rgba(34, 197, 94, 0.15)' : 'rgba(107, 114, 128, 0.15)',
 														color: container.status === 'ACTIVE' ? 'rgb(74, 222, 128)' : 'rgb(156, 163, 175)',
 														border: `1px solid ${container.status === 'ACTIVE' ? 'rgba(34, 197, 94, 0.4)' : 'rgba(107, 114, 128, 0.4)'}`,
@@ -282,9 +282,9 @@ export default function ContainersPage() {
 											{container.shipment && container.shipment.trackingNumber && (
 												<Box
 													sx={{
-														mb: 3,
-														p: 2.5,
-														borderRadius: 2.5,
+														mb: 1.5,
+														p: 1.5,
+														borderRadius: 2,
 														background: 'rgba(6, 182, 212, 0.05)',
 														border: '1px solid rgba(6, 182, 212, 0.2)',
 													}}
@@ -307,14 +307,14 @@ export default function ContainersPage() {
 												</Box>
 											)}
 
-											<Box
+												<Box
 												sx={{
 													display: 'flex',
 													alignItems: 'center',
 													justifyContent: 'space-between',
-													pt: 3,
+														pt: 1.5,
 													borderTop: '1px solid rgba(6, 182, 212, 0.1)',
-													gap: 2,
+														gap: 1.5,
 												}}
 											>
 												<Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flex: 1, minWidth: 0 }}>

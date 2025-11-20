@@ -132,7 +132,7 @@ export default function SmartSearch({
   const hasActiveFilters = Boolean(query) || activeFiltersCount > 0;
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.25 }}>
       {/* Search Bar */}
       <Box sx={{ position: 'relative' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
@@ -174,39 +174,41 @@ export default function SmartSearch({
               },
             }}
           />
-          <Box sx={{ position: 'absolute', right: 8, display: 'flex', alignItems: 'center', gap: 1 }}>
-            {hasActiveFilters && (
+            <Box sx={{ position: 'absolute', right: 8, display: 'flex', alignItems: 'center', gap: 0.75 }}>
+              {hasActiveFilters && (
+                <Button
+                  size="small"
+                  startIcon={<Close sx={{ fontSize: 16 }} />}
+                  onClick={clearFilters}
+                  sx={{
+                    fontSize: '0.75rem',
+                    color: 'rgba(255, 255, 255, 0.6)',
+                    '&:hover': {
+                      color: 'white',
+                      bgcolor: 'rgba(255, 255, 255, 0.08)',
+                    },
+                  }}
+                >
+                  Clear
+                </Button>
+              )}
               <Button
                 size="small"
-                startIcon={<Close sx={{ fontSize: 16 }} />}
-                onClick={clearFilters}
+                variant={showFilters ? 'contained' : 'outlined'}
+                startIcon={<FilterAlt sx={{ fontSize: 16 }} />}
+                endIcon={showFilters ? <ExpandLess sx={{ fontSize: 16 }} /> : <ExpandMore sx={{ fontSize: 16 }} />}
+                onClick={() => setShowFilters(!showFilters)}
                 sx={{
-                  color: 'rgba(255, 255, 255, 0.6)',
+                  fontSize: '0.75rem',
+                  borderColor: showFilters ? 'rgba(6, 182, 212, 0.4)' : 'rgba(255, 255, 255, 0.16)',
+                  bgcolor: showFilters ? 'rgba(6, 182, 212, 0.18)' : 'transparent',
+                  color: 'rgba(255, 255, 255, 0.85)',
                   '&:hover': {
-                    color: 'white',
-                    bgcolor: 'rgba(255, 255, 255, 0.1)',
+                    bgcolor: showFilters ? 'rgba(6, 182, 212, 0.28)' : 'rgba(255, 255, 255, 0.08)',
+                    borderColor: showFilters ? 'rgba(6, 182, 212, 0.55)' : 'rgba(255, 255, 255, 0.28)',
                   },
                 }}
               >
-                Clear
-              </Button>
-            )}
-            <Button
-              size="small"
-              variant={showFilters ? 'contained' : 'outlined'}
-              startIcon={<FilterAlt sx={{ fontSize: 16 }} />}
-              endIcon={showFilters ? <ExpandLess sx={{ fontSize: 16 }} /> : <ExpandMore sx={{ fontSize: 16 }} />}
-              onClick={() => setShowFilters(!showFilters)}
-              sx={{
-                borderColor: showFilters ? 'rgba(6, 182, 212, 0.4)' : 'rgba(255, 255, 255, 0.2)',
-                bgcolor: showFilters ? 'rgba(6, 182, 212, 0.2)' : 'transparent',
-                color: 'white',
-                '&:hover': {
-                  bgcolor: showFilters ? 'rgba(6, 182, 212, 0.3)' : 'rgba(255, 255, 255, 0.1)',
-                  borderColor: showFilters ? 'rgba(6, 182, 212, 0.6)' : 'rgba(255, 255, 255, 0.3)',
-                },
-              }}
-            >
               Filters
               {activeFiltersCount > 0 && (
                 <Chip
@@ -227,37 +229,37 @@ export default function SmartSearch({
 
         {/* Quick Type Filter */}
         {showTypeFilter && (
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1.5 }}>
-            <Typography variant="body2" sx={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.6)' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8, mt: 1 }}>
+            <Typography variant="body2" sx={{ fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.55)' }}>
               Search in:
             </Typography>
-            {[
-              { value: 'all', label: 'All', icon: Search },
-              { value: 'shipments', label: 'Shipments', icon: LocalShipping },
-              { value: 'items', label: 'Items', icon: Inventory2 },
-              ...(showUserFilter ? [{ value: 'users', label: 'Users', icon: Person }] : []),
-            ].map(({ value, label, icon: Icon }) => (
-              <Button
-                key={value}
-                size="small"
-                variant={filters.type === value ? 'contained' : 'outlined'}
-                startIcon={<Icon sx={{ fontSize: 16 }} />}
-                onClick={() => updateFilter('type', value as 'all' | 'shipments' | 'items' | 'users')}
-                sx={{
-                  fontSize: '0.875rem',
-                  fontWeight: 500,
-                  borderColor: filters.type === value ? 'rgba(6, 182, 212, 0.4)' : 'rgba(255, 255, 255, 0.1)',
-                  bgcolor: filters.type === value ? 'rgba(6, 182, 212, 0.2)' : 'rgba(255, 255, 255, 0.05)',
-                  color: filters.type === value ? 'rgb(34, 211, 238)' : 'rgba(255, 255, 255, 0.6)',
-                  '&:hover': {
-                    bgcolor: filters.type === value ? 'rgba(6, 182, 212, 0.3)' : 'rgba(255, 255, 255, 0.1)',
-                    color: 'white',
-                  },
-                }}
-              >
-                {label}
-              </Button>
-            ))}
+              {[
+                { value: 'all', label: 'All', icon: Search },
+                { value: 'shipments', label: 'Shipments', icon: LocalShipping },
+                { value: 'items', label: 'Items', icon: Inventory2 },
+                ...(showUserFilter ? [{ value: 'users', label: 'Users', icon: Person }] : []),
+              ].map(({ value, label, icon: Icon }) => (
+                <Button
+                  key={value}
+                  size="small"
+                  variant={filters.type === value ? 'contained' : 'outlined'}
+                  startIcon={<Icon sx={{ fontSize: 16 }} />}
+                  onClick={() => updateFilter('type', value as 'all' | 'shipments' | 'items' | 'users')}
+                  sx={{
+                    fontSize: '0.78rem',
+                    fontWeight: 500,
+                    borderColor: filters.type === value ? 'rgba(6, 182, 212, 0.4)' : 'rgba(255, 255, 255, 0.12)',
+                    bgcolor: filters.type === value ? 'rgba(6, 182, 212, 0.18)' : 'rgba(255, 255, 255, 0.03)',
+                    color: filters.type === value ? 'rgb(34, 211, 238)' : 'rgba(255, 255, 255, 0.6)',
+                    '&:hover': {
+                      bgcolor: filters.type === value ? 'rgba(6, 182, 212, 0.28)' : 'rgba(255, 255, 255, 0.08)',
+                      color: 'white',
+                    },
+                  }}
+                >
+                  {label}
+                </Button>
+              ))}
           </Box>
         )}
       </Box>
@@ -266,17 +268,17 @@ export default function SmartSearch({
       <Collapse in={showFilters}>
         <Box
           sx={{
-            p: { xs: 2, sm: 3 },
+            p: 1.5,
             bgcolor: 'rgba(255, 255, 255, 0.05)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
             borderRadius: 3,
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1.5 }}>
             <Typography
               variant="h6"
               sx={{
-                fontSize: { xs: '1rem', sm: '1.125rem' },
+                  fontSize: '0.95rem',
                 fontWeight: 600,
                 color: 'white',
                 display: 'flex',
@@ -288,17 +290,17 @@ export default function SmartSearch({
               Advanced Filters
             </Typography>
             {activeFiltersCount > 0 && (
-              <Button
-                size="small"
-                onClick={clearFilters}
-                sx={{
-                  fontSize: '0.875rem',
-                  color: 'rgb(34, 211, 238)',
-                  '&:hover': {
-                    color: 'rgb(6, 182, 212)',
-                  },
-                }}
-              >
+                <Button
+                  size="small"
+                  onClick={clearFilters}
+                  sx={{
+                    fontSize: '0.75rem',
+                    color: 'rgb(34, 211, 238)',
+                    '&:hover': {
+                      color: 'rgb(6, 182, 212)',
+                    },
+                  }}
+                >
                 Clear all filters
               </Button>
             )}
@@ -308,7 +310,7 @@ export default function SmartSearch({
             sx={{
               display: 'grid',
               gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' },
-              gap: 2,
+                gap: 1.25,
             }}
           >
             {/* Status Filter */}

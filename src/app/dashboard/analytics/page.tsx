@@ -239,8 +239,8 @@ export default function AnalyticsPage() {
 
 	return (
 		<>
-			<Section className="bg-[#020817] py-2 sm:py-3">
-				<Box sx={{ px: { xs: 2, sm: 3 } }}>
+			<Section className="bg-[#020817]">
+				<Box sx={{ px: { xs: 1.5, sm: 2 } }}>
 					{error && (
 						<Fade in timeout={600}>
 							<Box
@@ -265,7 +265,7 @@ export default function AnalyticsPage() {
 						sx={{
 							display: 'grid',
 							gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', xl: 'repeat(3, 1fr)' },
-							gap: { xs: 3, sm: 4 },
+							gap: { xs: 1.5, sm: 2.5 },
 						}}
 					>
 						{summaryCards.map((card, index) => {
@@ -273,7 +273,7 @@ export default function AnalyticsPage() {
 							return (
 								<Zoom key={card.label} in={show} timeout={600} style={{ transitionDelay: `${(index + 2) * 100}ms` }}>
 									<Box
-										className={`rounded-xl border ${card.accent} backdrop-blur-md p-5 shadow-lg`}
+										className={`rounded-xl border ${card.accent} backdrop-blur-md p-4 shadow-lg`}
 										sx={{
 											background: 'linear-gradient(135deg, rgba(10, 22, 40, 0.8) 0%, rgba(10, 22, 40, 0.4) 100%)',
 											transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -323,17 +323,17 @@ export default function AnalyticsPage() {
 				</Box>
 			</Section>
 
-			<Section className="bg-[#020817] py-4 sm:py-6">
-				<Box sx={{ maxWidth: '90rem', mx: 'auto', px: { xs: 2, sm: 3, lg: 4 } }}>
-					<Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: 'repeat(2, 1fr)' }, gap: { xs: 4, sm: 5 }, mb: { xs: 4, sm: 6 } }}>
+			<Section className="bg-[#020817] py-3 sm:py-4">
+				<Box sx={{ maxWidth: '90rem', mx: 'auto', px: { xs: 1.5, sm: 2.5, lg: 3 } }}>
+					<Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: 'repeat(2, 1fr)' }, gap: { xs: 2.5, sm: 3 }, mb: { xs: 3, sm: 4 } }}>
 						<Slide in={show} direction="up" timeout={800} style={{ transitionDelay: '400ms' }}>
 							<Box
 								sx={{
-									borderRadius: 4,
+									borderRadius: 3,
 									border: '1px solid rgba(6, 182, 212, 0.3)',
 									background: 'linear-gradient(135deg, rgba(10, 22, 40, 0.8) 0%, rgba(10, 22, 40, 0.5) 100%)',
 									backdropFilter: 'blur(20px)',
-									p: { xs: 3, sm: 4 },
+									p: { xs: 2, sm: 2.5 },
 									boxShadow: '0 10px 30px rgba(6, 182, 212, 0.1)',
 								}}
 							>
@@ -360,11 +360,11 @@ export default function AnalyticsPage() {
 						<Slide in={show} direction="up" timeout={800} style={{ transitionDelay: '500ms' }}>
 							<Box
 								sx={{
-									borderRadius: 4,
+									borderRadius: 3,
 									border: '1px solid rgba(168, 85, 247, 0.3)',
 									background: 'linear-gradient(135deg, rgba(10, 22, 40, 0.8) 0%, rgba(10, 22, 40, 0.5) 100%)',
 									backdropFilter: 'blur(20px)',
-									p: { xs: 3, sm: 4 },
+									p: { xs: 2, sm: 2.5 },
 									boxShadow: '0 10px 30px rgba(168, 85, 247, 0.1)',
 								}}
 							>

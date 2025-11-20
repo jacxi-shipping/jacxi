@@ -12,6 +12,7 @@ export default function DashboardLayout({
 	children: React.ReactNode;
 }) {
 	const [mobileOpen, setMobileOpen] = useState(false);
+	const contentPadding = { xs: 1.5, md: 2, lg: 2.5 };
 
 	return (
 		<ProtectedRoute>
@@ -43,11 +44,62 @@ export default function DashboardLayout({
 						sx={{
 							flexGrow: 1,
 							minWidth: 0,
-							overflow: 'auto',
 							height: 'calc(100vh - 48px)',
+							bgcolor: 'transparent',
+							display: 'flex',
+							flexDirection: 'column',
+							overflow: 'hidden',
 						}}
 					>
-						{children}
+						<Box
+							sx={{
+								flex: 1,
+								display: 'flex',
+								flexDirection: 'column',
+								gap: 1.5,
+								px: contentPadding,
+								py: 1.5,
+								overflow: 'hidden',
+							}}
+						>
+							<Box
+								sx={{
+									flex: 1,
+									borderRadius: 3,
+									border: '1px solid rgba(148, 163, 184, 0.12)',
+									background: 'radial-gradient(circle at 20% 0%, rgba(6, 182, 212, 0.1), transparent 55%) #030918',
+									boxShadow: '0 20px 40px rgba(0, 0, 0, 0.35)',
+									position: 'relative',
+									overflow: 'hidden',
+								}}
+							>
+								<Box
+									sx={{
+										position: 'absolute',
+										inset: 0,
+										pointerEvents: 'none',
+										background: 'linear-gradient(180deg, rgba(6, 182, 212, 0.08) 0%, rgba(6, 182, 212, 0) 35%)',
+										opacity: 0.6,
+									}}
+								/>
+								<Box
+									sx={{
+										position: 'relative',
+										height: '100%',
+										width: '100%',
+										overflowY: 'auto',
+										scrollbarWidth: 'none',
+										px: { xs: 0.5, sm: 1 },
+										py: { xs: 1, sm: 1.5 },
+										'&::-webkit-scrollbar': {
+											display: 'none',
+										},
+									}}
+								>
+									{children}
+								</Box>
+							</Box>
+						</Box>
 					</Box>
 				</Box>
 			</Box>
