@@ -81,8 +81,8 @@ export default function ShipmentsListPage() {
 
 	return (
 		<>
-			{/* Header */}
-			<Section className="relative bg-[#020817] py-6 sm:py-12 lg:py-16 overflow-hidden">
+		{/* Header */}
+		<Section className="relative bg-[#020817] py-4 sm:py-5 overflow-hidden">
 				{/* Background gradient */}
 				<div className="absolute inset-0 bg-gradient-to-br from-[#020817] via-[#0a1628] to-[#020817]" />
 
@@ -104,44 +104,55 @@ export default function ShipmentsListPage() {
 				</div>
 
 				<div className="relative z-10">
-					<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6">
-						<div className="space-y-1 sm:space-y-2 max-w-full">
-							<h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white leading-tight break-words">
+					<Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'center' }, gap: { xs: 2, sm: 3 } }}>
+						<Box>
+							<Typography
+								component="h1"
+								sx={{
+									fontSize: { xs: '1.5rem', sm: '1.875rem' },
+									fontWeight: 700,
+									color: 'white',
+									mb: 0.5,
+									lineHeight: 1.2,
+								}}
+							>
 								Shipments Management
-							</h1>
-							<p className="text-sm sm:text-lg md:text-xl text-white/70">
+							</Typography>
+							<Typography
+								sx={{
+									fontSize: { xs: '0.8125rem', sm: '0.875rem' },
+									color: 'rgba(255, 255, 255, 0.6)',
+									fontWeight: 500,
+								}}
+							>
 								Manage and track all shipments
-							</p>
-						</div>
+							</Typography>
+						</Box>
 						{isAdmin && (
-							<div className="w-full sm:w-auto">
-								<Link href="/dashboard/shipments/new" style={{ textDecoration: 'none' }}>
-									<Button
-										variant="contained"
-										size="large"
-										startIcon={<Add />}
-										sx={{
-											bgcolor: '#00bfff',
-											color: 'white',
-											fontWeight: 600,
-											fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
-											px: { xs: 2, sm: 3 },
-											py: { xs: 1.25, sm: 1.5 },
-											width: { xs: '100%', sm: 'auto' },
-											boxShadow: '0 8px 16px rgba(0, 191, 255, 0.3)',
-											'&:hover': {
-												bgcolor: '#00a8e6',
-												boxShadow: '0 12px 24px rgba(0, 191, 255, 0.5)',
-											},
-											transition: 'all 0.3s ease',
-										}}
-									>
-										New Shipment
-									</Button>
-								</Link>
-							</div>
+							<Link href="/dashboard/shipments/new" style={{ textDecoration: 'none' }}>
+								<Button
+									variant="contained"
+									startIcon={<Add />}
+									sx={{
+										bgcolor: '#00bfff',
+										color: 'white',
+										fontWeight: 600,
+										fontSize: { xs: '0.8125rem', sm: '0.875rem' },
+										px: { xs: 2, sm: 3 },
+										py: { xs: 0.75, sm: 1 },
+										boxShadow: '0 4px 12px rgba(0, 191, 255, 0.3)',
+										'&:hover': {
+											bgcolor: '#00a8e6',
+											boxShadow: '0 6px 16px rgba(0, 191, 255, 0.4)',
+										},
+										transition: 'all 0.3s ease',
+									}}
+								>
+									New Shipment
+								</Button>
+							</Link>
 						)}
-					</div>
+					</Box>
 				</div>
 			</Section>
 

@@ -111,8 +111,8 @@ export default function ContainersPage() {
 
 	return (
 		<>
-			{/* Header */}
-			<Section className="relative bg-[#020817] py-8 sm:py-14 lg:py-20 overflow-hidden">
+		{/* Header */}
+		<Section className="relative bg-[#020817] py-4 sm:py-5 overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-br from-[#020817] via-[#0a1628] to-[#020817]" />
 				
 				{/* Animated gradient orbs */}
@@ -131,19 +131,16 @@ export default function ContainersPage() {
 				</div>
 
 				<div className="relative z-10">
-					<Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'center' }, gap: { xs: 3, sm: 4 } }}>
-						<Fade in={show} timeout={1000}>
-							<Box sx={{ maxWidth: '100%' }}>
+					<Fade in={show} timeout={800}>
+						<Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'center' }, gap: { xs: 2, sm: 3 } }}>
+							<Box>
 								<Typography
-									variant="h1"
+									component="h1"
 									sx={{
-										fontSize: { xs: '2rem', sm: '2.75rem', md: '3.5rem' },
-										fontWeight: 900,
-										background: 'linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(200, 220, 255) 100%)',
-										WebkitBackgroundClip: 'text',
-										WebkitTextFillColor: 'transparent',
-										backgroundClip: 'text',
-										mb: 1.5,
+										fontSize: { xs: '1.5rem', sm: '1.875rem' },
+										fontWeight: 700,
+										color: 'white',
+										mb: 0.5,
 										lineHeight: 1.2,
 									}}
 								>
@@ -151,58 +148,38 @@ export default function ContainersPage() {
 								</Typography>
 								<Typography
 									sx={{
-										fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
-										color: 'rgba(255, 255, 255, 0.7)',
+										fontSize: { xs: '0.8125rem', sm: '0.875rem' },
+										color: 'rgba(255, 255, 255, 0.6)',
+										fontWeight: 500,
 									}}
 								>
 									Manage containers and track items
 								</Typography>
 							</Box>
-						</Fade>
-						<Fade in={show} timeout={1000} style={{ transitionDelay: '200ms' }}>
-							<Box sx={{ width: { xs: '100%', sm: 'auto' } }}>
-								<Link href="/dashboard/containers/new" style={{ textDecoration: 'none' }}>
-									<Button
-										variant="contained"
-										size="large"
-										startIcon={<Plus />}
-										sx={{
-											background: 'linear-gradient(135deg, #00bfff 0%, #0099cc 100%)',
-											color: 'white',
-											fontWeight: 700,
-											fontSize: { xs: '0.9375rem', sm: '1.0625rem' },
-											px: { xs: 3, sm: 4 },
-											py: { xs: 1.5, sm: 1.75 },
-											width: { xs: '100%', sm: 'auto' },
-											boxShadow: '0 10px 30px rgba(0, 191, 255, 0.4)',
-											transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-											position: 'relative',
-											overflow: 'hidden',
-											'&:hover': {
-												boxShadow: '0 15px 40px rgba(0, 191, 255, 0.5)',
-												transform: 'translateY(-3px) scale(1.02)',
-											},
-											'&::before': {
-												content: '""',
-												position: 'absolute',
-												top: 0,
-												left: '-100%',
-												width: '100%',
-												height: '100%',
-												background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)',
-												transition: 'left 0.5s ease',
-											},
-											'&:hover::before': {
-												left: '100%',
-											},
-										}}
-									>
-										New Container
-									</Button>
-								</Link>
-							</Box>
-						</Fade>
-					</Box>
+							<Link href="/dashboard/containers/new" style={{ textDecoration: 'none' }}>
+								<Button
+									variant="contained"
+									startIcon={<Plus />}
+									sx={{
+										background: 'linear-gradient(135deg, #00bfff 0%, #0099cc 100%)',
+										color: 'white',
+										fontWeight: 600,
+										fontSize: { xs: '0.8125rem', sm: '0.875rem' },
+										px: { xs: 2, sm: 3 },
+										py: { xs: 0.75, sm: 1 },
+										boxShadow: '0 4px 12px rgba(0, 191, 255, 0.3)',
+										transition: 'all 0.3s ease',
+										'&:hover': {
+											boxShadow: '0 6px 16px rgba(0, 191, 255, 0.4)',
+											transform: 'translateY(-2px)',
+										},
+									}}
+								>
+									New Container
+								</Button>
+							</Link>
+						</Box>
+					</Fade>
 				</div>
 			</Section>
 

@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowLeft, FileText, ShieldCheck, Download, Upload, Search, AlertCircle } from 'lucide-react';
+import { Box, Typography, Button as MuiButton } from '@mui/material';
 
 import Section from '@/components/layout/Section';
 import { Button } from '@/components/ui/Button';
@@ -176,7 +177,7 @@ export default function DocumentsPage() {
 
 	return (
 		<>
-			<Section className="relative bg-[#020817] py-8 sm:py-12 lg:py-16 overflow-hidden">
+			<Section className="relative bg-[#020817] py-4 sm:py-5 overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-br from-[#020817] via-[#0a1628] to-[#020817]" />
 				<div className="absolute inset-0 opacity-[0.03]">
 					<svg className="w-full h-full" preserveAspectRatio="none">
@@ -189,33 +190,50 @@ export default function DocumentsPage() {
 					</svg>
 				</div>
 
-				<div className="relative z-10 space-y-6">
-					<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-						<div>
-							<motion.h1
-								initial={{ opacity: 0, y: 16 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5 }}
-								className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight"
+				<div className="relative z-10">
+					<Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'center' }, gap: { xs: 2, sm: 3 } }}>
+						<Box>
+							<Typography
+								component="h1"
+								sx={{
+									fontSize: { xs: '1.5rem', sm: '1.875rem' },
+									fontWeight: 700,
+									color: 'white',
+									mb: 0.5,
+									lineHeight: 1.2,
+								}}
 							>
 								Document Center
-							</motion.h1>
-							<motion.p
-								initial={{ opacity: 0, y: 16 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.5, delay: 0.1 }}
-								className="text-lg sm:text-xl text-white/70 max-w-2xl"
+							</Typography>
+							<Typography
+								sx={{
+									fontSize: { xs: '0.8125rem', sm: '0.875rem' },
+									color: 'rgba(255, 255, 255, 0.6)',
+									fontWeight: 500,
+								}}
 							>
-								Manage templates, uploads, and compliance documents in one unified workspace.
-							</motion.p>
-						</div>
-						<Link href="/dashboard">
-							<Button variant="outline" className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10">
+								Manage templates, uploads, and compliance documents
+							</Typography>
+						</Box>
+						<Link href="/dashboard" style={{ textDecoration: 'none' }}>
+							<MuiButton variant="outlined" size="small" sx={{
+								borderColor: 'rgba(6, 182, 212, 0.4)',
+								background: 'rgba(6, 182, 212, 0.05)',
+								color: 'rgb(34, 211, 238)',
+								fontWeight: 600,
+								fontSize: '0.8125rem',
+								px: 2,
+								py: 0.75,
+								'&:hover': {
+									background: 'rgba(6, 182, 212, 0.15)',
+									borderColor: 'rgba(6, 182, 212, 0.6)',
+								},
+							}}>
 								<ArrowLeft className="w-4 h-4 mr-2" />
-								Back to Overview
-							</Button>
+								Back
+							</MuiButton>
 						</Link>
-					</div>
+					</Box>
 
 					<motion.div
 						initial={{ opacity: 0, y: 16 }}

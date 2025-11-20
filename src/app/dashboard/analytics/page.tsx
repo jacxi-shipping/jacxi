@@ -239,7 +239,7 @@ export default function AnalyticsPage() {
 
 	return (
 		<>
-			<Section className="relative bg-[#020817] py-8 sm:py-14 lg:py-20 overflow-hidden">
+			<Section className="relative bg-[#020817] py-4 sm:py-5 overflow-hidden">
 				<div className="absolute inset-0 bg-gradient-to-br from-[#020817] via-[#0a1628] to-[#020817]" />
 				
 				{/* Animated gradient orbs */}
@@ -258,38 +258,35 @@ export default function AnalyticsPage() {
 				</div>
 
 				<Box className="relative z-10" sx={{ px: { xs: 2, sm: 3, lg: 4 } }}>
-					<Box sx={{ display: 'flex', flexDirection: { xs: 'column', lg: 'row' }, alignItems: { xs: 'flex-start', lg: 'center' }, justifyContent: 'space-between', gap: 4, mb: 6 }}>
-						<Fade in={show} timeout={1000}>
+					<Fade in={show} timeout={800}>
+						<Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: { xs: 'flex-start', sm: 'center' }, justifyContent: 'space-between', gap: { xs: 2, sm: 3 }, mb: 4 }}>
 							<Box>
 								<Typography
-									variant="h1"
+									component="h1"
 									sx={{
-										fontSize: { xs: '2rem', sm: '2.75rem', md: '3.5rem' },
-										fontWeight: 900,
-										background: 'linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(200, 220, 255) 100%)',
-										WebkitBackgroundClip: 'text',
-										WebkitTextFillColor: 'transparent',
-										backgroundClip: 'text',
-										mb: 1.5,
+										fontSize: { xs: '1.5rem', sm: '1.875rem' },
+										fontWeight: 700,
+										color: 'white',
+										mb: 0.5,
+										lineHeight: 1.2,
 									}}
 								>
 									Analytics Overview
 								</Typography>
 								<Typography
 									sx={{
-										fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
-										color: 'rgba(255, 255, 255, 0.7)',
-										maxWidth: '42rem',
+										fontSize: { xs: '0.8125rem', sm: '0.875rem' },
+										color: 'rgba(255, 255, 255, 0.6)',
+										fontWeight: 500,
 									}}
 								>
-									Real-time shipment, revenue, and invoicing intelligence for Jacxi operations.
+									Real-time shipment, revenue, and invoicing intelligence
 								</Typography>
 							</Box>
-						</Fade>
-						<Fade in={show} timeout={1000} style={{ transitionDelay: '200ms' }}>
-							<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+							<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
 								<Button
 									variant="outlined"
+									size="small"
 									onClick={handleRefresh}
 									disabled={refreshing}
 									sx={{
@@ -297,36 +294,43 @@ export default function AnalyticsPage() {
 										background: 'rgba(6, 182, 212, 0.05)',
 										color: 'rgb(34, 211, 238)',
 										fontWeight: 600,
+										fontSize: '0.8125rem',
+										px: 2,
+										py: 0.75,
 										'&:hover': {
 											background: 'rgba(6, 182, 212, 0.15)',
 											borderColor: 'rgba(6, 182, 212, 0.6)',
 										},
 									}}
 								>
-									<RefreshCcw style={{ width: 16, height: 16, marginRight: 8 }} className={refreshing ? 'animate-spin' : ''} />
-									{refreshing ? 'Refreshing…' : 'Refresh data'}
+									<RefreshCcw style={{ width: 14, height: 14, marginRight: 6 }} className={refreshing ? 'animate-spin' : ''} />
+									{refreshing ? 'Refreshing…' : 'Refresh'}
 								</Button>
 								<Link href="/dashboard/shipments" style={{ textDecoration: 'none' }}>
 									<Button
 										variant="outlined"
+										size="small"
 										sx={{
 											borderColor: 'rgba(6, 182, 212, 0.4)',
 											background: 'rgba(6, 182, 212, 0.05)',
 											color: 'rgb(34, 211, 238)',
 											fontWeight: 600,
+											fontSize: '0.8125rem',
+											px: 2,
+											py: 0.75,
 											'&:hover': {
 												background: 'rgba(6, 182, 212, 0.15)',
 												borderColor: 'rgba(6, 182, 212, 0.6)',
 											},
 										}}
 									>
-										<Package style={{ width: 16, height: 16, marginRight: 8 }} />
-										Go to shipments
+										<Package style={{ width: 14, height: 14, marginRight: 6 }} />
+										Shipments
 									</Button>
 								</Link>
 							</Box>
-						</Fade>
-					</Box>
+						</Box>
+					</Fade>
 
 					{error && (
 						<Fade in timeout={600}>
