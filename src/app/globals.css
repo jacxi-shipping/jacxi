@@ -969,24 +969,48 @@ html {
 
 /* Gradient Utilities */
 .bg-brand-gradient {
-  background: linear-gradient(135deg,
+  background: linear-gradient(
+    135deg,
+    rgba(var(--accent-gold-rgb), 0.95) 0%,
+    rgba(var(--accent-gold-rgb), 0.7) 45%,
+    rgba(var(--text-primary-rgb), 0.08) 100%
+  );
 }
 
 .bg-brand-cyan-gradient {
-  background: linear-gradient(135deg,
+  background: linear-gradient(
+    135deg,
+    rgba(var(--panel-rgb), 0.95) 0%,
+    rgba(var(--accent-gold-rgb), 0.4) 60%,
+    rgba(var(--text-primary-rgb), 0.05) 100%
+  );
 }
 
 .bg-brand-gold-gradient {
-  background: linear-gradient(135deg,
+  background: linear-gradient(
+    135deg,
+    rgba(var(--accent-gold-rgb), 1) 0%,
+    rgba(var(--accent-gold-rgb), 0.85) 50%,
+    rgba(var(--accent-gold-rgb), 0.65) 100%
+  );
 }
 
 .bg-brand-premium-gradient {
-  background: linear-gradient(135deg,
+  background: linear-gradient(
+    135deg,
+    rgba(var(--panel-rgb), 0.9) 0%,
+    rgba(var(--accent-gold-rgb), 0.55) 55%,
+    rgba(var(--text-primary-rgb), 0.12) 100%
+  );
 }
 
 /* Text Gradient */
 .text-brand-gradient {
-  background: linear-gradient(135deg,
+  background: linear-gradient(
+    135deg,
+    var(--text-primary) 0%,
+    var(--accent-gold) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
