@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, FileText, ShieldCheck, Download, Upload, Search, AlertCircle } from 'lucide-react';
 import { Box, Typography, Button as MuiButton } from '@mui/material';
 
+import { DashboardSurface, DashboardHeader, DashboardPanel } from '@/components/dashboard/DashboardSurface';
 import Section from '@/components/layout/Section';
 import { Button } from '@/components/ui/Button';
 
