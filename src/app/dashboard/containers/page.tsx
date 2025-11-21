@@ -230,7 +230,7 @@ export default function ContainersPage() {
 											<Button
 												variant="outlined"
 												size="small"
-												startIcon={<Eye sx={{ fontSize: 14 }} />}
+												startIcon={<Eye style={{ fontSize: 14 }} />}
 												sx={{ textTransform: 'none', fontSize: '0.72rem' }}
 											>
 												View
