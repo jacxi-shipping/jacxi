@@ -7,7 +7,7 @@ import { Add, Inventory2, TrendingUp, LocalShipping, LocationOn } from '@mui/ico
 import { Button, Box, CircularProgress, Typography } from '@mui/material';
 import StatsCard from '@/components/dashboard/StatsCard';
 import ShipmentCard from '@/components/dashboard/ShipmentCard';
-import { DashboardSurface, DashboardHeader, DashboardPanel, DashboardGrid } from '@/components/dashboard/DashboardSurface';
+import { DashboardSurface, DashboardPanel, DashboardGrid } from '@/components/dashboard/DashboardSurface';
 
 interface Shipment {
 	id: string;
@@ -103,37 +103,28 @@ export default function DashboardPage() {
 
 	return (
 		<DashboardSurface className="flex-1 min-h-0">
-			<DashboardHeader
-				title="Dashboard"
-				meta={[
-					{ label: 'Active', value: stats.active, helper: 'moving now', intent: 'positive' },
-					{ label: 'In transit', value: stats.inTransit },
-					{ label: 'Delivered', value: stats.delivered, intent: 'positive' },
-					{ label: 'Total', value: stats.total },
-				]}
-				actions={
-					<Link href="/dashboard/shipments/new" style={{ textDecoration: 'none' }}>
-						<Button
-							variant="contained"
-							size="small"
-							startIcon={<Add fontSize="small" />}
-							sx={{
-								textTransform: 'none',
-								backgroundColor: '#00bcd4',
-								fontSize: '0.8rem',
-								fontWeight: 600,
-								px: 2.5,
-								py: 0.75,
-								'&:hover': {
-									backgroundColor: '#00a4bb',
-								},
-							}}
-						>
-							New shipment
-						</Button>
-					</Link>
-				}
-			/>
+			<Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1 }}>
+				<Link href="/dashboard/shipments/new" style={{ textDecoration: 'none' }}>
+					<Button
+						variant="contained"
+						size="small"
+						startIcon={<Add fontSize="small" />}
+						sx={{
+							textTransform: 'none',
+							backgroundColor: '#0f62fe',
+							fontSize: '0.85rem',
+							fontWeight: 600,
+							px: 2.5,
+							py: 0.9,
+							'&:hover': {
+								backgroundColor: '#0b4ed8',
+							},
+						}}
+					>
+						New shipment
+					</Button>
+				</Link>
+			</Box>
 
 			<DashboardGrid className="grid-cols-2 md:grid-cols-4 flex-shrink-0 gap-2">
 				<StatsCard icon={LocalShipping} title="Active shipments" value={stats.active} />
