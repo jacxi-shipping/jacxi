@@ -1079,11 +1079,6 @@ html {
   100% { background-position: 200% 0; }
 }
 
-/* Focus Enhancement */
-.focus-visible-enhanced {
-  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-white;
-}
-
 /* Text Utilities */
 .text-balance {
   text-wrap: balance;
