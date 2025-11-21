@@ -9,6 +9,7 @@ import { User, Mail, Shield, Users, UserPlus, Calendar, Eye, EyeOff, Key, Copy, 
 import { Button } from '@/components/ui/Button';
 import Section from '@/components/layout/Section';
 import SmartSearch, { SearchFilters } from '@/components/dashboard/SmartSearch';
+import PageHeader from '@/components/dashboard/PageHeader';
 
 interface UserData {
 	id: string;
