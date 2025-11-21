@@ -24,10 +24,10 @@ type StatusColors = {
 };
 
 const neutralStatus: StatusColors = {
-	bg: 'rgba(228, 233, 240, 0.35)',
+	bg: 'rgba(var(--panel-rgb), 0.35)',
 	text: 'var(--text-primary)',
 	border: 'var(--border)',
-	glow: 'rgba(212, 175, 55, 0.2)',
+	glow: 'rgba(var(--accent-gold-rgb), 0.2)',
 };
 
 const statusColors: Record<string, StatusColors> = {
@@ -44,8 +44,8 @@ const statusColors: Record<string, StatusColors> = {
 	'ARRIVED_AT_DESTINATION': neutralStatus,
 	'CUSTOMS_CLEARANCE': neutralStatus,
 	'OUT_FOR_DELIVERY': neutralStatus,
-	'DELAYED': { bg: 'rgba(239, 68, 68, 0.15)', text: '#B91C1C', border: '#EF4444', glow: 'rgba(239,68,68,0.3)' },
-	'CANCELLED': { bg: 'rgba(239, 68, 68, 0.15)', text: '#B91C1C', border: '#EF4444', glow: 'rgba(239,68,68,0.3)' },
+	'DELAYED': { bg: 'rgba(var(--error-rgb), 0.15)', text: 'var(--error)', border: 'var(--error)', glow: 'rgba(var(--error-rgb), 0.3)' },
+	'CANCELLED': { bg: 'rgba(var(--error-rgb), 0.15)', text: 'var(--error)', border: 'var(--error)', glow: 'rgba(var(--error-rgb), 0.3)' },
 };
 
 const defaultColors: StatusColors = neutralStatus;
@@ -101,7 +101,7 @@ export default function ShipmentCard({
 						<Typography
 							sx={{
 								fontSize: '0.65rem',
-								color: 'rgba(255,255,255,0.55)',
+								color: 'rgba(var(--background-rgb), 0.55)',
 								marginTop: 0.2,
 							}}
 						>
@@ -194,7 +194,7 @@ export default function ShipmentCard({
 						sx={{
 							height: 4,
 							borderRadius: 2,
-							backgroundColor: 'rgba(226, 232, 240, 0.8)',
+							backgroundColor: 'rgba(var(--panel-rgb), 0.8)',
 							'& .MuiLinearProgress-bar': {
 								backgroundColor: colors.text,
 								borderRadius: 2,

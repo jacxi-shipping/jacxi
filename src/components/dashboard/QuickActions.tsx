@@ -13,11 +13,11 @@ const actions = [
 		href: '/dashboard/shipments/new',
 		color: 'cyan',
 		colorValues: {
-			border: 'rgba(6, 182, 212, 0.4)',
-			borderHover: 'rgba(6, 182, 212, 0.8)',
-			text: 'rgb(34, 211, 238)',
-			bgHover: 'rgba(6, 182, 212, 0.15)',
-			glow: 'rgba(6, 182, 212, 0.3)',
+			border: 'rgba(var(--accent-gold-rgb), 0.4)',
+			borderHover: 'rgba(var(--accent-gold-rgb), 0.8)',
+			text: 'var(--accent-gold)',
+			bgHover: 'rgba(var(--accent-gold-rgb), 0.15)',
+			glow: 'rgba(var(--accent-gold-rgb), 0.3)',
 		},
 	},
 	{
@@ -27,11 +27,11 @@ const actions = [
 		href: '/dashboard/tracking',
 		color: 'blue',
 		colorValues: {
-			border: 'rgba(59, 130, 246, 0.4)',
-			borderHover: 'rgba(59, 130, 246, 0.8)',
-			text: 'rgb(96, 165, 250)',
-			bgHover: 'rgba(59, 130, 246, 0.15)',
-			glow: 'rgba(59, 130, 246, 0.3)',
+			border: 'rgba(var(--accent-gold-rgb), 0.4)',
+			borderHover: 'rgba(var(--accent-gold-rgb), 0.8)',
+			text: 'var(--accent-gold)',
+			bgHover: 'rgba(var(--accent-gold-rgb), 0.15)',
+			glow: 'rgba(var(--accent-gold-rgb), 0.3)',
 		},
 	},
 	{
@@ -41,11 +41,11 @@ const actions = [
 		href: '/dashboard/shipments',
 		color: 'purple',
 		colorValues: {
-			border: 'rgba(139, 92, 246, 0.4)',
-			borderHover: 'rgba(139, 92, 246, 0.8)',
-			text: 'rgb(167, 139, 250)',
-			bgHover: 'rgba(139, 92, 246, 0.15)',
-			glow: 'rgba(139, 92, 246, 0.3)',
+			border: 'rgba(var(--accent-gold-rgb), 0.4)',
+			borderHover: 'rgba(var(--accent-gold-rgb), 0.8)',
+			text: 'var(--accent-gold)',
+			bgHover: 'rgba(var(--accent-gold-rgb), 0.15)',
+			glow: 'rgba(var(--accent-gold-rgb), 0.3)',
 		},
 	},
 	{
@@ -55,11 +55,11 @@ const actions = [
 		href: '/dashboard/documents',
 		color: 'green',
 		colorValues: {
-			border: 'rgba(34, 197, 94, 0.4)',
-			borderHover: 'rgba(34, 197, 94, 0.8)',
-			text: 'rgb(74, 222, 128)',
-			bgHover: 'rgba(34, 197, 94, 0.15)',
-			glow: 'rgba(34, 197, 94, 0.3)',
+			border: 'rgba(var(--accent-gold-rgb), 0.4)',
+			borderHover: 'rgba(var(--accent-gold-rgb), 0.8)',
+			text: 'var(--accent-gold)',
+			bgHover: 'rgba(var(--accent-gold-rgb), 0.15)',
+			glow: 'rgba(var(--accent-gold-rgb), 0.3)',
 		},
 	},
 ];
@@ -79,12 +79,12 @@ export default function QuickActions({ showHeading = false }: QuickActionsProps 
 							fontSize: '0.8rem',
 							textTransform: 'uppercase',
 							letterSpacing: '0.2em',
-							color: '#94a3b8',
+							color: 'var(--text-secondary)',
 						}}
 					>
 							Action Center
 						</Typography>
-					<Typography sx={{ fontSize: '0.85rem', color: '#0f172a', fontWeight: 600 }}>
+					<Typography sx={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: 600 }}>
 							Start a workflow
 						</Typography>
 					</Box>
@@ -131,8 +131,8 @@ function ActionCard({ icon: Icon, title, description, href, colorValues }: Actio
 				sx={{
 					borderRadius: 2,
 					border: `1px solid ${colorValues.border}`,
-					background: 'white',
-					boxShadow: `0 12px 24px rgba(15,23,42,0.08)`,
+					background: 'var(--panel)',
+					boxShadow: `0 12px 24px rgba(var(--text-primary-rgb), 0.08)`,
 					padding: 1,
 					display: 'flex',
 					flexDirection: 'column',
@@ -158,7 +158,7 @@ function ActionCard({ icon: Icon, title, description, href, colorValues }: Actio
 							height: 28,
 							borderRadius: 1,
 							border: `1px solid ${colorValues.border}`,
-							background: 'rgba(148,163,184,0.15)',
+							background: 'rgba(var(--text-secondary-rgb), 0.15)',
 							display: 'flex',
 							alignItems: 'center',
 							justifyContent: 'center',
@@ -170,7 +170,7 @@ function ActionCard({ icon: Icon, title, description, href, colorValues }: Actio
 						sx={{
 							fontSize: '0.78rem',
 							fontWeight: 600,
-							color: '#0f172a',
+							color: 'var(--text-primary)',
 							overflow: 'hidden',
 							textOverflow: 'ellipsis',
 							whiteSpace: 'nowrap',
@@ -182,7 +182,7 @@ function ActionCard({ icon: Icon, title, description, href, colorValues }: Actio
 				<Typography
 					sx={{
 						fontSize: '0.68rem',
-							color: '#64748b',
+							color: 'var(--text-secondary)',
 						lineHeight: 1.4,
 						flex: 1,
 					}}

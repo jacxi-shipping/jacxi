@@ -232,7 +232,7 @@ export default function GlobalSearch() {
                 initial={{ opacity: 0, scale: 0.95, y: -20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                className="w-full max-w-2xl bg-[#0a1628] border border-cyan-500/30 rounded-2xl shadow-2xl overflow-hidden"
+                className="w-full max-w-2xl bg-[var(--text-primary)] border border-cyan-500/30 rounded-2xl shadow-2xl overflow-hidden"
               >
                 {/* Search Input */}
                 <div className="flex items-center gap-3 p-4 border-b border-white/10">

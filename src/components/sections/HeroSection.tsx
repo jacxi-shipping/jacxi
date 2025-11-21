@@ -13,7 +13,7 @@ export default function HeroSection() {
 				<div 
 					className="w-full h-full bg-cover bg-center bg-no-repeat"
 					style={{
-						backgroundImage: `linear-gradient(to right, rgba(226, 232, 240, 0.95) 0%, rgba(226, 232, 240, 0.85) 40%, rgba(226, 232, 240, 0.3) 70%, transparent 100%), url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop')`,
+						backgroundImage: `linear-gradient(to right, rgba(var(--panel-rgb), 0.95) 0%, rgba(var(--panel-rgb), 0.85) 40%, rgba(var(--panel-rgb), 0.3) 70%, transparent 100%), url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop')`,
 					}}
 				/>
 			</div>
@@ -48,9 +48,9 @@ export default function HeroSection() {
 									onClick={() => window.location.href = '/auth/signin'}
 									variant="contained"
 									sx={{
-										bgcolor: 'rgb(37 99 235)',
+										bgcolor: 'var(--accent-gold)',
 										'&:hover': {
-											bgcolor: 'rgb(29 78 216)',
+											bgcolor: 'var(--accent-gold)',
 											transform: 'scale(1.05)',
 										},
 										px: 4,
@@ -59,7 +59,7 @@ export default function HeroSection() {
 										fontSize: '1rem',
 										fontWeight: 600,
 										textTransform: 'none',
-										boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+										boxShadow: '0 10px 15px -3px rgb(var(--text-primary-rgb) / 0.1)',
 										transition: 'all 0.3s',
 										'&:active': {
 											transform: 'scale(0.95)',
@@ -75,12 +75,12 @@ export default function HeroSection() {
 									onClick={() => window.location.href = '/tracking'}
 									variant="outlined"
 									sx={{
-										borderColor: 'rgb(209 213 219)',
+										borderColor: 'var(--border)',
 										borderWidth: 2,
-										color: 'rgb(17 24 39)',
+										color: 'var(--text-primary)',
 										'&:hover': {
-											borderColor: 'rgb(156 163 175)',
-											bgcolor: 'rgb(249 250 251)',
+											borderColor: 'var(--text-secondary)',
+											bgcolor: 'var(--background)',
 											transform: 'scale(1.05)',
 										},
 										px: 4,
@@ -89,7 +89,7 @@ export default function HeroSection() {
 										fontSize: '1rem',
 										fontWeight: 600,
 										textTransform: 'none',
-										boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+										boxShadow: '0 4px 6px -1px rgb(var(--text-primary-rgb) / 0.1)',
 										transition: 'all 0.3s',
 										'&:active': {
 											transform: 'scale(0.95)',

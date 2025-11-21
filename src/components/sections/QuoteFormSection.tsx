@@ -254,7 +254,7 @@ export default function QuoteFormSection() {
 										>
 											{isSubmitting ? (
 												<span className="flex items-center justify-center">
-													<CircularProgress size={20} sx={{ color: 'white', mr: 1 }} />
+													<CircularProgress size={20} sx={{ color: 'var(--background)', mr: 1 }} />
 													Submitting...
 												</span>
 											) : (

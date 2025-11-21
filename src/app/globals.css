@@ -56,7 +56,7 @@ html {
 	/* Better tap highlighting */
 	button, 
 	a {
-		-webkit-tap-highlight-color: rgba(0, 86, 210, 0.2);
+		-webkit-tap-highlight-color: rgba(var(--accent-gold-rgb), 0.2);
 	}
 }
 
@@ -75,6 +75,12 @@ html {
 	--border: #E0E0E0;
 	--error: #EF4444;
 	--text-primary-rgb: 28, 28, 30;
+	--text-secondary-rgb: 95, 99, 104;
+	--accent-gold-rgb: 212, 175, 55;
+	--background-rgb: 249, 250, 251;
+	--panel-rgb: 228, 233, 240;
+	--border-rgb: 224, 224, 224;
+	--error-rgb: 239, 68, 68;
 }
 
 body {
@@ -88,9 +94,220 @@ body {
 	--color-brand-panel: var(--panel);
 	--color-brand-text: var(--text-primary);
 	--color-brand-text-secondary: var(--text-secondary);
+	--color-brand-navy: var(--text-primary);
+	--color-brand-navy-light: var(--text-primary);
+	--color-brand-cyan: var(--accent-gold);
+	--color-brand-cyan-dark: var(--accent-gold);
+	--color-brand-gold: var(--accent-gold);
+	--color-brand-gold-dark: var(--accent-gold);
 	--color-border-default: var(--border);
+	--color-error-50: var(--background);
+	--color-error-100: var(--background);
+	--color-error-200: var(--panel);
+	--color-error-300: var(--panel);
+	--color-error-400: var(--text-secondary);
 	--color-error-500: var(--error);
 	--color-error-600: var(--error);
+	--color-error-700: var(--error);
+	--color-error-800: var(--error);
+	--color-error-900: var(--error);
+	--color-white: var(--background);
+	--color-black: var(--text-primary);
+
+  /* Neutral palette */
+  --color-gray-50: var(--background);
+  --color-gray-100: var(--background);
+  --color-gray-200: var(--panel);
+  --color-gray-300: var(--panel);
+  --color-gray-400: var(--text-secondary);
+  --color-gray-500: var(--text-secondary);
+  --color-gray-600: var(--text-secondary);
+  --color-gray-700: var(--text-primary);
+  --color-gray-800: var(--text-primary);
+  --color-gray-900: var(--text-primary);
+  --color-neutral-50: var(--background);
+  --color-neutral-100: var(--background);
+  --color-neutral-200: var(--panel);
+  --color-neutral-300: var(--panel);
+  --color-neutral-400: var(--text-secondary);
+  --color-neutral-500: var(--text-secondary);
+  --color-neutral-600: var(--text-primary);
+  --color-neutral-700: var(--text-primary);
+  --color-neutral-800: var(--text-primary);
+  --color-neutral-900: var(--text-primary);
+  --color-status-quote-requested: var(--panel);
+  --color-status-quote-approved: var(--panel);
+  --color-status-pickup-scheduled: var(--panel);
+  --color-status-picked-up: var(--panel);
+  --color-status-in-transit: var(--panel);
+  --color-status-at-port: var(--panel);
+  --color-status-customs-clearance: var(--panel);
+  --color-status-out-for-delivery: var(--panel);
+  --color-status-delivered: var(--panel);
+  --color-status-cancelled: var(--panel);
+  --color-status-delayed: rgba(var(--error-rgb), 0.15);
+
+  /* Accent families */
+  --color-blue-50: var(--background);
+  --color-blue-100: var(--background);
+  --color-blue-200: var(--panel);
+  --color-blue-300: var(--panel);
+  --color-blue-400: var(--text-secondary);
+  --color-blue-500: var(--accent-gold);
+  --color-blue-600: var(--accent-gold);
+  --color-blue-700: var(--accent-gold);
+  --color-blue-800: var(--accent-gold);
+  --color-blue-900: var(--accent-gold);
+  --color-sky-50: var(--background);
+  --color-sky-100: var(--background);
+  --color-sky-200: var(--panel);
+  --color-sky-300: var(--panel);
+  --color-sky-400: var(--text-secondary);
+  --color-sky-500: var(--accent-gold);
+  --color-sky-600: var(--accent-gold);
+  --color-sky-700: var(--accent-gold);
+  --color-sky-800: var(--accent-gold);
+  --color-sky-900: var(--accent-gold);
+  --color-cyan-50: var(--background);
+  --color-cyan-100: var(--background);
+  --color-cyan-200: var(--panel);
+  --color-cyan-300: var(--panel);
+  --color-cyan-400: var(--text-secondary);
+  --color-cyan-500: var(--accent-gold);
+  --color-cyan-600: var(--accent-gold);
+  --color-cyan-700: var(--accent-gold);
+  --color-cyan-800: var(--accent-gold);
+  --color-cyan-900: var(--accent-gold);
+  --color-teal-50: var(--background);
+  --color-teal-100: var(--background);
+  --color-teal-200: var(--panel);
+  --color-teal-300: var(--panel);
+  --color-teal-400: var(--text-secondary);
+  --color-teal-500: var(--accent-gold);
+  --color-teal-600: var(--accent-gold);
+  --color-teal-700: var(--accent-gold);
+  --color-teal-800: var(--accent-gold);
+  --color-teal-900: var(--accent-gold);
+  --color-emerald-50: var(--background);
+  --color-emerald-100: var(--background);
+  --color-emerald-200: var(--panel);
+  --color-emerald-300: var(--panel);
+  --color-emerald-400: var(--text-secondary);
+  --color-emerald-500: var(--accent-gold);
+  --color-emerald-600: var(--accent-gold);
+  --color-emerald-700: var(--accent-gold);
+  --color-emerald-800: var(--accent-gold);
+  --color-emerald-900: var(--accent-gold);
+  --color-green-50: var(--background);
+  --color-green-100: var(--background);
+  --color-green-200: var(--panel);
+  --color-green-300: var(--panel);
+  --color-green-400: var(--text-secondary);
+  --color-green-500: var(--accent-gold);
+  --color-green-600: var(--accent-gold);
+  --color-green-700: var(--accent-gold);
+  --color-green-800: var(--accent-gold);
+  --color-green-900: var(--accent-gold);
+  --color-lime-50: var(--background);
+  --color-lime-100: var(--background);
+  --color-lime-200: var(--panel);
+  --color-lime-300: var(--panel);
+  --color-lime-400: var(--text-secondary);
+  --color-lime-500: var(--accent-gold);
+  --color-lime-600: var(--accent-gold);
+  --color-lime-700: var(--accent-gold);
+  --color-lime-800: var(--accent-gold);
+  --color-lime-900: var(--accent-gold);
+  --color-fuchsia-50: var(--background);
+  --color-fuchsia-100: var(--background);
+  --color-fuchsia-200: var(--panel);
+  --color-fuchsia-300: var(--panel);
+  --color-fuchsia-400: var(--text-secondary);
+  --color-fuchsia-500: var(--accent-gold);
+  --color-fuchsia-600: var(--accent-gold);
+  --color-fuchsia-700: var(--accent-gold);
+  --color-fuchsia-800: var(--accent-gold);
+  --color-fuchsia-900: var(--accent-gold);
+  --color-purple-50: var(--background);
+  --color-purple-100: var(--background);
+  --color-purple-200: var(--panel);
+  --color-purple-300: var(--panel);
+  --color-purple-400: var(--text-secondary);
+  --color-purple-500: var(--accent-gold);
+  --color-purple-600: var(--accent-gold);
+  --color-purple-700: var(--accent-gold);
+  --color-purple-800: var(--accent-gold);
+  --color-purple-900: var(--accent-gold);
+  --color-indigo-50: var(--background);
+  --color-indigo-100: var(--background);
+  --color-indigo-200: var(--panel);
+  --color-indigo-300: var(--panel);
+  --color-indigo-400: var(--text-secondary);
+  --color-indigo-500: var(--accent-gold);
+  --color-indigo-600: var(--accent-gold);
+  --color-indigo-700: var(--accent-gold);
+  --color-indigo-800: var(--accent-gold);
+  --color-indigo-900: var(--accent-gold);
+  --color-orange-50: var(--background);
+  --color-orange-100: var(--background);
+  --color-orange-200: var(--panel);
+  --color-orange-300: var(--panel);
+  --color-orange-400: var(--text-secondary);
+  --color-orange-500: var(--accent-gold);
+  --color-orange-600: var(--accent-gold);
+  --color-orange-700: var(--accent-gold);
+  --color-orange-800: var(--accent-gold);
+  --color-orange-900: var(--accent-gold);
+  --color-amber-50: var(--background);
+  --color-amber-100: var(--background);
+  --color-amber-200: var(--panel);
+  --color-amber-300: var(--panel);
+  --color-amber-400: var(--text-secondary);
+  --color-amber-500: var(--accent-gold);
+  --color-amber-600: var(--accent-gold);
+  --color-amber-700: var(--accent-gold);
+  --color-amber-800: var(--accent-gold);
+  --color-amber-900: var(--accent-gold);
+  --color-red-50: var(--background);
+  --color-red-100: var(--background);
+  --color-red-200: var(--panel);
+  --color-red-300: var(--panel);
+  --color-red-400: var(--text-secondary);
+  --color-red-500: var(--error);
+  --color-red-600: var(--error);
+  --color-red-700: var(--error);
+  --color-red-800: var(--error);
+  --color-red-900: var(--error);
+  --color-info-50: var(--background);
+  --color-info-100: var(--background);
+  --color-info-200: var(--panel);
+  --color-info-300: var(--panel);
+  --color-info-400: var(--text-secondary);
+  --color-info-500: var(--accent-gold);
+  --color-info-600: var(--accent-gold);
+  --color-info-700: var(--accent-gold);
+  --color-info-800: var(--accent-gold);
+  --color-info-900: var(--accent-gold);
+  --color-success-50: var(--background);
+  --color-success-100: var(--background);
+  --color-success-200: var(--panel);
+  --color-success-300: var(--panel);
+  --color-success-400: var(--text-secondary);
+  --color-success-500: var(--accent-gold);
+  --color-success-600: var(--accent-gold);
+  --color-success-700: var(--accent-gold);
+  --color-success-800: var(--accent-gold);
+  --color-success-900: var(--accent-gold);
+  --color-warning-50: var(--background);
+  --color-warning-100: var(--background);
+  --color-warning-200: var(--panel);
+  --color-warning-300: var(--panel);
+  --color-warning-400: var(--text-secondary);
+  --color-warning-500: var(--accent-gold);
+  --color-warning-600: var(--accent-gold);
+  --color-warning-700: var(--accent-gold);
+  --color-warning-800: var(--accent-gold);
+  --color-warning-900: var(--accent-gold);
 
   /* Typography Scale */
   --font-size-display-xs: 2.5rem;    /* 40px */
@@ -136,17 +353,17 @@ body {
   --radius-full: 9999px;             /* Fully rounded */
 
   /* Shadow Scale */
-  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-xs: 0 1px 2px 0 rgb(var(--text-primary-rgb) / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(var(--text-primary-rgb) / 0.1), 0 1px 2px -1px rgb(var(--text-primary-rgb) / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(var(--text-primary-rgb) / 0.1), 0 2px 4px -2px rgb(var(--text-primary-rgb) / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(var(--text-primary-rgb) / 0.1), 0 4px 6px -4px rgb(var(--text-primary-rgb) / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(var(--text-primary-rgb) / 0.1), 0 8px 10px -6px rgb(var(--text-primary-rgb) / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(var(--text-primary-rgb) / 0.25);
 
   /* Brand Shadows */
-  --shadow-brand-cyan: 0 4px 14px 0 rgb(0 191 255 / 0.25);
-  --shadow-brand-gold: 0 4px 14px 0 rgb(212 175 55 / 0.25);
-  --shadow-brand-navy: 0 4px 14px 0 rgb(10 31 68 / 0.25);
+  --shadow-brand-cyan: 0 4px 14px 0 rgb(var(--accent-gold-rgb) / 0.25);
+  --shadow-brand-gold: 0 4px 14px 0 rgb(var(--accent-gold-rgb) / 0.25);
+  --shadow-brand-navy: 0 4px 14px 0 rgb(var(--text-primary-rgb) / 0.25);
 
   /* Animation Durations */
   --duration-instant: 0ms;
@@ -172,75 +389,75 @@ body {
 
 :root {
   /* Premium Light Theme - Jacxi Shipping */
-  --jacxi-blue: 0 86 210; /* #0056D2 */
-  --uae-gold: 212 175 55; /* #D4AF37 */
-  --soft-white: 249 250 251; /* #F9FAFB */
-  --frosted-glass: 228 233 240; /* #E4E9F0 */
-  --royal-navy: 10 31 68; /* #0A1F44 */
-  --platinum-white: 248 249 250; /* #F8F9FA */
-  --platinum-gray: 206 212 218; /* #CED4DA */
-  --subtle-gold: 212 175 55; /* #D4AF37 */
-  --charcoal: 43 46 52; /* #2B2E34 */
-  --light-gray: 233 236 239; /* #E9ECEF */
+  --jacxi-blue: var(--accent-gold-rgb);
+  --uae-gold: var(--accent-gold-rgb);
+  --soft-white: var(--background-rgb);
+  --frosted-glass: var(--panel-rgb);
+  --royal-navy: 240 4% 11%;
+  --platinum-white: var(--background-rgb);
+  --platinum-gray: var(--panel-rgb);
+  --subtle-gold: var(--accent-gold-rgb);
+  --charcoal: 240 4% 11%;
+  --light-gray: var(--panel-rgb);
 
-  /* Futuristic Accent Colors */
-  --cyber-blue: 0 191 255; /* #00BFFF - Neon cyan blue */
-  --neon-purple: 138 43 226; /* #8A2BE2 - Electric purple */
-  --electric-green: 0 255 127; /* #00FF7F - Neon green */
-  --metallic-silver: 192 192 192; /* #C0C0C0 - Silver */
-  --glow-gold: 255 215 0; /* #FFD700 - Bright gold */
+  /* Accent Families */
+  --cyber-blue: 45 63% 52%;
+  --neon-purple: 45 63% 52%;
+  --electric-green: 45 63% 52%;
+  --metallic-silver: 0 0% 88%;
+  --glow-gold: 45 63% 52%;
 
-  /* System Colors - shadcn/ui compatible - Premium Light Theme */
-  --background: 249 250 251; /* Soft White */
-  --foreground: 43 46 52; /* Charcoal */
-  --card: 255 255 255; /* Pure White with glass effect */
-  --card-foreground: 43 46 52; /* Charcoal */
-  --popover: 255 255 255;
-  --popover-foreground: 43 46 52;
-  --primary: 0 86 210; /* Jacxi Blue */
-  --primary-foreground: 255 255 255; /* White */
-  --secondary: 228 233 240; /* Frosted Glass */
-  --secondary-foreground: 43 46 52; /* Charcoal */
-  --muted: 233 236 239; /* Light Gray */
-  --muted-foreground: 107 114 128; /* Gray 500 */
-  --accent: 212 175 55; /* UAE Gold */
-  --accent-foreground: 255 255 255; /* White */
-  --destructive: 220 38 38; /* Red 600 */
-  --destructive-foreground: 255 255 255;
-  --border: 228 233 240; /* Frosted Glass */
-  --input: 228 233 240;
-  --ring: 0 86 210; /* Jacxi Blue for focus rings */
-  --radius: 0.75rem; /* 12px - modern rounded corners */
+  /* System Colors - Jacxi Palette */
+  --background: 210 33% 98%;
+  --foreground: 240 4% 11%;
+  --card: 210 33% 98%;
+  --card-foreground: 240 4% 11%;
+  --popover: 210 33% 98%;
+  --popover-foreground: 240 4% 11%;
+  --primary: 45 63% 52%;
+  --primary-foreground: 210 33% 98%;
+  --secondary: 220 30% 90%;
+  --secondary-foreground: 240 4% 11%;
+  --muted: 220 30% 90%;
+  --muted-foreground: 215 7% 38%;
+  --accent: 45 63% 52%;
+  --accent-foreground: 210 33% 98%;
+  --destructive: 0 86% 60%;
+  --destructive-foreground: 210 33% 98%;
+  --border: 0 0% 88%;
+  --input: 0 0% 88%;
+  --ring: 45 63% 52%;
+  --radius: 0.75rem; /* 12px */
 }
 
 .dark {
-  --foreground: 240 240 240; /* Almost white */
-  --card: 20 25 35; /* Dark card with slight blue tint */
-  --card-foreground: 240 240 240;
-  --popover: 20 25 35;
-  --popover-foreground: 240 240 240;
-  --primary: 0 191 255; /* Cyber Blue */
-  --primary-foreground: 15 20 30;
-  --secondary: 30 35 45; /* Dark gray-blue */
-  --secondary-foreground: 240 240 240;
-  --muted: 30 35 45;
-  --muted-foreground: 180 180 180;
-  --accent: 138 43 226; /* Neon Purple */
-  --accent-foreground: 240 240 240;
-  --destructive: 230 57 70;
-  --destructive-foreground: 240 240 240;
-  --border: 40 45 55;
-  --input: 40 45 55;
-  --ring: 0 191 255; /* Cyber Blue glow */
+  --foreground: 240 4% 11%;
+  --card: 210 33% 98%;
+  --card-foreground: 240 4% 11%;
+  --popover: 210 33% 98%;
+  --popover-foreground: 240 4% 11%;
+  --primary: 45 63% 52%;
+  --primary-foreground: 210 33% 98%;
+  --secondary: 220 30% 90%;
+  --secondary-foreground: 240 4% 11%;
+  --muted: 220 30% 90%;
+  --muted-foreground: 215 7% 38%;
+  --accent: 45 63% 52%;
+  --accent-foreground: 210 33% 98%;
+  --destructive: 0 86% 60%;
+  --destructive-foreground: 210 33% 98%;
+  --border: 0 0% 88%;
+  --input: 0 0% 88%;
+  --ring: 45 63% 52%;
 }
 
 * {
-  border-color: hsl(var(--border));
+  border-color: var(--border);
 }
 
 body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
+  background-color: var(--background);
+  color: var(--text-primary);
   font-family: var(--font-cairo), 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -298,17 +515,17 @@ h3 {
 
 /* Glass Morphism Effect */
 .glass {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(var(--background-rgb), 0.1);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(var(--background-rgb), 0.2);
 }
 
 .glass-dark {
-  background: rgba(15, 20, 30, 0.7);
+  background: rgba(var(--text-primary-rgb), 0.7);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(var(--background-rgb), 0.1);
 }
 
 /* Glow Effects */
@@ -418,7 +635,7 @@ h3 {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.1) 50%,
+    rgba(var(--background-rgb), 0.1) 50%,
     transparent 100%
   );
   background-size: 200% 100%;
@@ -516,14 +733,14 @@ h3 {
 }
 
 @keyframes hologram-flicker {
-  0%, 100% { opacity: 1; filter: drop-shadow(0 0 40px rgba(0, 191, 255, 0.6)) drop-shadow(0 0 80px rgba(0, 191, 255, 0.3)); }
-  98% { opacity: 1; filter: drop-shadow(0 0 40px rgba(0, 191, 255, 0.6)) drop-shadow(0 0 80px rgba(0, 191, 255, 0.3)); }
-  99% { opacity: 0.95; filter: drop-shadow(0 0 30px rgba(0, 191, 255, 0.4)) drop-shadow(0 0 60px rgba(0, 191, 255, 0.2)); }
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 40px rgba(var(--accent-gold-rgb), 0.6)) drop-shadow(0 0 80px rgba(var(--accent-gold-rgb), 0.3)); }
+  98% { opacity: 1; filter: drop-shadow(0 0 40px rgba(var(--accent-gold-rgb), 0.6)) drop-shadow(0 0 80px rgba(var(--accent-gold-rgb), 0.3)); }
+  99% { opacity: 0.95; filter: drop-shadow(0 0 30px rgba(var(--accent-gold-rgb), 0.4)) drop-shadow(0 0 60px rgba(var(--accent-gold-rgb), 0.2)); }
 }
 
 @keyframes neon-pulse {
-  0%, 100% { opacity: 0.6; box-shadow: 0 0 10px rgba(0, 191, 255, 0.5), inset 0 0 10px rgba(0, 191, 255, 0.2); }
-  50% { opacity: 1; box-shadow: 0 0 20px rgba(0, 191, 255, 0.8), inset 0 0 20px rgba(0, 191, 255, 0.4); }
+  0%, 100% { opacity: 0.6; box-shadow: 0 0 10px rgba(var(--accent-gold-rgb), 0.5), inset 0 0 10px rgba(var(--accent-gold-rgb), 0.2); }
+  50% { opacity: 1; box-shadow: 0 0 20px rgba(var(--accent-gold-rgb), 0.8), inset 0 0 20px rgba(var(--accent-gold-rgb), 0.4); }
 }
 
 /* Smooth Transitions */
@@ -538,11 +755,11 @@ h3 {
 /* Accessibility - High Contrast Compliance */
 /* All text/background combinations meet WCAG AA/AAA standards */
 
-/* Royal Navy (#0A1F44) on Platinum White (#F8F9FA) - Ratio: 14.5:1 (AAA) */
-/* Platinum White (#F8F9FA) on Royal Navy (#0A1F44) - Ratio: 14.5:1 (AAA) */
-/* Charcoal (#2B2E34) on Platinum White (#F8F9FA) - Ratio: 15.8:1 (AAA) */
-/* Royal Navy (#0A1F44) on Subtle Gold (#D4AF37) - Ratio: 6.8:1 (AAA) */
-/* Subtle Gold (#D4AF37) on Royal Navy (#0A1F44) - Ratio: 6.8:1 (AAA) */
+/* Royal Navy (var(--text-primary)) on Platinum White (var(--background)) - Ratio: 14.5:1 (AAA) */
+/* Platinum White (var(--background)) on Royal Navy (var(--text-primary)) - Ratio: 14.5:1 (AAA) */
+/* Charcoal (var(--text-primary)) on Platinum White (var(--background)) - Ratio: 15.8:1 (AAA) */
+/* Royal Navy (var(--text-primary)) on Subtle Gold (var(--accent-gold)) - Ratio: 6.8:1 (AAA) */
+/* Subtle Gold (var(--accent-gold)) on Royal Navy (var(--text-primary)) - Ratio: 6.8:1 (AAA) */
 
 /* Enhanced Interactive Element Styles */
 button:focus-visible,
@@ -564,7 +781,7 @@ a:hover {
 
 button:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(var(--text-primary-rgb), 0.15);
 }
 
 /* Links - no underline by default */
@@ -586,7 +803,7 @@ button[class*="bg-"] {
 
 /* Premium Shadow Utilities */
 .shadow-futuristic {
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1),
+  box-shadow: 0 10px 40px rgba(var(--text-primary-rgb), 0.1),
               0 0 20px hsl(var(--cyber-blue) / 0.1);
 }
 
@@ -612,8 +829,8 @@ button[class*="bg-"] {
     hsl(var(--cyber-blue)), 
     hsl(var(--neon-purple))
   );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(var(--background) 0 0) content-box, 
+               linear-gradient(var(--background) 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
@@ -648,18 +865,18 @@ button[class*="bg-"] {
 }
 
 .dashboard-theme-light {
-  background-color: #f5f7fb;
-  color: #0f172a;
+  background-color: var(--background);
+  color: var(--text-primary);
 }
 
-.dashboard-theme-light [class*="bg-[#020817]"] {
-  background-color: #ffffff !important;
-  color: #0f172a !important;
+.dashboard-theme-light [class*="bg-[var(--text-primary)]"] {
+  background-color: var(--background) !important;
+  color: var(--text-primary) !important;
 }
 
-.dashboard-theme-light [class*="bg-[#0a1628]"] {
-  background-color: #f8fafc !important;
-  color: #0f172a !important;
+.dashboard-theme-light [class*="bg-[var(--text-primary)]"] {
+  background-color: var(--background) !important;
+  color: var(--text-primary) !important;
 }
 
 /* Smooth Scrolling */
@@ -747,136 +964,101 @@ html {
 /* Glass Morphism Utilities */
 .glass-subtle {
   backdrop-filter: blur(4px);
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(var(--background-rgb), 0.05);
+  border: 1px solid rgba(var(--background-rgb), 0.1);
 }
 
 .glass-medium {
   backdrop-filter: blur(12px);
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(var(--background-rgb), 0.1);
+  border: 1px solid rgba(var(--background-rgb), 0.2);
 }
 
 .glass-strong {
   backdrop-filter: blur(20px);
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(var(--background-rgb), 0.2);
+  border: 1px solid rgba(var(--background-rgb), 0.3);
 }
 
 .glass-premium {
   backdrop-filter: blur(24px);
-  background-color: rgba(255, 255, 255, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(var(--background-rgb), 0.3);
+  border: 1px solid rgba(var(--background-rgb), 0.4);
 }
 
 .glass-dark-subtle {
   backdrop-filter: blur(4px);
-  background-color: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: rgba(var(--text-primary-rgb), 0.05);
+  border: 1px solid rgba(var(--background-rgb), 0.05);
 }
 
 .glass-dark-medium {
   backdrop-filter: blur(12px);
-  background-color: rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(var(--text-primary-rgb), 0.1);
+  border: 1px solid rgba(var(--background-rgb), 0.1);
 }
 
 .glass-dark-strong {
   backdrop-filter: blur(20px);
-  background-color: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(var(--text-primary-rgb), 0.2);
+  border: 1px solid rgba(var(--background-rgb), 0.2);
 }
 
 .glass-dark-premium {
   backdrop-filter: blur(24px);
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(var(--text-primary-rgb), 0.3);
+  border: 1px solid rgba(var(--background-rgb), 0.3);
 }
 
 /* Brand Glass Variants */
 .glass-brand-cyan {
   backdrop-filter: blur(12px);
-  background-color: rgba(0, 191, 255, 0.05);
-  border: 1px solid rgba(0, 191, 255, 0.2);
+  background-color: rgba(var(--accent-gold-rgb), 0.05);
+  border: 1px solid rgba(var(--accent-gold-rgb), 0.2);
 }
 
 .glass-brand-gold {
   backdrop-filter: blur(12px);
-  background-color: rgba(212, 175, 55, 0.05);
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  background-color: rgba(var(--accent-gold-rgb), 0.05);
+  border: 1px solid rgba(var(--accent-gold-rgb), 0.2);
 }
 
 .glass-brand-navy {
   backdrop-filter: blur(12px);
-  background-color: rgba(10, 31, 68, 0.05);
-  border: 1px solid rgba(10, 31, 68, 0.2);
+  background-color: rgba(var(--text-primary-rgb), 0.05);
+  border: 1px solid rgba(var(--text-primary-rgb), 0.2);
 }
 
 /* Status Badge Utilities */
-.status-quote-requested {
-  background-color: var(--color-status-quote-requested);
-  color: hsl(217 91% 34%);
-  border-color: hsl(217 91% 60%);
+.status-quote-requested,
+.status-quote-approved,
+.status-pickup-scheduled,
+.status-picked-up,
+.status-in-transit,
+.status-at-port,
+.status-customs-clearance,
+.status-out-for-delivery,
+.status-delivered,
+.status-cancelled {
+  color: var(--text-primary);
+  border-color: var(--border);
 }
 
-.status-quote-approved {
-  background-color: var(--color-status-quote-approved);
-  color: hsl(142 76% 29%);
-  border-color: hsl(142 71% 45%);
-}
-
-.status-pickup-scheduled {
-  background-color: var(--color-status-pickup-scheduled);
-  color: hsl(220 13% 34%);
-  border-color: hsl(220 13% 59%);
-}
-
-.status-picked-up {
-  background-color: var(--color-status-picked-up);
-  color: hsl(38 92% 25%);
-  border-color: hsl(38 92% 50%);
-}
-
-.status-in-transit {
-  background-color: var(--color-status-in-transit);
-  color: hsl(217 91% 34%);
-  border-color: hsl(217 91% 60%);
-}
-
-.status-at-port {
-  background-color: var(--color-status-at-port);
-  color: hsl(271 91% 34%);
-  border-color: hsl(271 91% 60%);
-}
-
-.status-customs-clearance {
-  background-color: var(--color-status-customs-clearance);
-  color: hsl(25 95% 34%);
-  border-color: hsl(25 95% 50%);
-}
-
-.status-out-for-delivery {
-  background-color: var(--color-status-out-for-delivery);
-  color: hsl(142 76% 29%);
-  border-color: hsl(142 71% 45%);
-}
-
-.status-delivered {
-  background-color: var(--color-status-delivered);
-  color: hsl(142 76% 29%);
-  border-color: hsl(142 76% 36%);
-}
+.status-quote-requested { background-color: var(--color-status-quote-requested); }
+.status-quote-approved { background-color: var(--color-status-quote-approved); }
+.status-pickup-scheduled { background-color: var(--color-status-pickup-scheduled); }
+.status-picked-up { background-color: var(--color-status-picked-up); }
+.status-in-transit { background-color: var(--color-status-in-transit); }
+.status-at-port { background-color: var(--color-status-at-port); }
+.status-customs-clearance { background-color: var(--color-status-customs-clearance); }
+.status-out-for-delivery { background-color: var(--color-status-out-for-delivery); }
+.status-delivered { background-color: var(--color-status-delivered); }
+.status-cancelled { background-color: var(--color-status-cancelled); }
 
 .status-delayed {
   background-color: var(--color-status-delayed);
-  color: hsl(0 72% 34%);
-  border-color: hsl(0 84% 60%);
-}
-
-.status-cancelled {
-  background-color: var(--color-status-cancelled);
-  color: hsl(220 13% 34%);
-  border-color: hsl(220 13% 59%);
+  color: var(--error);
+  border-color: var(--error);
 }
 
 /* Gradient Utilities */
@@ -941,7 +1123,7 @@ html {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.1) 50%,
+    rgba(var(--background-rgb), 0.1) 50%,
     transparent 100%
   );
   background-size: 200% 100%;

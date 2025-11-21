@@ -16,9 +16,9 @@ export default function ThemeToggle({ className }: { className?: string }) {
 			sx={{
 				width: 40,
 				height: 40,
-				color: 'rgba(255, 255, 255, 0.6)',
+				color: 'rgba(var(--background-rgb), 0.6)',
 				'&:hover': {
-					bgcolor: 'rgba(255, 255, 255, 0.05)',
+					bgcolor: 'rgba(var(--background-rgb), 0.05)',
 				},
 			}}
 			className={className}

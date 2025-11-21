@@ -178,7 +178,7 @@ export default function DashboardPage() {
 										fontWeight: 600,
 										mt: 0.5,
 										color: 'var(--background)',
-										'&:hover': { backgroundColor: '#bd9430' },
+										'&:hover': { backgroundColor: 'var(--accent-gold)' },
 									}}
 								>
 									Create shipment

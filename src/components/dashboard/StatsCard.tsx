@@ -55,7 +55,7 @@ export default function StatsCard({
 						height: 38,
 						borderRadius: 2,
 						border: '1px solid var(--border)',
-						background: 'rgba(212, 175, 55, 0.15)',
+						background: 'rgba(var(--accent-gold-rgb), 0.15)',
 						display: 'flex',
 						alignItems: 'center',
 						justifyContent: 'center',
@@ -109,7 +109,7 @@ export default function StatsCard({
 							px: 0.75,
 							color: trend.isPositive ? 'var(--text-primary)' : 'var(--error)',
 							borderColor: trend.isPositive ? 'var(--border)' : 'var(--error)',
-							background: trend.isPositive ? 'var(--background)' : 'rgba(239, 68, 68, 0.12)',
+							background: trend.isPositive ? 'var(--background)' : 'rgba(var(--error-rgb), 0.12)',
 						}}
 						variant="outlined"
 					/>

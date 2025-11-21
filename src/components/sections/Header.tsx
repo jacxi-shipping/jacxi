@@ -128,9 +128,9 @@ export default function Header() {
 								aria-expanded={isOpen}
 								aria-controls="mobile-menu"
 								sx={{
-									color: 'rgb(55 65 81)',
+									color: 'var(--text-primary)',
 									'&:hover': {
-										bgcolor: 'rgb(243 244 246)',
+										bgcolor: 'var(--panel)',
 									},
 								}}
 							>
@@ -153,7 +153,7 @@ export default function Header() {
 							sx: {
 								width: '85vw',
 								maxWidth: '24rem',
-								bgcolor: 'white',
+								bgcolor: 'var(--background)',
 							},
 						}}
 					>
@@ -167,9 +167,9 @@ export default function Header() {
 								onClick={() => setIsOpen(false)}
 								aria-label="Close menu"
 								sx={{
-									color: 'rgb(55 65 81)',
+									color: 'var(--text-primary)',
 									'&:hover': {
-										bgcolor: 'rgb(243 244 246)',
+										bgcolor: 'var(--panel)',
 									},
 								}}
 							>
@@ -202,11 +202,11 @@ export default function Header() {
 													py: 2,
 													fontSize: '1rem',
 													fontWeight: 500,
-													color: 'rgb(55 65 81)',
+													color: 'var(--text-primary)',
 													borderRadius: 3,
 													'&:hover': {
 														color: 'rgb(var(--jacxi-blue))',
-														bgcolor: 'rgb(239 246 255)',
+														bgcolor: 'var(--background)',
 													},
 												}}
 												aria-label={item.name}
@@ -216,7 +216,7 @@ export default function Header() {
 														width: 40,
 														height: 40,
 														borderRadius: 2,
-														bgcolor: 'rgb(243 244 246)',
+														bgcolor: 'var(--panel)',
 														display: 'flex',
 														alignItems: 'center',
 														justifyContent: 'center',

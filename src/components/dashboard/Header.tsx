@@ -145,7 +145,7 @@ export default function Header({ onMenuClick, pageTitle }: HeaderProps) {
 							sx={{
 								color: 'var(--text-secondary)',
 								'&:hover': {
-									bgcolor: 'rgba(224,224,224,0.4)',
+									bgcolor: 'rgba(var(--border-rgb), 0.4)',
 									color: 'var(--text-primary)',
 								},
 							}}
@@ -164,7 +164,7 @@ export default function Header({ onMenuClick, pageTitle }: HeaderProps) {
 								sx={{
 									color: 'var(--text-secondary)',
 									'&:hover': {
-										bgcolor: 'rgba(224,224,224,0.4)',
+										bgcolor: 'rgba(var(--border-rgb), 0.4)',
 										color: 'var(--text-primary)',
 									},
 								}}
@@ -262,7 +262,7 @@ export default function Header({ onMenuClick, pageTitle }: HeaderProps) {
 								fontSize: '0.875rem',
 								py: 1.25,
 								'&:hover': {
-									bgcolor: 'rgba(224,224,224,0.4)',
+									bgcolor: 'rgba(var(--border-rgb), 0.4)',
 								},
 							}}
 						>
@@ -279,7 +279,7 @@ export default function Header({ onMenuClick, pageTitle }: HeaderProps) {
 								fontSize: '0.875rem',
 								py: 1.25,
 								'&:hover': {
-									bgcolor: 'rgba(224,224,224,0.4)',
+									bgcolor: 'rgba(var(--border-rgb), 0.4)',
 								},
 							}}
 						>
@@ -297,7 +297,7 @@ export default function Header({ onMenuClick, pageTitle }: HeaderProps) {
 							fontSize: '0.875rem',
 							py: 1.25,
 							'&:hover': {
-								bgcolor: 'rgba(239, 68, 68, 0.1)',
+								bgcolor: 'rgba(var(--error-rgb), 0.1)',
 								color: 'var(--error)',
 							},
 						}}

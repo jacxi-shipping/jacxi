@@ -7,56 +7,56 @@ export const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#3b82f6', // blue-500
-      light: '#60a5fa', // blue-400
-      dark: '#2563eb', // blue-600
-      contrastText: '#ffffff',
+      main: 'var(--accent-gold)', // blue-500
+      light: 'var(--accent-gold)', // blue-400
+      dark: 'var(--accent-gold)', // blue-600
+      contrastText: 'var(--background)',
     },
     secondary: {
-      main: '#8b5cf6', // violet-500
-      light: '#a78bfa', // violet-400
-      dark: '#7c3aed', // violet-600
-      contrastText: '#ffffff',
+      main: 'var(--accent-gold)', // violet-500
+      light: 'var(--accent-gold)', // violet-400
+      dark: 'var(--accent-gold)', // violet-600
+      contrastText: 'var(--background)',
     },
     success: {
-      main: '#10b981', // emerald-500
-      light: '#34d399', // emerald-400
-      dark: '#059669', // emerald-600
+      main: 'var(--accent-gold)', // emerald-500
+      light: 'var(--accent-gold)', // emerald-400
+      dark: 'var(--accent-gold)', // emerald-600
     },
     warning: {
-      main: '#f59e0b', // amber-500
-      light: '#fbbf24', // amber-400
-      dark: '#d97706', // amber-600
+      main: 'var(--accent-gold)', // amber-500
+      light: 'var(--accent-gold)', // amber-400
+      dark: 'var(--accent-gold)', // amber-600
     },
     error: {
-      main: '#ef4444', // red-500
-      light: '#f87171', // red-400
-      dark: '#dc2626', // red-600
+      main: 'var(--error)', // red-500
+      light: 'var(--error)', // red-400
+      dark: 'var(--error)', // red-600
     },
     info: {
-      main: '#06b6d4', // cyan-500
-      light: '#22d3ee', // cyan-400
-      dark: '#0891b2', // cyan-600
+      main: 'var(--accent-gold)', // cyan-500
+      light: 'var(--accent-gold)', // cyan-400
+      dark: 'var(--accent-gold)', // cyan-600
     },
     grey: {
-      50: '#f9fafb',
-      100: '#f3f4f6',
-      200: '#e5e7eb',
-      300: '#d1d5db',
-      400: '#9ca3af',
-      500: '#6b7280',
-      600: '#4b5563',
-      700: '#374151',
-      800: '#1f2937',
-      900: '#111827',
+      50: 'var(--background)',
+      100: 'var(--panel)',
+      200: 'var(--panel)',
+      300: 'var(--border)',
+      400: 'var(--text-secondary)',
+      500: 'var(--text-secondary)',
+      600: 'var(--text-secondary)',
+      700: 'var(--text-secondary)',
+      800: 'var(--text-primary)',
+      900: 'var(--text-primary)',
     },
     background: {
-      default: '#f9fafb',
-      paper: '#ffffff',
+      default: 'var(--background)',
+      paper: 'var(--background)',
     },
     text: {
-      primary: '#111827',
-      secondary: '#6b7280',
+      primary: 'var(--text-primary)',
+      secondary: 'var(--text-secondary)',
     },
   },
   typography: {
@@ -109,30 +109,30 @@ export const theme = createTheme({
   },
   shadows: [
     'none',
-    '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-    '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-    '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-    '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-    '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-    '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-    '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-    '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-    '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-    '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-    '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-    '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-    '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-    '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-    '0 25px 50px -12px rgb(0 0 0 / 0.25)',
-    '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-    '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-    '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+    '0 1px 2px 0 rgb(var(--text-primary-rgb) / 0.05)',
+    '0 1px 3px 0 rgb(var(--text-primary-rgb) / 0.1), 0 1px 2px -1px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 4px 6px -1px rgb(var(--text-primary-rgb) / 0.1), 0 2px 4px -2px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 10px 15px -3px rgb(var(--text-primary-rgb) / 0.1), 0 4px 6px -4px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 20px 25px -5px rgb(var(--text-primary-rgb) / 0.1), 0 8px 10px -6px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 25px 50px -12px rgb(var(--text-primary-rgb) / 0.25)',
+    '0 1px 3px 0 rgb(var(--text-primary-rgb) / 0.1), 0 1px 2px -1px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 4px 6px -1px rgb(var(--text-primary-rgb) / 0.1), 0 2px 4px -2px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 10px 15px -3px rgb(var(--text-primary-rgb) / 0.1), 0 4px 6px -4px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 20px 25px -5px rgb(var(--text-primary-rgb) / 0.1), 0 8px 10px -6px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 25px 50px -12px rgb(var(--text-primary-rgb) / 0.25)',
+    '0 1px 3px 0 rgb(var(--text-primary-rgb) / 0.1), 0 1px 2px -1px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 4px 6px -1px rgb(var(--text-primary-rgb) / 0.1), 0 2px 4px -2px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 10px 15px -3px rgb(var(--text-primary-rgb) / 0.1), 0 4px 6px -4px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 20px 25px -5px rgb(var(--text-primary-rgb) / 0.1), 0 8px 10px -6px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 25px 50px -12px rgb(var(--text-primary-rgb) / 0.25)',
+    '0 1px 3px 0 rgb(var(--text-primary-rgb) / 0.1), 0 1px 2px -1px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 4px 6px -1px rgb(var(--text-primary-rgb) / 0.1), 0 2px 4px -2px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 10px 15px -3px rgb(var(--text-primary-rgb) / 0.1), 0 4px 6px -4px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 20px 25px -5px rgb(var(--text-primary-rgb) / 0.1), 0 8px 10px -6px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 25px 50px -12px rgb(var(--text-primary-rgb) / 0.25)',
+    '0 1px 3px 0 rgb(var(--text-primary-rgb) / 0.1), 0 1px 2px -1px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 4px 6px -1px rgb(var(--text-primary-rgb) / 0.1), 0 2px 4px -2px rgb(var(--text-primary-rgb) / 0.1)',
+    '0 10px 15px -3px rgb(var(--text-primary-rgb) / 0.1), 0 4px 6px -4px rgb(var(--text-primary-rgb) / 0.1)',
   ],
   components: {
     MuiButton: {
@@ -145,7 +145,7 @@ export const theme = createTheme({
         contained: {
           boxShadow: 'none',
           '&:hover': {
-            boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+            boxShadow: '0 1px 3px 0 rgb(var(--text-primary-rgb) / 0.1), 0 1px 2px -1px rgb(var(--text-primary-rgb) / 0.1)',
           },
         },
       },
@@ -154,7 +154,7 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 12,
-          boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+          boxShadow: '0 1px 3px 0 rgb(var(--text-primary-rgb) / 0.1), 0 1px 2px -1px rgb(var(--text-primary-rgb) / 0.1)',
         },
       },
     },

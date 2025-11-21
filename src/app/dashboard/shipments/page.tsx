@@ -130,7 +130,7 @@ export default function ShipmentsListPage() {
 			>
 				{loading ? (
 					<Box sx={{ minHeight: 260, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-						<CircularProgress size={30} sx={{ color: 'rgb(94,234,212)' }} />
+						<CircularProgress size={30} sx={{ color: 'var(--accent-gold)' }} />
 					</Box>
 				) : shipments.length === 0 ? (
 					<Box
@@ -144,8 +144,8 @@ export default function ShipmentsListPage() {
 							textAlign: 'center',
 						}}
 					>
-						<Inventory2 sx={{ fontSize: 42, color: 'rgba(255,255,255,0.3)' }} />
-						<Typography sx={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.65)' }}>
+						<Inventory2 sx={{ fontSize: 42, color: 'rgba(var(--background-rgb), 0.3)' }} />
+						<Typography sx={{ fontSize: '0.85rem', color: 'rgba(var(--background-rgb), 0.65)' }}>
 							No shipments found
 						</Typography>
 						{isAdmin && (
@@ -195,7 +195,7 @@ export default function ShipmentsListPage() {
 								>
 									Previous
 								</Button>
-								<Typography sx={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.65)' }}>
+								<Typography sx={{ fontSize: '0.75rem', color: 'rgba(var(--background-rgb), 0.65)' }}>
 									Page {currentPage} of {totalPages}
 								</Typography>
 								<Button

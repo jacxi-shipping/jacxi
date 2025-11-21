@@ -416,7 +416,7 @@ export default function ShipmentDetailPage() {
   if (loading) {
     return (
       <ProtectedRoute>
-        <div className="min-h-screen bg-[#020817] flex items-center justify-center">
+        <div className="min-h-screen bg-[var(--text-primary)] flex items-center justify-center">
           <div className="text-center space-y-4 text-white/70">
             <div className="animate-spin rounded-full h-12 w-12 border-4 border-cyan-500/30 border-t-cyan-400" />
             <p>Loading shipment details...</p>
@@ -429,12 +429,12 @@ export default function ShipmentDetailPage() {
   if (error || !shipment) {
     return (
       <ProtectedRoute>
-        <Section className="bg-[#020817] min-h-screen flex items-center justify-center">
+        <Section className="bg-[var(--text-primary)] min-h-screen flex items-center justify-center">
           <div className="max-w-md text-center space-y-4">
             <h2 className="text-xl font-semibold text-white">Shipment unavailable</h2>
             <p className="text-white/70">{error || 'We could not find this shipment. It may have been removed or does not exist.'}</p>
             <Link href="/dashboard/shipments">
-              <Button className="bg-[#00bfff] text-white hover:bg-[#00a8e6]">Back to Shipments</Button>
+              <Button className="bg-[var(--accent-gold)] text-white hover:bg-[var(--accent-gold)]">Back to Shipments</Button>
             </Link>
           </div>
         </Section>
@@ -450,8 +450,8 @@ export default function ShipmentDetailPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-[#020817]">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#020817] via-[#0a1628] to-[#020817]" />
+      <div className="min-h-screen bg-[var(--text-primary)]">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[var(--text-primary)] via-[var(--text-primary)] to-[var(--text-primary)]" />
         <div className="absolute inset-0 -z-10 opacity-[0.04]">
           <svg className="h-full w-full" preserveAspectRatio="none">
             <pattern id="shipment-grid" width="32" height="32" patternUnits="userSpaceOnUse">
@@ -491,7 +491,7 @@ export default function ShipmentDetailPage() {
                         Delete
                       </Button>
                       <Link href={`/dashboard/shipments/${shipment.id}/edit`} className="flex-1 sm:flex-initial">
-                        <Button className="bg-[#00bfff] text-white hover:bg-[#00a8e6] w-full text-xs sm:text-sm">
+                        <Button className="bg-[var(--accent-gold)] text-white hover:bg-[var(--accent-gold)] w-full text-xs sm:text-sm">
                           <PenLine className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                           Edit Shipment
                         </Button>
@@ -535,7 +535,7 @@ export default function ShipmentDetailPage() {
                     <CardContent className="space-y-3 sm:space-y-5 p-4 sm:p-6">
                       <div className="h-1.5 sm:h-2 w-full overflow-hidden rounded-full bg-white/10">
                         <div
-                          className="h-full bg-gradient-to-r from-cyan-500 to-[#00bfff] transition-all duration-500"
+                          className="h-full bg-gradient-to-r from-cyan-500 to-[var(--accent-gold)] transition-all duration-500"
                           style={{ width: `${Math.max(Math.min(shipment.progress || 0, 100), 0)}%` }}
                         />
                       </div>

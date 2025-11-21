@@ -170,7 +170,7 @@ export default function DocumentsPage() {
 	const role = session?.user?.role;
 	if (status === 'loading' || !session || role !== 'admin') {
 		return (
-			<div className="min-h-screen bg-[#020817] flex items-center justify-center">
+			<div className="min-h-screen bg-[var(--text-primary)] flex items-center justify-center">
 				<div className="animate-spin rounded-full h-12 w-12 border-4 border-cyan-500/30 border-t-cyan-400" />
 			</div>
 		);
@@ -194,17 +194,17 @@ export default function DocumentsPage() {
 						transition={{ duration: 0.5, delay: 0.15 }}
 						className="grid grid-cols-1 md:grid-cols-3 gap-4"
 					>
-						<div className="rounded-xl border border-cyan-500/30 bg-[#0a1628]/70 backdrop-blur-md p-5 shadow-lg shadow-cyan-500/10">
+						<div className="rounded-xl border border-cyan-500/30 bg-[var(--text-primary)]/70 backdrop-blur-md p-5 shadow-lg shadow-cyan-500/10">
 							<p className="text-sm text-white/60">Active Categories</p>
 							<p className="text-3xl font-semibold text-white mt-1">{categories.length}</p>
 							<p className="text-xs text-white/40 mt-2">Templates, uploads, compliance.</p>
 						</div>
-						<div className="rounded-xl border border-blue-500/30 bg-[#0a1628]/70 backdrop-blur-md p-5 shadow-lg shadow-blue-500/10">
+						<div className="rounded-xl border border-blue-500/30 bg-[var(--text-primary)]/70 backdrop-blur-md p-5 shadow-lg shadow-blue-500/10">
 							<p className="text-sm text-white/60">Required Documents</p>
 							<p className="text-3xl font-semibold text-white mt-1">{pendingDocumentsCount}</p>
 							<p className="text-xs text-white/40 mt-2">Ensure these remain up to date.</p>
 						</div>
-						<div className="rounded-xl border border-purple-500/30 bg-[#0a1628]/70 backdrop-blur-md p-5 shadow-lg shadow-purple-500/10">
+						<div className="rounded-xl border border-purple-500/30 bg-[var(--text-primary)]/70 backdrop-blur-md p-5 shadow-lg shadow-purple-500/10">
 							<p className="text-sm text-white/60">Storage Usage</p>
 							<p className="text-3xl font-semibold text-white mt-1">3.1 GB</p>
 							<p className="text-xs text-white/40 mt-2">Includes uploaded manifests and certificates.</p>
@@ -214,13 +214,13 @@ export default function DocumentsPage() {
 			</DashboardPanel>
 
 			<DashboardPanel title="Document library" description="Search and manage every document">
-			<Section className="bg-[#020817] py-4 sm:py-6">
+			<Section className="bg-[var(--text-primary)] py-4 sm:py-6">
 				<div className="max-w-6xl mx-auto space-y-10">
 					<motion.div
 						initial={{ opacity: 0, y: 16 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.2 }}
-						className="relative rounded-xl border border-cyan-500/30 bg-[#0a1628]/70 backdrop-blur-md p-6 shadow-lg shadow-cyan-500/10"
+						className="relative rounded-xl border border-cyan-500/30 bg-[var(--text-primary)]/70 backdrop-blur-md p-6 shadow-lg shadow-cyan-500/10"
 					>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 							<div className="relative">
@@ -229,11 +229,11 @@ export default function DocumentsPage() {
 									value={search}
 									onChange={(event) => setSearch(event.target.value)}
 									placeholder="Search documents by name..."
-									className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-[#020817] border border-cyan-500/30 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/40"
+									className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-[var(--text-primary)] border border-cyan-500/30 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/40"
 								/>
 							</div>
 							<div className="flex flex-wrap gap-3 md:justify-end">
-								<Button className="bg-[#00bfff] hover:bg-[#00a8e6] text-white">
+								<Button className="bg-[var(--accent-gold)] hover:bg-[var(--accent-gold)] text-white">
 									<Download className="w-4 h-4 mr-2" />
 									Download All Templates
 								</Button>
@@ -249,7 +249,7 @@ export default function DocumentsPage() {
 						<motion.div
 							initial={{ opacity: 0, y: 16 }}
 							animate={{ opacity: 1, y: 0 }}
-							className="rounded-xl border border-cyan-500/30 bg-[#0a1628]/50 backdrop-blur-sm p-16 text-center"
+							className="rounded-xl border border-cyan-500/30 bg-[var(--text-primary)]/50 backdrop-blur-sm p-16 text-center"
 						>
 							<AlertCircle className="w-14 h-14 text-white/30 mx-auto mb-4" />
 							<p className="text-white/70 text-lg">No documents match “{search}”. Try a different search term.</p>
@@ -291,7 +291,7 @@ export default function DocumentsPage() {
 												whileInView={{ opacity: 1, y: 0 }}
 												viewport={{ once: true }}
 												transition={{ duration: 0.4, delay: docIdx * 0.05 }}
-												className="relative rounded-xl border border-cyan-500/20 bg-[#0a1628]/60 backdrop-blur-md p-5 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/10 transition-all"
+												className="relative rounded-xl border border-cyan-500/20 bg-[var(--text-primary)]/60 backdrop-blur-md p-5 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/10 transition-all"
 											>
 												<div className="flex items-start justify-between gap-3">
 													<div className="space-y-2">

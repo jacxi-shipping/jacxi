@@ -88,7 +88,7 @@ interface AnalyticsPayload {
 	lastUpdated: string;
 }
 
-const COLORS = ['#22d3ee', '#818cf8', '#f472b6', '#f97316', '#34d399', '#facc15', '#38bdf8'];
+const COLORS = ['var(--accent-gold)', 'var(--accent-gold)', 'var(--accent-gold)', 'var(--accent-gold)', 'var(--accent-gold)', 'var(--accent-gold)', 'var(--accent-gold)'];
 
 const formatCurrency = (value: number) =>
 	new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(
@@ -166,7 +166,7 @@ export default function AnalyticsPage() {
 				icon: Package,
 				description: 'All shipments recorded in Jacxi.',
 				accent: 'border-cyan-500/40 bg-cyan-500/15 text-cyan-200',
-				glow: 'rgba(6, 182, 212, 0.3)',
+				glow: 'rgba(var(--accent-gold-rgb), 0.3)',
 			},
 			{
 				label: 'Active Shipments',
@@ -174,7 +174,7 @@ export default function AnalyticsPage() {
 				icon: Activity,
 				description: 'Currently moving through the network.',
 				accent: 'border-emerald-500/40 bg-emerald-500/15 text-emerald-200',
-				glow: 'rgba(16, 185, 129, 0.3)',
+				glow: 'rgba(var(--accent-gold-rgb), 0.3)',
 			},
 			{
 				label: 'Total Revenue',
@@ -182,7 +182,7 @@ export default function AnalyticsPage() {
 				icon: TrendingUp,
 				description: 'Paid invoices converted to USD.',
 				accent: 'border-purple-500/40 bg-purple-500/15 text-purple-200',
-				glow: 'rgba(168, 85, 247, 0.3)',
+				glow: 'rgba(var(--accent-gold-rgb), 0.3)',
 			},
 			{
 				label: 'Team Admins',
@@ -190,7 +190,7 @@ export default function AnalyticsPage() {
 				icon: UserIcon,
 				description: 'Administrators with dashboard access.',
 				accent: 'border-blue-500/40 bg-blue-500/15 text-blue-200',
-				glow: 'rgba(59, 130, 246, 0.3)',
+				glow: 'rgba(var(--accent-gold-rgb), 0.3)',
 			},
 			{
 				label: 'Overdue Invoices',
@@ -198,7 +198,7 @@ export default function AnalyticsPage() {
 				icon: AlertTriangle,
 				description: 'Invoices past due date & unpaid.',
 				accent: 'border-sky-500/30 bg-sky-50 text-sky-700',
-				glow: 'rgba(14,165,233,0.25)',
+				glow: 'rgba(var(--accent-gold-rgb), 0.25)',
 			},
 			{
 				label: 'Active Containers',
@@ -206,7 +206,7 @@ export default function AnalyticsPage() {
 				icon: Layers,
 				description: 'Containers currently assigned & active.',
 				accent: 'border-fuchsia-500/40 bg-fuchsia-500/15 text-fuchsia-200',
-				glow: 'rgba(217, 70, 239, 0.3)',
+				glow: 'rgba(var(--accent-gold-rgb), 0.3)',
 			},
 		];
 	}, [data]);
@@ -216,7 +216,7 @@ export default function AnalyticsPage() {
 			<Box
 				sx={{
 					minHeight: '100vh',
-					background: '#020817',
+					background: 'var(--text-primary)',
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center',
@@ -225,8 +225,8 @@ export default function AnalyticsPage() {
 				<CircularProgress
 					size={60}
 					sx={{
-						color: 'rgb(34, 211, 238)',
-						filter: 'drop-shadow(0 0 15px rgba(34, 211, 238, 0.5))',
+						color: 'var(--accent-gold)',
+						filter: 'drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.5))',
 					}}
 				/>
 			</Box>
@@ -265,11 +265,11 @@ export default function AnalyticsPage() {
 				<Box
 					sx={{
 						borderRadius: 2,
-						border: '1px solid rgba(239,68,68,0.3)',
-						background: 'rgba(239,68,68,0.08)',
+						border: '1px solid rgba(var(--error-rgb), 0.3)',
+						background: 'rgba(var(--error-rgb), 0.08)',
 						px: 2.5,
 						py: 1.5,
-						color: 'rgb(248,113,113)',
+						color: 'var(--error)',
 					}}
 				>
 					{error}
@@ -284,7 +284,7 @@ export default function AnalyticsPage() {
 							<Box
 								className={`rounded-xl border ${card.accent} backdrop-blur-md p-4 shadow-lg`}
 								sx={{
-									background: 'rgba(4,10,22,0.85)',
+									background: 'rgba(var(--text-primary-rgb), 0.85)',
 									minHeight: 140,
 									display: 'flex',
 									flexDirection: 'column',
@@ -293,16 +293,16 @@ export default function AnalyticsPage() {
 							>
 								<Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 1 }}>
 									<Box>
-										<Typography sx={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'rgba(255,255,255,0.55)' }}>
+										<Typography sx={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'rgba(var(--background-rgb), 0.55)' }}>
 											{card.label}
 										</Typography>
-										<Typography sx={{ fontSize: '1.5rem', fontWeight: 700, color: 'white' }}>{card.value}</Typography>
+										<Typography sx={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--background)' }}>{card.value}</Typography>
 									</Box>
-									<Box sx={{ p: 1, borderRadius: 2, background: 'rgba(0,0,0,0.2)' }}>
-										<Icon style={{ width: 22, height: 22, color: 'white' }} />
+									<Box sx={{ p: 1, borderRadius: 2, background: 'rgba(var(--text-primary-rgb), 0.2)' }}>
+										<Icon style={{ width: 22, height: 22, color: 'var(--background)' }} />
 									</Box>
 								</Box>
-								<Typography sx={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)' }}>{card.description}</Typography>
+								<Typography sx={{ fontSize: '0.75rem', color: 'rgba(var(--background-rgb), 0.6)' }}>{card.description}</Typography>
 							</Box>
 						</Zoom>
 					);
@@ -314,11 +314,11 @@ export default function AnalyticsPage() {
 					<Box sx={{ height: 300 }}>
 						<ResponsiveContainer width="100%" height="100%">
 							<LineChart data={data.shipmentsByMonth}>
-								<CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-								<XAxis dataKey="month" stroke="#94a3b8" tickLine={false} axisLine={false} />
-								<YAxis allowDecimals={false} stroke="#94a3b8" tickLine={false} axisLine={false} />
-								<Tooltip contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: 8 }} />
-								<Line type="monotone" dataKey="count" stroke="#22d3ee" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+								<CartesianGrid strokeDasharray="3 3" stroke="var(--text-primary)" />
+								<XAxis dataKey="month" stroke="var(--text-secondary)" tickLine={false} axisLine={false} />
+								<YAxis allowDecimals={false} stroke="var(--text-secondary)" tickLine={false} axisLine={false} />
+								<Tooltip contentStyle={{ backgroundColor: 'var(--text-primary)', border: '1px solid var(--text-primary)', borderRadius: 8 }} />
+								<Line type="monotone" dataKey="count" stroke="var(--accent-gold)" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
 							</LineChart>
 						</ResponsiveContainer>
 					</Box>
@@ -328,14 +328,14 @@ export default function AnalyticsPage() {
 					<Box sx={{ height: 300 }}>
 						<ResponsiveContainer width="100%" height="100%">
 							<BarChart data={data.revenueByMonth}>
-								<CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
-								<XAxis dataKey="month" stroke="#94a3b8" tickLine={false} axisLine={false} />
-								<YAxis tickFormatter={(value) => `${Math.round(value / 1000)}k`} stroke="#94a3b8" tickLine={false} axisLine={false} />
+								<CartesianGrid strokeDasharray="3 3" stroke="var(--text-primary)" />
+								<XAxis dataKey="month" stroke="var(--text-secondary)" tickLine={false} axisLine={false} />
+								<YAxis tickFormatter={(value) => `${Math.round(value / 1000)}k`} stroke="var(--text-secondary)" tickLine={false} axisLine={false} />
 								<Tooltip
-									contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #312e81', borderRadius: 8 }}
+									contentStyle={{ backgroundColor: 'var(--text-primary)', border: '1px solid var(--text-primary)', borderRadius: 8 }}
 									formatter={(value: number) => formatCurrency(value)}
 								/>
-								<Bar dataKey="totalUSD" fill="#a855f7" radius={[6, 6, 0, 0]} />
+								<Bar dataKey="totalUSD" fill="var(--accent-gold)" radius={[6, 6, 0, 0]} />
 							</BarChart>
 						</ResponsiveContainer>
 					</Box>

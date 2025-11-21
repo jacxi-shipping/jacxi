@@ -160,9 +160,9 @@ function NavItem({ item, isActive, onNavClick }: NavItemProps) {
 				minHeight: 0,
 				transition: 'all 0.2s ease',
 				color: active ? 'var(--accent-gold)' : 'var(--text-secondary)',
-				bgcolor: active ? 'rgba(212,175,55,0.12)' : 'transparent',
+				bgcolor: active ? 'rgba(var(--accent-gold-rgb), 0.12)' : 'transparent',
 				'&:hover': {
-					bgcolor: 'rgba(224,224,224,0.4)',
+					bgcolor: 'rgba(var(--border-rgb), 0.4)',
 					color: 'var(--text-primary)',
 				},
 				'&::before': active
@@ -217,7 +217,7 @@ function NavSection({ title, items, isAdmin, isActive, onNavClick }: NavSectionP
 						sx={{
 							fontSize: '0.6875rem',
 							fontWeight: 600,
-							color: '#94a3b8',
+							color: 'var(--text-secondary)',
 							textTransform: 'uppercase',
 							letterSpacing: 0.5,
 						}}

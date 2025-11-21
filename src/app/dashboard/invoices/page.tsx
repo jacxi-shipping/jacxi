@@ -98,7 +98,7 @@ export default function InvoicesPage() {
 
 	if (status === 'loading' || loading) {
 		return (
-			<div className="min-h-screen bg-[#020817] flex items-center justify-center">
+			<div className="min-h-screen bg-[var(--text-primary)] flex items-center justify-center">
 				<div className="animate-spin rounded-full h-12 w-12 border-4 border-cyan-500/30 border-t-cyan-400"></div>
 			</div>
 		);
@@ -141,7 +141,7 @@ export default function InvoicesPage() {
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
 						transition={{ duration: 0.5, delay: idx * 0.1 }}
-						className="rounded-xl border border-white/10 bg-[#0a1628]/70 p-5 shadow-lg"
+						className="rounded-xl border border-white/10 bg-[var(--text-primary)]/70 p-5 shadow-lg"
 					>
 						<div className="flex items-center justify-between">
 							<div>
@@ -163,7 +163,7 @@ export default function InvoicesPage() {
 						<Input
 							type="text"
 							placeholder="Search by invoice number or container..."
-							className="w-full pl-10 pr-4 py-2 bg-[#020817] border border-cyan-500/30 rounded-lg text-white placeholder:text-white/50 focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+							className="w-full pl-10 pr-4 py-2 bg-[var(--text-primary)] border border-cyan-500/30 rounded-lg text-white placeholder:text-white/50 focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
 							value={searchTerm}
 							onChange={(e) => setSearchTerm(e.target.value)}
 						/>
@@ -171,7 +171,7 @@ export default function InvoicesPage() {
 					<div className="relative">
 						<Receipt className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-cyan-400/70" />
 						<select
-							className="w-full pl-10 pr-4 py-2 bg-[#020817] border border-cyan-500/30 rounded-lg text-white appearance-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+							className="w-full pl-10 pr-4 py-2 bg-[var(--text-primary)] border border-cyan-500/30 rounded-lg text-white appearance-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
 							value={statusFilter}
 							onChange={(e) => setStatusFilter(e.target.value)}
 						>
@@ -191,7 +191,7 @@ export default function InvoicesPage() {
 				fullHeight
 			>
 				{filteredInvoices.length === 0 ? (
-					<div className="rounded-xl border border-cyan-500/30 bg-[#0a1628]/50 backdrop-blur-sm p-12 text-center">
+					<div className="rounded-xl border border-cyan-500/30 bg-[var(--text-primary)]/50 backdrop-blur-sm p-12 text-center">
 						<Receipt className="w-16 h-16 text-white/30 mx-auto mb-4" />
 						<p className="text-white/70">No invoices found</p>
 					</div>
@@ -204,7 +204,7 @@ export default function InvoicesPage() {
 									whileInView={{ opacity: 1, y: 0 }}
 									viewport={{ once: true }}
 									transition={{ duration: 0.4, delay: index * 0.05 }}
-									className="group rounded-xl border border-cyan-500/30 bg-[#0a1628]/60 p-5 hover:border-cyan-500/60 hover:shadow-lg hover:shadow-cyan-500/20 transition"
+									className="group rounded-xl border border-cyan-500/30 bg-[var(--text-primary)]/60 p-5 hover:border-cyan-500/60 hover:shadow-lg hover:shadow-cyan-500/20 transition"
 								>
 									<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 										<div className="flex-1 min-w-0">

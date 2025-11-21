@@ -127,7 +127,7 @@ export default function UsersPage() {
 
 	if (status === 'loading' || loading) {
 		return (
-			<div className="min-h-screen bg-[#020817] flex items-center justify-center">
+			<div className="min-h-screen bg-[var(--text-primary)] flex items-center justify-center">
 				<div className="animate-spin rounded-full h-12 w-12 border-4 border-cyan-500/30 border-t-cyan-400"></div>
 			</div>
 		);
@@ -149,9 +149,9 @@ export default function UsersPage() {
 				]}
 			/>
 			<DashboardPanel title="Team directory" description="All users in one view" fullHeight>
-			<Section className="relative bg-[#020817] py-6 sm:py-12 lg:py-16 overflow-hidden">
+			<Section className="relative bg-[var(--text-primary)] py-6 sm:py-12 lg:py-16 overflow-hidden">
 				{/* Background gradient */}
-				<div className="absolute inset-0 bg-gradient-to-br from-[#020817] via-[#0a1628] to-[#020817]" />
+				<div className="absolute inset-0 bg-gradient-to-br from-[var(--text-primary)] via-[var(--text-primary)] to-[var(--text-primary)]" />
 
 				{/* Subtle geometric grid pattern */}
 				<div className="absolute inset-0 opacity-[0.03]">
@@ -185,7 +185,7 @@ export default function UsersPage() {
 							<Link href="/dashboard/users/new" className="block">
 								<Button
 									size="lg"
-									className="group relative overflow-hidden bg-[#00bfff] text-white hover:bg-[#00a8e6] shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-all duration-300 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base md:text-lg font-semibold w-full sm:w-auto"
+									className="group relative overflow-hidden bg-[var(--accent-gold)] text-white hover:bg-[var(--accent-gold)] shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-all duration-300 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base md:text-lg font-semibold w-full sm:w-auto"
 								>
 									<UserPlus className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
 									Create User
@@ -197,7 +197,7 @@ export default function UsersPage() {
 			</Section>
 
 			{/* Main Content */}
-			<Section className="bg-[#020817] py-6 sm:py-12 lg:py-16">
+			<Section className="bg-[var(--text-primary)] py-6 sm:py-12 lg:py-16">
 				{/* Stats Cards */}
 				<div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8 mb-6 sm:mb-8 md:mb-12">
 					<motion.div
@@ -205,7 +205,7 @@ export default function UsersPage() {
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
 						transition={{ duration: 0.6, delay: 0 }}
-						className="relative rounded-lg sm:rounded-xl bg-[#0a1628]/50 backdrop-blur-sm border border-cyan-500/30 p-3 sm:p-6 shadow-lg shadow-cyan-500/10"
+						className="relative rounded-lg sm:rounded-xl bg-[var(--text-primary)]/50 backdrop-blur-sm border border-cyan-500/30 p-3 sm:p-6 shadow-lg shadow-cyan-500/10"
 					>
 						<div className="flex items-center justify-between gap-2">
 							<div className="min-w-0 flex-1">
@@ -223,7 +223,7 @@ export default function UsersPage() {
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
 						transition={{ duration: 0.6, delay: 0.1 }}
-						className="relative rounded-lg sm:rounded-xl bg-[#0a1628]/50 backdrop-blur-sm border border-purple-500/30 p-3 sm:p-6 shadow-lg shadow-purple-500/10"
+						className="relative rounded-lg sm:rounded-xl bg-[var(--text-primary)]/50 backdrop-blur-sm border border-purple-500/30 p-3 sm:p-6 shadow-lg shadow-purple-500/10"
 					>
 						<div className="flex items-center justify-between gap-2">
 							<div className="min-w-0 flex-1">
@@ -241,7 +241,7 @@ export default function UsersPage() {
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
 						transition={{ duration: 0.6, delay: 0.2 }}
-						className="relative rounded-lg sm:rounded-xl bg-[#0a1628]/50 backdrop-blur-sm border border-green-500/30 p-3 sm:p-6 shadow-lg shadow-green-500/10"
+						className="relative rounded-lg sm:rounded-xl bg-[var(--text-primary)]/50 backdrop-blur-sm border border-green-500/30 p-3 sm:p-6 shadow-lg shadow-green-500/10"
 					>
 						<div className="flex items-center justify-between gap-2">
 							<div className="min-w-0 flex-1">
@@ -259,7 +259,7 @@ export default function UsersPage() {
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
 						transition={{ duration: 0.6, delay: 0.3 }}
-						className="relative rounded-lg sm:rounded-xl bg-[#0a1628]/50 backdrop-blur-sm border border-cyan-500/30 p-3 sm:p-6 shadow-lg shadow-cyan-500/10"
+						className="relative rounded-lg sm:rounded-xl bg-[var(--text-primary)]/50 backdrop-blur-sm border border-cyan-500/30 p-3 sm:p-6 shadow-lg shadow-cyan-500/10"
 					>
 						<div className="flex items-center justify-between gap-2">
 							<div className="min-w-0 flex-1">
@@ -307,16 +307,16 @@ export default function UsersPage() {
 					</div>
 
 					{loading ? (
-						<div className="relative rounded-lg sm:rounded-xl bg-[#0a1628]/50 backdrop-blur-sm border border-cyan-500/30 p-8 sm:p-12 text-center">
+						<div className="relative rounded-lg sm:rounded-xl bg-[var(--text-primary)]/50 backdrop-blur-sm border border-cyan-500/30 p-8 sm:p-12 text-center">
 							<div className="inline-block animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-4 border-cyan-500/30 border-t-cyan-400"></div>
 							<p className="mt-4 text-sm sm:text-base text-white/70">Loading users...</p>
 						</div>
 					) : filteredUsers.length === 0 ? (
-						<div className="relative rounded-lg sm:rounded-xl bg-[#0a1628]/50 backdrop-blur-sm border border-cyan-500/30 p-8 sm:p-12 text-center">
+						<div className="relative rounded-lg sm:rounded-xl bg-[var(--text-primary)]/50 backdrop-blur-sm border border-cyan-500/30 p-8 sm:p-12 text-center">
 							<User className="w-12 h-12 sm:w-16 sm:h-16 text-white/30 mx-auto mb-4" />
 							<p className="text-sm sm:text-base text-white/70 mb-4 sm:mb-6">No users found</p>
 							<Link href="/dashboard/users/new" className="inline-block">
-								<Button className="bg-[#00bfff] text-white hover:bg-[#00a8e6] text-sm sm:text-base">
+								<Button className="bg-[var(--accent-gold)] text-white hover:bg-[var(--accent-gold)] text-sm sm:text-base">
 									<UserPlus className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
 									Create Your First User
 								</Button>
@@ -331,7 +331,7 @@ export default function UsersPage() {
 									whileInView={{ opacity: 1, y: 0 }}
 									viewport={{ once: true }}
 									transition={{ duration: 0.4, delay: index * 0.05 }}
-									className="relative rounded-lg sm:rounded-xl bg-[#0a1628]/50 backdrop-blur-sm border border-cyan-500/30 p-4 sm:p-6 hover:border-cyan-500/50 transition-all duration-300 shadow-lg shadow-cyan-500/5 hover:shadow-cyan-500/10"
+									className="relative rounded-lg sm:rounded-xl bg-[var(--text-primary)]/50 backdrop-blur-sm border border-cyan-500/30 p-4 sm:p-6 hover:border-cyan-500/50 transition-all duration-300 shadow-lg shadow-cyan-500/5 hover:shadow-cyan-500/10"
 								>
 									{/* Header with User Info */}
 									<div className="flex items-start justify-between mb-3 sm:mb-4 gap-2">
@@ -378,7 +378,7 @@ export default function UsersPage() {
 												)}
 											</button>
 										</div>
-										<div className="flex items-center gap-2 bg-[#020817]/50 border border-cyan-500/20 rounded-lg p-2">
+										<div className="flex items-center gap-2 bg-[var(--text-primary)]/50 border border-cyan-500/20 rounded-lg p-2">
 											<span className="text-xs sm:text-sm text-white/80 font-mono flex-1 truncate">
 												{showEmailsFor.has(user.id) ? user.email : maskEmail(user.email)}
 											</span>
@@ -406,7 +406,7 @@ export default function UsersPage() {
 												Password
 											</span>
 										</div>
-										<div className="flex items-center gap-2 bg-[#020817]/50 border border-cyan-500/20 rounded-lg p-2">
+										<div className="flex items-center gap-2 bg-[var(--text-primary)]/50 border border-cyan-500/20 rounded-lg p-2">
 											<span className="text-xs sm:text-sm text-white/60 flex-1">
 												••••••••••
 											</span>

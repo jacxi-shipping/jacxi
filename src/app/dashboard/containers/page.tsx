@@ -87,7 +87,7 @@ export default function ContainersPage() {
 			<Box
 				sx={{
 					minHeight: '100vh',
-					background: '#020817',
+					background: 'var(--text-primary)',
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center',
@@ -96,8 +96,8 @@ export default function ContainersPage() {
 				<CircularProgress
 					size={60}
 					sx={{
-						color: 'rgb(34, 211, 238)',
-						filter: 'drop-shadow(0 0 15px rgba(34, 211, 238, 0.5))',
+						color: 'var(--accent-gold)',
+						filter: 'drop-shadow(0 0 15px rgba(var(--accent-gold-rgb), 0.5))',
 					}}
 				/>
 			</Box>
@@ -160,8 +160,8 @@ export default function ContainersPage() {
 							textAlign: 'center',
 						}}
 					>
-						<Package style={{ fontSize: 40, color: 'rgba(255,255,255,0.25)' }} />
-						<Typography sx={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.65)' }}>
+						<Package style={{ fontSize: 40, color: 'rgba(var(--background-rgb), 0.25)' }} />
+						<Typography sx={{ fontSize: '0.85rem', color: 'rgba(var(--background-rgb), 0.65)' }}>
 							No containers match this filter
 						</Typography>
 					</Box>
@@ -178,9 +178,9 @@ export default function ContainersPage() {
 								<Box
 									sx={{
 										borderRadius: 2,
-										border: '1px solid rgba(148,163,184,0.25)',
-										background: 'rgba(4,12,24,0.9)',
-										boxShadow: '0 18px 30px rgba(0,0,0,0.35)',
+										border: '1px solid rgba(var(--text-secondary-rgb), 0.25)',
+										background: 'rgba(var(--text-primary-rgb), 0.9)',
+										boxShadow: '0 18px 30px rgba(var(--text-primary-rgb), 0.35)',
 										padding: 1.5,
 										display: 'flex',
 										flexDirection: 'column',
@@ -189,10 +189,10 @@ export default function ContainersPage() {
 								>
 									<Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 1 }}>
 										<Box sx={{ minWidth: 0 }}>
-											<Typography sx={{ fontSize: '0.9rem', fontWeight: 600, color: 'white', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+											<Typography sx={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--background)', overflow: 'hidden', textOverflow: 'ellipsis' }}>
 												{container.containerNumber}
 											</Typography>
-											<Typography sx={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.55)' }}>
+											<Typography sx={{ fontSize: '0.72rem', color: 'rgba(var(--background-rgb), 0.55)' }}>
 												{container.items.length} {container.items.length === 1 ? 'item' : 'items'}
 											</Typography>
 										</Box>
@@ -203,27 +203,27 @@ export default function ContainersPage() {
 												height: 20,
 												fontSize: '0.65rem',
 												fontWeight: 600,
-												bgcolor: container.status === 'ACTIVE' ? 'rgba(34,197,94,0.12)' : 'rgba(148,163,184,0.15)',
-												color: container.status === 'ACTIVE' ? 'rgb(74,222,128)' : 'rgba(226,232,240,0.8)',
-												borderColor: container.status === 'ACTIVE' ? 'rgba(34,197,94,0.35)' : 'rgba(148,163,184,0.35)',
+												bgcolor: container.status === 'ACTIVE' ? 'rgba(var(--accent-gold-rgb), 0.12)' : 'rgba(var(--text-secondary-rgb), 0.15)',
+												color: container.status === 'ACTIVE' ? 'var(--accent-gold)' : 'rgba(var(--panel-rgb), 0.8)',
+												borderColor: container.status === 'ACTIVE' ? 'rgba(var(--accent-gold-rgb), 0.35)' : 'rgba(var(--text-secondary-rgb), 0.35)',
 											}}
 											variant="outlined"
 										/>
 									</Box>
 
 									{container.shipment?.trackingNumber && (
-										<Box sx={{ borderRadius: 2, border: '1px solid rgba(94,234,212,0.25)', background: 'rgba(94,234,212,0.06)', px: 1.2, py: 0.8 }}>
-											<Typography sx={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.45)', mb: 0.3 }}>
+										<Box sx={{ borderRadius: 2, border: '1px solid rgba(var(--accent-gold-rgb), 0.25)', background: 'rgba(var(--accent-gold-rgb), 0.06)', px: 1.2, py: 0.8 }}>
+											<Typography sx={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'rgba(var(--background-rgb), 0.45)', mb: 0.3 }}>
 												Linked shipment
 											</Typography>
-											<Typography sx={{ fontSize: '0.78rem', fontWeight: 600, color: 'rgb(94,234,212)', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+											<Typography sx={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--accent-gold)', overflow: 'hidden', textOverflow: 'ellipsis' }}>
 												{container.shipment.trackingNumber}
 											</Typography>
 										</Box>
 									)}
 
 									<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
-										<Typography sx={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.6)' }}>
+										<Typography sx={{ fontSize: '0.7rem', color: 'rgba(var(--background-rgb), 0.6)' }}>
 											{container.invoices.length} invoice{container.invoices.length === 1 ? '' : 's'}
 										</Typography>
 										<Link href={`/dashboard/containers/${container.id}`} style={{ textDecoration: 'none' }}>

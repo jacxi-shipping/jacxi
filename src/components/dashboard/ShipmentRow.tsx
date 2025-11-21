@@ -36,21 +36,21 @@ type StatusColors = {
 };
 
 const statusColors: Record<string, StatusColors> = {
-	PENDING: { bg: 'rgba(107, 114, 128, 0.15)', text: 'rgb(156, 163, 175)', border: 'rgba(107, 114, 128, 0.4)', glow: 'rgba(107, 114, 128, 0.3)' },
-	QUOTE_REQUESTED: { bg: 'rgba(59, 130, 246, 0.15)', text: 'rgb(96, 165, 250)', border: 'rgba(59, 130, 246, 0.4)', glow: 'rgba(59, 130, 246, 0.3)' },
-	QUOTE_APPROVED: { bg: 'rgba(34, 197, 94, 0.15)', text: 'rgb(74, 222, 128)', border: 'rgba(34, 197, 94, 0.4)', glow: 'rgba(34, 197, 94, 0.3)' },
-	PICKUP_SCHEDULED: { bg: 'rgba(14, 165, 233, 0.15)', text: 'rgb(14, 165, 233)', border: 'rgba(14, 165, 233, 0.4)', glow: 'rgba(14, 165, 233, 0.3)' },
-	PICKUP_COMPLETED: { bg: 'rgba(14, 165, 233, 0.15)', text: 'rgb(14, 165, 233)', border: 'rgba(14, 165, 233, 0.4)', glow: 'rgba(14, 165, 233, 0.3)' },
-	IN_TRANSIT: { bg: 'rgba(6, 182, 212, 0.15)', text: 'rgb(34, 211, 238)', border: 'rgba(6, 182, 212, 0.4)', glow: 'rgba(6, 182, 212, 0.3)' },
-	AT_PORT: { bg: 'rgba(139, 92, 246, 0.15)', text: 'rgb(167, 139, 250)', border: 'rgba(139, 92, 246, 0.4)', glow: 'rgba(139, 92, 246, 0.3)' },
-	LOADED_ON_VESSEL: { bg: 'rgba(99, 102, 241, 0.15)', text: 'rgb(129, 140, 248)', border: 'rgba(99, 102, 241, 0.4)', glow: 'rgba(99, 102, 241, 0.3)' },
-	IN_TRANSIT_OCEAN: { bg: 'rgba(236, 72, 153, 0.15)', text: 'rgb(244, 114, 182)', border: 'rgba(236, 72, 153, 0.4)', glow: 'rgba(236, 72, 153, 0.3)' },
-	ARRIVED_AT_DESTINATION: { bg: 'rgba(20, 184, 166, 0.15)', text: 'rgb(45, 212, 191)', border: 'rgba(20, 184, 166, 0.4)', glow: 'rgba(20, 184, 166, 0.3)' },
-	CUSTOMS_CLEARANCE: { bg: 'rgba(6, 182, 212, 0.15)', text: 'rgb(34, 211, 238)', border: 'rgba(6, 182, 212, 0.4)', glow: 'rgba(6, 182, 212, 0.3)' },
-	OUT_FOR_DELIVERY: { bg: 'rgba(132, 204, 22, 0.15)', text: 'rgb(163, 230, 53)', border: 'rgba(132, 204, 22, 0.4)', glow: 'rgba(132, 204, 22, 0.3)' },
-	DELIVERED: { bg: 'rgba(16, 185, 129, 0.15)', text: 'rgb(52, 211, 153)', border: 'rgba(16, 185, 129, 0.4)', glow: 'rgba(16, 185, 129, 0.3)' },
-	CANCELLED: { bg: 'rgba(239, 68, 68, 0.15)', text: 'rgb(248, 113, 113)', border: 'rgba(239, 68, 68, 0.4)', glow: 'rgba(239, 68, 68, 0.3)' },
-	ON_HOLD: { bg: 'rgba(14, 165, 233, 0.15)', text: 'rgb(14, 165, 233)', border: 'rgba(14, 165, 233, 0.4)', glow: 'rgba(14, 165, 233, 0.3)' },
+	PENDING: { bg: 'rgba(var(--text-secondary-rgb), 0.15)', text: 'var(--text-secondary)', border: 'rgba(var(--text-secondary-rgb), 0.4)', glow: 'rgba(var(--text-secondary-rgb), 0.3)' },
+	QUOTE_REQUESTED: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	QUOTE_APPROVED: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	PICKUP_SCHEDULED: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	PICKUP_COMPLETED: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	IN_TRANSIT: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	AT_PORT: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	LOADED_ON_VESSEL: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	IN_TRANSIT_OCEAN: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	ARRIVED_AT_DESTINATION: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	CUSTOMS_CLEARANCE: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	OUT_FOR_DELIVERY: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	DELIVERED: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	CANCELLED: { bg: 'rgba(var(--error-rgb), 0.15)', text: 'var(--error)', border: 'rgba(var(--error-rgb), 0.4)', glow: 'rgba(var(--error-rgb), 0.3)' },
+	ON_HOLD: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
 };
 
 const formatStatus = (status: string) => {
@@ -58,11 +58,11 @@ const formatStatus = (status: string) => {
 };
 
 const paymentStatusColors: Record<string, StatusColors> = {
-	PENDING: { bg: 'rgba(14, 165, 233, 0.15)', text: 'rgb(14, 165, 233)', border: 'rgba(14, 165, 233, 0.4)', glow: 'rgba(14, 165, 233, 0.3)' },
-	COMPLETED: { bg: 'rgba(34, 197, 94, 0.15)', text: 'rgb(74, 222, 128)', border: 'rgba(34, 197, 94, 0.4)', glow: 'rgba(34, 197, 94, 0.3)' },
-	FAILED: { bg: 'rgba(239, 68, 68, 0.15)', text: 'rgb(248, 113, 113)', border: 'rgba(239, 68, 68, 0.4)', glow: 'rgba(239, 68, 68, 0.3)' },
-	REFUNDED: { bg: 'rgba(59, 130, 246, 0.15)', text: 'rgb(96, 165, 250)', border: 'rgba(59, 130, 246, 0.4)', glow: 'rgba(59, 130, 246, 0.3)' },
-	CANCELLED: { bg: 'rgba(107, 114, 128, 0.15)', text: 'rgb(156, 163, 175)', border: 'rgba(107, 114, 128, 0.4)', glow: 'rgba(107, 114, 128, 0.3)' },
+	PENDING: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	COMPLETED: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	FAILED: { bg: 'rgba(var(--error-rgb), 0.15)', text: 'var(--error)', border: 'rgba(var(--error-rgb), 0.4)', glow: 'rgba(var(--error-rgb), 0.3)' },
+	REFUNDED: { bg: 'rgba(var(--accent-gold-rgb), 0.15)', text: 'var(--accent-gold)', border: 'rgba(var(--accent-gold-rgb), 0.4)', glow: 'rgba(var(--accent-gold-rgb), 0.3)' },
+	CANCELLED: { bg: 'rgba(var(--text-secondary-rgb), 0.15)', text: 'var(--text-secondary)', border: 'rgba(var(--text-secondary-rgb), 0.4)', glow: 'rgba(var(--text-secondary-rgb), 0.3)' },
 };
 
 export default function ShipmentRow({
@@ -96,10 +96,10 @@ export default function ShipmentRow({
 			<Box
 				component="article"
 				sx={{
-					background: 'white',
-					border: '1px solid rgba(226, 232, 240, 0.9)',
+					background: 'var(--panel)',
+					border: '1px solid rgba(var(--panel-rgb), 0.9)',
 					borderRadius: 2,
-					boxShadow: '0 18px 32px rgba(15,23,42,0.08)',
+					boxShadow: '0 18px 32px rgba(var(--text-primary-rgb), 0.08)',
 					padding: { xs: 1.5, md: 1.75 },
 					display: 'grid',
 					gridTemplateColumns: {
@@ -115,7 +115,7 @@ export default function ShipmentRow({
 						sx={{
 							fontSize: '0.9rem',
 							fontWeight: 600,
-							color: '#0f172a',
+							color: 'var(--text-primary)',
 							overflow: 'hidden',
 							textOverflow: 'ellipsis',
 							whiteSpace: 'nowrap',
@@ -123,7 +123,7 @@ export default function ShipmentRow({
 					>
 						{trackingNumber}
 					</Typography>
-					<Typography sx={{ fontSize: '0.68rem', color: '#94a3b8' }}>
+					<Typography sx={{ fontSize: '0.68rem', color: 'var(--text-secondary)' }}>
 						Created: {new Date(createdAt).toLocaleDateString()}
 					</Typography>
 					<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -160,42 +160,42 @@ export default function ShipmentRow({
 				</Box>
 
 				<Box sx={{ minWidth: 0 }}>
-					<Typography sx={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.18em', color: '#94a3b8', mb: 0.3 }}>
+					<Typography sx={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-secondary)', mb: 0.3 }}>
 						Vehicle
 					</Typography>
-					<Typography sx={{ fontSize: '0.8rem', fontWeight: 600, color: '#0f172a' }}>{vehicleType}</Typography>
+					<Typography sx={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)' }}>{vehicleType}</Typography>
 					{(vehicleMake || vehicleModel) && (
-						<Typography sx={{ fontSize: '0.7rem', color: '#64748b' }}>
+						<Typography sx={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
 							{vehicleMake || ''} {vehicleModel || ''}
 						</Typography>
 					)}
 					{showCustomer && user && (
-						<Typography sx={{ fontSize: '0.68rem', color: '#94a3b8', mt: 0.3 }}>
+						<Typography sx={{ fontSize: '0.68rem', color: 'var(--text-secondary)', mt: 0.3 }}>
 							{user.name || user.email}
 						</Typography>
 					)}
 				</Box>
 
 				<Box sx={{ minWidth: 0 }}>
-					<Typography sx={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.18em', color: '#94a3b8', mb: 0.3 }}>
+					<Typography sx={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-secondary)', mb: 0.3 }}>
 						Route
 					</Typography>
-					<Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, fontSize: '0.78rem', fontWeight: 600, color: '#0f172a', overflow: 'hidden' }}>
+					<Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden' }}>
 						<Typography sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{origin}</Typography>
-						<ArrowForward sx={{ fontSize: 14, color: '#0ea5e9' }} />
+						<ArrowForward sx={{ fontSize: 14, color: 'var(--accent-gold)' }} />
 						<Typography sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{destination}</Typography>
 					</Box>
-					<Typography sx={{ fontSize: '0.68rem', color: '#94a3b8', mt: 0.2 }}>
+					<Typography sx={{ fontSize: '0.68rem', color: 'var(--text-secondary)', mt: 0.2 }}>
 						ETA {estimatedDelivery ? new Date(estimatedDelivery).toLocaleDateString() : 'Pending'}
 					</Typography>
 				</Box>
 
 				<Box sx={{ minWidth: 0 }}>
-					<Typography sx={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.18em', color: '#94a3b8', mb: 0.3 }}>
+					<Typography sx={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--text-secondary)', mb: 0.3 }}>
 						Progress
 					</Typography>
 					<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 0.4 }}>
-						<Typography sx={{ fontSize: '0.7rem', color: '#94a3b8' }}>Pipeline</Typography>
+						<Typography sx={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Pipeline</Typography>
 						<Typography sx={{ fontSize: '0.7rem', fontWeight: 600, color: statusConfig.text }}>{progress}%</Typography>
 					</Box>
 					<LinearProgress
@@ -205,7 +205,7 @@ export default function ShipmentRow({
 						sx={{
 							height: 4,
 							borderRadius: 2,
-							bgcolor: 'rgba(226, 232, 240, 0.8)',
+							bgcolor: 'rgba(var(--panel-rgb), 0.8)',
 							'& .MuiLinearProgress-bar': {
 								background: statusConfig.text,
 								borderRadius: 2,
@@ -231,8 +231,8 @@ export default function ShipmentRow({
 							sx={{
 								fontSize: '0.7rem',
 								fontWeight: 600,
-								borderColor: 'rgba(59, 130, 246, 0.4)',
-								color: '#0f62fe',
+								borderColor: 'rgba(var(--accent-gold-rgb), 0.4)',
+								color: 'var(--accent-gold)',
 								paddingX: 1.2,
 								textTransform: 'none',
 							}}
@@ -248,7 +248,7 @@ export default function ShipmentRow({
 							sx={{
 								fontSize: '0.7rem',
 								fontWeight: 600,
-								color: '#475569',
+								color: 'var(--text-secondary)',
 								textTransform: 'none',
 								paddingX: 0.5,
 							}}
