@@ -138,9 +138,10 @@ export default function Sidebar({ mobileOpen = false, onMobileClose }: SidebarPr
 					'& .MuiDrawer-paper': {
 						width: drawerWidth,
 						boxSizing: 'border-box',
-						bgcolor: 'rgba(10, 22, 40, 0.95)',
-						backdropFilter: 'blur(20px)',
-						borderRight: '1px solid rgba(6, 182, 212, 0.1)',
+						backgroundColor: '#ffffff',
+						color: '#0f172a',
+						borderRight: '1px solid #e2e8f0',
+						boxShadow: '0 10px 30px rgba(15,23,42,0.15)',
 						mt: '48px',
 					},
 				}}
@@ -162,9 +163,10 @@ export default function Sidebar({ mobileOpen = false, onMobileClose }: SidebarPr
 					'& .MuiDrawer-paper': {
 						width: drawerWidth,
 						boxSizing: 'border-box',
-						bgcolor: 'rgba(10, 22, 40, 0.5)',
-						backdropFilter: 'blur(20px)',
-						borderRight: '1px solid rgba(6, 182, 212, 0.1)',
+						backgroundColor: '#ffffff',
+						color: '#0f172a',
+						borderRight: '1px solid #e2e8f0',
+						boxShadow: 'inset -1px 0 0 #e2e8f0',
 						position: 'relative',
 					},
 				}}
@@ -189,57 +191,56 @@ function NavItem({ item, isActive, onNavClick }: NavItemProps) {
 	const active = isActive(item.href);
 
 	return (
-		<Link href={item.href} onClick={onNavClick} style={{ textDecoration: 'none' }}>
-			<ListItemButton
-					selected={active}
-					sx={{
-						position: 'relative',
-						borderRadius: 1.5,
-						mx: 1,
-						my: 0.25,
-						py: 0.75,
-						minHeight: 0,
-						transition: 'all 0.2s ease',
-						transform: 'translateX(0)',
-						color: active ? 'rgb(34, 211, 238)' : 'rgba(255, 255, 255, 0.65)',
-						bgcolor: active ? 'rgba(6, 182, 212, 0.1)' : 'transparent',
-						'&:hover': {
-							bgcolor: active ? 'rgba(6, 182, 212, 0.15)' : 'rgba(6, 182, 212, 0.05)',
-							color: 'white',
-							transform: 'translateX(2px)',
-						},
-						'&::before': active
-							? {
-									content: '""',
-									position: 'absolute',
-									left: 0,
-									top: 2,
-									bottom: 2,
-									width: 3,
-									bgcolor: 'rgb(34, 211, 238)',
-									borderRadius: '0 2px 2px 0',
-							  }
-							: {},
-					}}
-				>
-					<ListItemIcon
-						sx={{
-							minWidth: 32,
-							color: 'inherit',
-						}}
-					>
-						<Icon sx={{ fontSize: 18 }} />
-					</ListItemIcon>
-					<ListItemText
-						primary={item.name}
-						primaryTypographyProps={{
-							fontSize: '0.8125rem',
-							fontWeight: 500,
-							lineHeight: 1.2,
-						}}
-					/>
-				</ListItemButton>
-		</Link>
+		<ListItemButton
+			component={Link}
+			href={item.href}
+			onClick={onNavClick}
+			selected={active}
+			sx={{
+				position: 'relative',
+				borderRadius: 1.5,
+				mx: 1,
+				my: 0.25,
+				py: 0.75,
+				minHeight: 0,
+				transition: 'all 0.2s ease',
+				color: active ? '#0f62fe' : '#475569',
+				bgcolor: active ? 'rgba(15,98,233,0.08)' : 'transparent',
+				'&:hover': {
+					bgcolor: 'rgba(148,163,184,0.2)',
+					color: '#0f172a',
+				},
+				'&::before': active
+					? {
+							content: '""',
+							position: 'absolute',
+							left: 0,
+							top: 4,
+							bottom: 4,
+							width: 3,
+							borderRadius: '0 2px 2px 0',
+							backgroundColor: '#0f62fe',
+					  }
+					: {},
+			}}
+		>
+			<ListItemIcon
+				sx={{
+					minWidth: 32,
+					color: active ? '#0f62fe' : '#94a3b8',
+				}}
+			>
+				<Icon sx={{ fontSize: 18 }} />
+			</ListItemIcon>
+			<ListItemText
+				primary={item.name}
+				primaryTypographyProps={{
+					fontSize: '0.9rem',
+					fontWeight: 500,
+					color: 'inherit',
+				}}
+			/>
+		</ListItemButton>
 	);
 }
 
@@ -261,7 +262,7 @@ function NavSection({ title, items, isAdmin, isActive, onNavClick }: NavSectionP
 						sx={{
 							fontSize: '0.6875rem',
 							fontWeight: 600,
-							color: 'rgba(255, 255, 255, 0.4)',
+							color: '#94a3b8',
 							textTransform: 'uppercase',
 							letterSpacing: 0.5,
 						}}
@@ -318,7 +319,7 @@ function SidebarContent({
 					gap: 1.25,
 					px: 2,
 					py: 1.25,
-					borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+					borderBottom: '1px solid #e2e8f0',
 					flexShrink: 0,
 				}}
 			>
@@ -327,7 +328,7 @@ function SidebarContent({
 						width: 32,
 						height: 32,
 						borderRadius: 1.5,
-						background: 'linear-gradient(135deg, #00bfff 0%, #0099cc 100%)',
+						background: 'linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%)',
 						display: 'flex',
 						alignItems: 'center',
 						justifyContent: 'center',
@@ -341,9 +342,9 @@ function SidebarContent({
 				<Box>
 					<Typography
 						sx={{
-							fontSize: '0.9375rem',
+							fontSize: '1rem',
 							fontWeight: 700,
-							color: 'white',
+							color: '#0f172a',
 							lineHeight: 1,
 						}}
 					>
@@ -382,7 +383,7 @@ function SidebarContent({
 					<Divider
 						sx={{
 							mb: 0.5,
-							background: 'rgba(255, 255, 255, 0.08)',
+							background: '#e2e8f0',
 							border: 'none',
 							height: 1,
 						}}

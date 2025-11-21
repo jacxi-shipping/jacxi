@@ -51,17 +51,18 @@ export default function Header({ onMenuClick, pageTitle }: HeaderProps) {
 		<AppBar
 			position="sticky"
 			elevation={0}
+			color="inherit"
 			sx={{
-				bgcolor: 'rgba(10, 22, 40, 0.8)',
-				backdropFilter: 'blur(20px)',
-				borderBottom: '1px solid rgba(6, 182, 212, 0.1)',
-				boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+				bgcolor: '#ffffff',
+				borderBottom: '1px solid #e2e8f0',
+				boxShadow: '0 8px 16px rgba(15,23,42,0.06)',
 			}}
 		>
 			<Toolbar
 				sx={{
 					minHeight: 48,
 					px: 2,
+					color: '#0f172a',
 				}}
 			>
 				{/* Mobile Menu Button */}
@@ -86,13 +87,13 @@ export default function Header({ onMenuClick, pageTitle }: HeaderProps) {
 							width: 28,
 							height: 28,
 							borderRadius: 1.5,
-							background: 'linear-gradient(135deg, #00bfff 0%, #0099cc 100%)',
+							background: 'linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%)',
 							display: 'flex',
 							alignItems: 'center',
 							justifyContent: 'center',
 							fontWeight: 800,
 							fontSize: '0.9375rem',
-							color: 'white',
+							color: '#ffffff',
 						}}
 					>
 						J
@@ -101,8 +102,8 @@ export default function Header({ onMenuClick, pageTitle }: HeaderProps) {
 						sx={{
 							display: { xs: 'none', sm: 'block' },
 							fontWeight: 700,
-							fontSize: '0.9375rem',
-							color: 'white',
+							fontSize: '0.95rem',
+							color: '#0f172a',
 						}}
 					>
 						JACXI

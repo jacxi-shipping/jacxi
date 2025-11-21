@@ -187,6 +187,7 @@ export default function ShipmentCard({
 					<LinearProgress
 						variant="determinate"
 						value={progress}
+						aria-label={`Shipment ${trackingNumber} progress`}
 						sx={{
 							height: 4,
 							borderRadius: 2,

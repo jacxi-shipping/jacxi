@@ -201,6 +201,7 @@ export default function ShipmentRow({
 					<LinearProgress
 						variant="determinate"
 						value={progress}
+						aria-label={`Shipment ${trackingNumber} pipeline progress`}
 						sx={{
 							height: 4,
 							borderRadius: 2,
