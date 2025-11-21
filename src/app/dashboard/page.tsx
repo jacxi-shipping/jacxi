@@ -1,6 +1,5 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Add, Inventory2, TrendingUp, LocalShipping, LocationOn } from '@mui/icons-material';
@@ -20,7 +19,6 @@ interface Shipment {
 }
 
 export default function DashboardPage() {
-	const { data: session } = useSession();
 	const [loading, setLoading] = useState(true);
 	const [shipments, setShipments] = useState<Shipment[]>([]);
 	const [stats, setStats] = useState({
@@ -29,11 +27,6 @@ export default function DashboardPage() {
 		inTransit: 0,
 		delivered: 0,
 	});
-	const [showContent, setShowContent] = useState(false);
-
-	useEffect(() => {
-		setShowContent(true);
-	}, []);
 
 	const fetchDashboardData = useCallback(async () => {
 		try {

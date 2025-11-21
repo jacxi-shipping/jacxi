@@ -2,63 +2,73 @@
 
 import { createTheme } from '@mui/material/styles';
 
+const palette = {
+	accentGold: '#D4AF37',
+	background: '#F9FAFB',
+	panel: '#E4E9F0',
+	textPrimary: '#1C1C1E',
+	textSecondary: '#5F6368',
+	border: '#E0E0E0',
+	error: '#EF4444',
+};
+
 // Create a custom Material-UI theme
 export const theme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      main: 'var(--accent-gold)', // blue-500
-      light: 'var(--accent-gold)', // blue-400
-      dark: 'var(--accent-gold)', // blue-600
-      contrastText: 'var(--background)',
+    palette: {
+      mode: 'light',
+      primary: {
+        main: palette.accentGold,
+        light: palette.accentGold,
+        dark: '#BD9430',
+        contrastText: palette.background,
+      },
+      secondary: {
+        main: palette.accentGold,
+        light: palette.accentGold,
+        dark: '#BD9430',
+        contrastText: palette.background,
+      },
+      success: {
+        main: palette.accentGold,
+        light: palette.accentGold,
+        dark: '#BD9430',
+      },
+      warning: {
+        main: palette.accentGold,
+        light: palette.accentGold,
+        dark: '#BD9430',
+      },
+      error: {
+        main: palette.error,
+        light: '#F87171',
+        dark: '#B91C1C',
+      },
+      info: {
+        main: palette.accentGold,
+        light: palette.accentGold,
+        dark: '#BD9430',
+      },
+      grey: {
+        50: palette.background,
+        100: palette.panel,
+        200: palette.panel,
+        300: palette.border,
+        400: palette.textSecondary,
+        500: palette.textSecondary,
+        600: palette.textSecondary,
+        700: palette.textSecondary,
+        800: palette.textPrimary,
+        900: palette.textPrimary,
+      },
+      background: {
+        default: palette.background,
+        paper: palette.background,
+      },
+      text: {
+        primary: palette.textPrimary,
+        secondary: palette.textSecondary,
+      },
     },
-    secondary: {
-      main: 'var(--accent-gold)', // violet-500
-      light: 'var(--accent-gold)', // violet-400
-      dark: 'var(--accent-gold)', // violet-600
-      contrastText: 'var(--background)',
-    },
-    success: {
-      main: 'var(--accent-gold)', // emerald-500
-      light: 'var(--accent-gold)', // emerald-400
-      dark: 'var(--accent-gold)', // emerald-600
-    },
-    warning: {
-      main: 'var(--accent-gold)', // amber-500
-      light: 'var(--accent-gold)', // amber-400
-      dark: 'var(--accent-gold)', // amber-600
-    },
-    error: {
-      main: 'var(--error)', // red-500
-      light: 'var(--error)', // red-400
-      dark: 'var(--error)', // red-600
-    },
-    info: {
-      main: 'var(--accent-gold)', // cyan-500
-      light: 'var(--accent-gold)', // cyan-400
-      dark: 'var(--accent-gold)', // cyan-600
-    },
-    grey: {
-      50: 'var(--background)',
-      100: 'var(--panel)',
-      200: 'var(--panel)',
-      300: 'var(--border)',
-      400: 'var(--text-secondary)',
-      500: 'var(--text-secondary)',
-      600: 'var(--text-secondary)',
-      700: 'var(--text-secondary)',
-      800: 'var(--text-primary)',
-      900: 'var(--text-primary)',
-    },
-    background: {
-      default: 'var(--background)',
-      paper: 'var(--background)',
-    },
-    text: {
-      primary: 'var(--text-primary)',
-      secondary: 'var(--text-secondary)',
-    },
-  },
   typography: {
     fontFamily: 'var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     h1: {
