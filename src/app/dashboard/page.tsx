@@ -103,28 +103,6 @@ export default function DashboardPage() {
 
 	return (
 		<DashboardSurface className="flex-1 min-h-0">
-			<Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1 }}>
-				<Link href="/dashboard/shipments/new" style={{ textDecoration: 'none' }}>
-					<Button
-						variant="contained"
-						size="small"
-						startIcon={<Add fontSize="small" />}
-						sx={{
-							textTransform: 'none',
-							backgroundColor: '#0f62fe',
-							fontSize: '0.85rem',
-							fontWeight: 600,
-							px: 2.5,
-							py: 0.9,
-							'&:hover': {
-								backgroundColor: '#0b4ed8',
-							},
-						}}
-					>
-						New shipment
-					</Button>
-				</Link>
-			</Box>
 
 			<DashboardGrid className="grid-cols-2 md:grid-cols-4 flex-shrink-0 gap-2">
 				<StatsCard icon={LocalShipping} title="Active shipments" value={stats.active} />
