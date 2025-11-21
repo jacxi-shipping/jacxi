@@ -160,7 +160,7 @@ export default function ContainersPage() {
 							textAlign: 'center',
 						}}
 					>
-						<Package sx={{ fontSize: 40, color: 'rgba(255,255,255,0.25)' }} />
+						<Package style={{ fontSize: 40, color: 'rgba(255,255,255,0.25)' }} />
 						<Typography sx={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.65)' }}>
 							No containers match this filter
 						</Typography>
