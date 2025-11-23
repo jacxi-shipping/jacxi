@@ -149,48 +149,48 @@ export default function AnalyticsPage() {
 				value: summary.totalShipments,
 				icon: Package,
 				description: 'All shipments recorded in Jacxi.',
-				accent: 'border-cyan-500/40 bg-cyan-500/15 text-cyan-200',
-				glow: 'rgba(var(--accent-gold-rgb), 0.3)',
+				iconBg: 'rgba(var(--accent-gold-rgb), 0.12)',
+				iconColor: 'var(--accent-gold)',
 			},
 			{
 				label: 'Active Shipments',
 				value: summary.activeShipments,
 				icon: Activity,
 				description: 'Currently moving through the network.',
-				accent: 'border-emerald-500/40 bg-emerald-500/15 text-emerald-200',
-				glow: 'rgba(var(--accent-gold-rgb), 0.3)',
+				iconBg: 'rgba(var(--text-primary-rgb), 0.08)',
+				iconColor: 'var(--text-primary)',
 			},
 			{
 				label: 'Total Revenue',
 				value: formatCurrency(summary.totalRevenue),
 				icon: TrendingUp,
 				description: 'Paid invoices converted to USD.',
-				accent: 'border-purple-500/40 bg-purple-500/15 text-purple-200',
-				glow: 'rgba(var(--accent-gold-rgb), 0.3)',
+				iconBg: 'rgba(var(--accent-gold-rgb), 0.15)',
+				iconColor: 'var(--accent-gold)',
 			},
 			{
 				label: 'Team Admins',
 				value: summary.adminUsers,
 				icon: UserIcon,
 				description: 'Administrators with dashboard access.',
-				accent: 'border-blue-500/40 bg-blue-500/15 text-blue-200',
-				glow: 'rgba(var(--accent-gold-rgb), 0.3)',
+				iconBg: 'rgba(var(--text-secondary-rgb), 0.12)',
+				iconColor: 'var(--text-secondary)',
 			},
 			{
 				label: 'Overdue Invoices',
 				value: summary.overdueInvoices,
 				icon: AlertTriangle,
 				description: 'Invoices past due date & unpaid.',
-				accent: 'border-sky-500/30 bg-sky-50 text-sky-700',
-				glow: 'rgba(var(--accent-gold-rgb), 0.25)',
+				iconBg: 'rgba(var(--error-rgb), 0.15)',
+				iconColor: 'var(--error)',
 			},
 			{
 				label: 'Active Containers',
 				value: summary.activeContainers,
 				icon: Layers,
 				description: 'Containers currently assigned & active.',
-				accent: 'border-fuchsia-500/40 bg-fuchsia-500/15 text-fuchsia-200',
-				glow: 'rgba(var(--accent-gold-rgb), 0.3)',
+				iconBg: 'rgba(var(--text-secondary-rgb), 0.1)',
+				iconColor: 'var(--text-primary)',
 			},
 		];
 	}, [data]);
@@ -294,27 +294,41 @@ export default function AnalyticsPage() {
 					return (
 						<Zoom key={card.label} in={show} timeout={600} style={{ transitionDelay: `${(index + 2) * 80}ms` }}>
 							<Box
-								className={`rounded-xl border ${card.accent} backdrop-blur-md p-4 shadow-lg`}
 								sx={{
-									background: 'rgba(var(--text-primary-rgb), 0.85)',
+									borderRadius: 3,
+									border: '1px solid var(--border)',
+									backgroundColor: 'var(--panel)',
+									boxShadow: '0 16px 30px rgba(var(--text-primary-rgb), 0.08)',
 									minHeight: 140,
 									display: 'flex',
 									flexDirection: 'column',
 									gap: 1.5,
+									padding: 2,
 								}}
 							>
 								<Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 1 }}>
 									<Box>
-										<Typography sx={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'rgba(var(--background-rgb), 0.55)' }}>
+										<Typography sx={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--text-secondary)', letterSpacing: '0.12em' }}>
 											{card.label}
 										</Typography>
-										<Typography sx={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--background)' }}>{card.value}</Typography>
+										<Typography sx={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--text-primary)' }}>{card.value}</Typography>
 									</Box>
-									<Box sx={{ p: 1, borderRadius: 2, background: 'rgba(var(--text-primary-rgb), 0.2)' }}>
-										<Icon style={{ width: 22, height: 22, color: 'var(--background)' }} />
+									<Box
+										sx={{
+											width: 40,
+											height: 40,
+											borderRadius: 2,
+											display: 'flex',
+											alignItems: 'center',
+											justifyContent: 'center',
+											backgroundColor: card.iconBg,
+											color: card.iconColor,
+										}}
+									>
+										<Icon style={{ width: 20, height: 20 }} />
 									</Box>
 								</Box>
-								<Typography sx={{ fontSize: '0.75rem', color: 'rgba(var(--background-rgb), 0.6)' }}>{card.description}</Typography>
+								<Typography sx={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>{card.description}</Typography>
 							</Box>
 						</Zoom>
 					);
