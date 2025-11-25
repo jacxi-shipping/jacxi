@@ -296,10 +296,10 @@ export default function AnalyticsPage() {
 							<Box
 								sx={{
 									borderRadius: 3,
-									border: '1px solid var(--border)',
-									backgroundColor: 'var(--panel)',
-									boxShadow: '0 16px 30px rgba(var(--text-primary-rgb), 0.08)',
-									minHeight: 140,
+									border: '1px solid rgba(var(--text-primary-rgb), 0.08)',
+									background: 'linear-gradient(180deg, rgba(var(--panel-rgb), 1), rgba(var(--panel-rgb), 0.85))',
+									boxShadow: '0 22px 45px rgba(var(--text-primary-rgb), 0.12)',
+									minHeight: 150,
 									display: 'flex',
 									flexDirection: 'column',
 									gap: 1.5,
